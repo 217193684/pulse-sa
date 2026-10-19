@@ -23,6 +23,7 @@ beforeAll(async () => {
     sig("power", "gauteng", 2, "Gauteng load reduction schedule for this week: find your block"),
     sig("power", "ekurhuleni", 3, "Plan to free Ekurhuleni from Eskom gets the green light"),
     sig("power", "johannesburg", 4, "City Power crews battle cable theft in Soweto"),
+    sig("power", "gauteng", 5, "Gauteng residents brace for more load reduction"),
     sig("water", "ethekwini", 2, "Umlazi residents without water for third day"),
   ]);
 });
@@ -31,6 +32,7 @@ describe("hashtags", () => {
   it("are made from the place, the headlines and the topic", () => {
     const t = hashtags("power", [PLACE_BY_SLUG.get("johannesburg")!, PLACE_BY_SLUG.get("ekurhuleni")!], ["Gauteng load reduction this week", "Eskom plan approved"]);
     expect(t.slice(0, 4)).toEqual(["#Johannesburg", "#Joburg", "#Gauteng", "#Ekurhuleni"]);
+    expect(t).not.toContain("#Germiston");
     expect(t).toEqual(expect.arrayContaining(["#LoadReduction", "#Eskom", "#PowerCuts", "#Mzansi", "#PulseSA"]));
     expect(new Set(t.map((x) => x.toLowerCase())).size).toBe(t.length);
     expect(t.length).toBeLessThanOrEqual(12);
@@ -75,6 +77,13 @@ describe("duplicates", () => {
   it("the exact same file is refused", async () => {
     expect((await storeClip(meta("health~polokwane", ["h1"]), mp4("same"), null)).ok).toBe(true);
     expect(await storeClip(meta("health~limpopo", ["h2"]), mp4("same"), null)).toMatchObject({ ok: false, reason: "this exact video was already uploaded" });
+  });
+
+  it("one video per set of articles, even when two stories share them", async () => {
+    const { scripts, skipped } = await videoPlan(5, now, false);
+    const power = scripts.filter((s) => s.category === "power");
+    expect(power).toHaveLength(1);
+    expect(skipped.some((s) => /same articles as today's power~/.test(s.reason))).toBe(true);
   });
 
   it("the plan skips stories already made today", async () => {

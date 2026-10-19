@@ -1,0 +1,146 @@
+<!doctype html>
+<!--
+  One Pulse SA video, drawn frame by frame. render(t) paints the frame at t seconds (0–13).
+  The story comes from window.S (set by make.py): hook lines, where, cards (headline, source,
+  place, photo + credit) and map spots. Fonts are local (Inter Display) so renders are identical.
+-->
+<html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:#06080B;overflow:hidden;font-family:'Inter Display','Inter',sans-serif;color:#fff}
+#stage{position:absolute;inset:0;overflow:hidden}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#0E1620 2px,transparent 2px),linear-gradient(90deg,#0E1620 2px,transparent 2px);background-size:90px 90px;opacity:.55}
+#map{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.hook{position:absolute;left:70px;right:70px;top:500px;display:flex;flex-direction:column;gap:6px}
+.hook div{font-weight:900;line-height:.95;letter-spacing:-5px;text-transform:uppercase;transform-origin:left center;white-space:nowrap}
+.hl{background:#FFE14D;color:#06080B;padding:0 22px;align-self:flex-start;border-radius:10px}
+.tag{position:absolute;top:150px;left:70px;display:flex;align-items:center;gap:16px;font-weight:800;font-size:38px;letter-spacing:4px;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.dot{width:22px;height:22px;border-radius:50%;background:#FF3B3B;box-shadow:0 0 24px #FF3B3B}
+.where{position:absolute;top:240px;left:70px;right:70px;font-weight:900;font-size:96px;letter-spacing:-3px;line-height:1}
+.sub{position:absolute;top:350px;left:72px;font-weight:600;font-size:42px;color:#B8C7D3}
+.card{position:absolute;left:60px;right:150px;top:1040px;background:rgba(10,14,19,.92);border:3px solid #26394A;border-radius:34px;padding:38px 40px}
+.src{font-weight:800;font-size:34px;color:#FFE14D;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.cap{font-weight:900;line-height:1.04;letter-spacing:-2px}
+.cap span{display:inline-block;margin-right:16px}
+.k{color:#FF5A4E}
+.credit{position:absolute;left:62px;right:150px;top:1505px;font-weight:600;font-size:24px;color:rgba(255,255,255,.78);text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.num{position:absolute;top:985px;right:150px;font-weight:900;font-size:40px;color:#C9D6E0;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.end{position:absolute;left:70px;right:70px;top:560px}
+.end h1{font-weight:900;font-size:140px;line-height:.95;letter-spacing:-5px}
+.end p{font-weight:700;font-size:54px;margin-top:40px;color:#B8C7D3}
+.brand{position:absolute;left:70px;top:1260px;display:flex;align-items:center;gap:22px;font-weight:900;font-size:64px}
+.ring{width:70px;height:70px;border-radius:50%;border:9px solid #2DD4BF;display:flex;align-items:center;justify-content:center}
+.ring i{width:22px;height:22px;border-radius:50%;background:#F59E0B;display:block}
+.bar{position:absolute;top:70px;left:70px;right:70px;height:10px;background:#1A2530;border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:#fff}
+</style></head><body><div id="stage">
+<div class="grid"></div>
+<svg id="map" viewBox="0 0 1080 1920"><defs>
+<radialGradient id="heat"><stop offset="0" stop-color="#FF3B3B" stop-opacity="1"/><stop offset=".45" stop-color="#FF3B3B" stop-opacity=".5"/><stop offset="1" stop-color="#FF3B3B" stop-opacity="0"/></radialGradient>
+<clipPath id="clip"><path id="clipPath"/></clipPath></defs>
+<g id="cam"><path id="sa" fill="#122230" stroke="#3E6A8C" stroke-width="3" stroke-linejoin="round"/>
+<g clip-path="url(#clip)" id="heatG"></g><path id="ls" fill="#06080B" stroke="#3E6A8C" stroke-width="2"/><path id="sz" fill="#06080B" stroke="#3E6A8C" stroke-width="2"/>
+<g id="pins"></g></g></svg>
+<div id="photo" style="position:absolute;inset:0;background-size:cover;background-position:center;opacity:0"></div>
+<div id="shade" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,11,.75) 0%,rgba(6,8,11,.15) 30%,rgba(6,8,11,.2) 50%,rgba(6,8,11,.85) 78%);opacity:0"></div>
+<div id="flash" style="position:absolute;inset:0;background:#fff;opacity:0"></div>
+<div class="bar"><i id="prog"></i></div>
+<div id="layer"></div>
+</div>
+<script>
+const O = window.OUTLINE, S = window.S;
+const TOTAL = 13, CARD0 = 5.4, CARD1 = 11.2;
+const LON0=16.2, LAT0=-21.9, KX=Math.cos(28.5*Math.PI/180), SC=58, OX=60, OY=640;
+const P=(lon,lat)=>[OX+(lon-LON0)*KX*SC, OY+(LAT0-lat)*SC];
+const ring=pts=>pts.map((p,i)=>{const[x,y]=P(p[0],p[1]);return(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}).join(' ')+'Z';
+const SA=ring(O.southAfrica);
+for(const id of ['sa','clipPath'])document.getElementById(id).setAttribute('d',SA);
+document.getElementById('ls').setAttribute('d',ring(O.lesotho));document.getElementById('sz').setAttribute('d',ring(O.eswatini));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease=t=>1-Math.pow(1-clamp(t),3);
+const back=t=>{t=clamp(t);const c=1.9;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+// ---- camera target: middle of the spots, zoomed so they all fit (whole country when national)
+const spots = S.spots.length ? S.spots : S.cards.map(c=>({name:c.place,lat:c.lat,lon:c.lon,w:.8}));
+const pts = spots.map(s=>P(s.lon,s.lat));
+const cx = pts.reduce((a,p)=>a+p[0],0)/pts.length, cy = pts.reduce((a,p)=>a+p[1],0)/pts.length;
+const spread = Math.max(40, ...pts.map(p=>Math.hypot(p[0]-cx,p[1]-cy)));
+const ZMAX = S.national ? 1.15 : clamp(260/spread, 1.6, 8);
+const zoomAt=t=>lerp(1,ZMAX,ease((t-1.9)/2.2))*(1+0.05*clamp((t-4.5)/8));
+const camY=t=>t<CARD0?980:lerp(980,640,ease((t-CARD0)/.8));
+function camera(t){const z=zoomAt(t),k=ease((t-1.9)/2.2);const fx=lerp(540,cx,k),fy=lerp(1300,cy,k);return {z,fx,fy,ty:camY(t)}}
+const toScreen=(lon,lat,t)=>{const c=camera(t);const [x,y]=P(lon,lat);return [540+(x-c.fx)*c.z, c.ty+(y-c.fy)*c.z]};
+// label sides chosen so neighbours don't collide
+const LAB = spots.map((s,i)=>({dx: (P(s.lon,s.lat)[0] < cx ? -1 : 1), dy: i===0?1:(i%2?0:-1)}));
+
+const nCards = S.cards.length, slot = (CARD1-CARD0)/nCards;
+const fit=(txt,max,width)=>Math.min(max, width/(Math.max(1,txt.length)*0.6));
+const L=document.getElementById('layer');
+
+function render(t){
+  document.getElementById('prog').style.width=(100*t/TOTAL)+'%';
+  const c=camera(t);
+  document.getElementById('cam').setAttribute('transform',`translate(540 ${c.ty}) scale(${c.z}) translate(${-c.fx} ${-c.fy})`);
+  const mapOn=t>1.55;
+  document.getElementById('map').style.opacity = !mapOn?0: t<1.9? ease((t-1.55)/.35) : t>CARD1? 1-ease((t-CARD1)/.4)*.8 : (t>CARD0? 1-0.45*ease((t-CARD0)/.6):1);
+  let h='',pins='';
+  const z=c.z, labOn=t<CARD1?1:0;
+  spots.forEach((s,i)=>{const [x,y]=P(s.lon,s.lat);const on=ease((t-2.6-i*.35)/.5);
+    const r=(30+60*s.w)/Math.sqrt(z)*on*(1+.08*Math.sin(t*6+i));
+    h+=`<circle cx="${x}" cy="${y}" r="${r*2.2}" fill="url(#heat)" opacity="${.9*on}"/>`;
+    const ph=((t*1.1+i*.3)%1), l=LAB[i];
+    pins+=`<circle cx="${x}" cy="${y}" r="${(8+40*ph)/z*2}" fill="none" stroke="#FF3B3B" stroke-width="${4/z*2}" opacity="${(1-ph)*on}"/>`+
+      `<circle cx="${x}" cy="${y}" r="${10/z*2}" fill="#FF3B3B" opacity="${on}"/>`+
+      `<text x="${x+l.dx*18/z*2}" y="${y+(l.dy>0?44:l.dy<0?-18:12)/z*2}" text-anchor="${l.dx<0?'end':'start'}" font-size="${32/z*2}" font-weight="800" fill="#fff" opacity="${on*(t<CARD0?1:.55)*labOn}" font-family="Inter Display">${esc(s.name)}</text>`;});
+  document.getElementById('heatG').innerHTML=h;document.getElementById('pins').innerHTML=pins;
+
+  const ph=document.getElementById('photo'), shade=document.getElementById('shade'), flash=document.getElementById('flash'), stage=document.getElementById('stage');
+  ph.style.opacity=0; shade.style.opacity=0; flash.style.opacity=0; stage.style.transform='none';
+  let html='';
+  if(t<1.75){
+    const shake=t<.9? Math.sin(t*90)*4*(1-t):0;
+    html+=`<div class="tag"><span class="dot"></span>LIVE · MZANSI PULSE</div><div class="hook" style="transform:translateX(${shake}px)">`+
+      S.hook.map((w,i)=>{const d=i*.2;const k=back((t-d)/.22);const op=clamp((t-d)/.08);const out=t>1.45?1-ease((t-1.45)/.3):1;
+        const fs=fit(w,150,i===S.hook.length-1?900:940);
+        return `<div class="${i===S.hook.length-1?'hl':''}" style="font-size:${fs}px;opacity:${op*out};transform:scale(${lerp(1.6,1,k)})">${esc(w)}</div>`}).join('')+`</div>`;
+  } else if(t<CARD0){
+    const a=ease((t-1.9)/.4);
+    html+=`<div class="tag" style="opacity:${a}"><span class="dot"></span>LIVE · TODAY</div>`+
+      `<div class="where" style="font-size:${fit(S.where,96,940)}px;opacity:${a};transform:translateY(${(1-a)*40}px)">${esc(S.where)}</div>`+
+      `<div class="sub" style="opacity:${ease((t-2.4)/.4)}">${esc(S.sub)}</div>`;
+  } else if(t<CARD1){
+    const i=Math.min(nCards-1,Math.floor((t-CARD0)/slot)), lt=(t-CARD0)-i*slot, cd=S.cards[i];
+    if(cd.photo){
+      const [ox,oy]=toScreen(cd.lon,cd.lat,t), rev=ease(lt/.32), kb=1+0.12*clamp(lt/slot);
+      ph.style.backgroundImage=`url("${cd.photo}")`; ph.style.opacity=1;
+      ph.style.clipPath=`circle(${rev*1600}px at ${clamp(ox,80,1000)}px ${clamp(oy,200,1400)}px)`; ph.style.transform=`scale(${kb})`;
+      shade.style.opacity=rev;
+    }
+    flash.style.opacity = lt<.18 ? .55*(1-lt/.18) : 0;
+    const shk = lt<.25 ? Math.sin(lt*120)*10*(1-lt/.25) : 0;
+    stage.style.transform=`translate(${shk}px,${-shk*.6}px)`;
+    const inA=back(lt/.35), outA= lt>slot-.2? ease((lt-(slot-.2))/.2):0;
+    const words=cd.text.split(/\s+/);
+    const fs = cd.text.length>95?58: cd.text.length>70?64:76;
+    const emph=new Set(cd.emphasis.map(w=>w.toLowerCase()));
+    const per=Math.min(.09,(slot-.6)/Math.max(1,words.length));
+    const ws=words.map((w,j)=>{const wt=ease((lt-.15-j*per)/.12);const red=emph.has(w.toLowerCase().replace(/[^\p{L}\p{N}-]/gu,''));
+      return `<span class="${red?'k':''}" style="opacity:${wt};transform:translateY(${(1-wt)*24}px) scale(${lerp(1.25,1,wt)})">${esc(w)}</span>`}).join('');
+    html+=`<div class="tag"><span class="dot"></span>WHAT’S HAPPENING</div>`+(nCards>1?`<div class="num">${i+1} / ${nCards}</div>`:'')+
+      (cd.credit?`<div class="credit">${esc(cd.credit)}</div>`:'')+
+      `<div class="card" style="opacity:${1-outA};transform:translateY(${(1-inA)*120 - outA*60}px)"><div class="src">${esc(cd.source)} · ${esc(cd.place)}</div><div class="cap" style="font-size:${fs}px">${ws}</div></div>`;
+  } else {
+    const last=S.cards[nCards-1];
+    if(last&&last.photo){ph.style.backgroundImage=`url("${last.photo}")`;ph.style.clipPath='none';ph.style.opacity=Math.max(0,1-(t-CARD1)/.3);shade.style.opacity=ph.style.opacity}
+    flash.style.opacity=(t<CARD1+.18)?.5*(1-(t-CARD1)/.18):0;
+    const a=back((t-CARD1)/.35), b=ease((t-CARD1-.5)/.4), c2=ease((t-CARD1-.9)/.4);
+    html+=`<div class="end"><h1 style="transform:scale(${lerp(1.4,1,a)});transform-origin:left;opacity:${clamp((t-CARD1)/.1)}">Is your<br>area <span class="hl" style="display:inline-block">affected?</span></h1>`+
+      `<p style="opacity:${b}">Comment your suburb ⬇</p></div>`+
+      `<div class="brand" style="opacity:${c2}"><div class="ring"><i></i></div><span>Pulse<span style="color:#2DD4BF"> SA</span></span></div>`+
+      `<div class="sub" style="top:1360px;left:72px;opacity:${c2}">Follow for what Mzansi is dealing with today</div>`;
+  }
+  L.innerHTML=html;
+}
+window.render=render;
+</script></body></html>

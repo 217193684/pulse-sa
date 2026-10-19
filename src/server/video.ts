@@ -39,6 +39,8 @@ const KEYWORD_TAGS: [RegExp, string][] = [
   [/\bPRASA\b|Metrorail/i, "Metrorail"], [/shutdown/i, "NationalShutdown"], [/retrench/i, "Retrenchments"], [/service delivery/i, "ServiceDelivery"],
 ];
 const BASE_TAGS = ["Mzansi", "SouthAfrica", "PulseSA"];
+/** The other name people actually use for a metro (only well-known ones). */
+const METRO_ALT_TAG: Record<string, string> = { johannesburg: "Joburg", tshwane: "Pretoria", ethekwini: "eThekwini", "nelson-mandela-bay": "NelsonMandelaBay", "cape-town": "CapeTown", "buffalo-city": "BuffaloCity", mangaung: "Mangaung" };
 
 const pascal = (s: string) => s.normalize("NFKD").replace(/[^\p{L}\p{N} ]/gu, " ").split(/\s+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("");
 
@@ -46,8 +48,8 @@ export function hashtags(category: CategoryId, places: Place[], headlines: strin
   const tags: string[] = [];
   for (const p of places) {
     tags.push(pascal(p.name));
-    const alias = p.names.find((n) => n !== p.name && /^[A-Za-z][\w' -]+$/.test(n) && n.length <= 16);
-    if (alias && p.kind === "metro") tags.push(pascal(alias));
+    const alt = METRO_ALT_TAG[p.slug];
+    if (alt) tags.push(alt);
     if (p.kind !== "province") tags.push(PROVINCE_TAG[p.province]);
   }
   const text = headlines.join(" ");
@@ -179,6 +181,9 @@ export async function videoPlan(max = 3, now = new Date(), log = true): Promise<
     if (!s) continue;
     const why = await repeatReason(s.storyKey, s.articleKeys, s.day, now);
     if (why) { skipped.push({ storyKey: s.storyKey, reason: why }); continue; }
+    // Two stories in today's plan built from mostly the same articles (e.g. Joburg + Gauteng power) = one video.
+    const twin = scripts.find((x) => s.articleKeys.filter((k) => x.articleKeys.includes(k)).length / s.articleKeys.length >= REPEAT_OVERLAP);
+    if (twin) { skipped.push({ storyKey: s.storyKey, reason: `same articles as today's ${twin.storyKey} video` }); continue; }
     scripts.push(s);
   }
   if (log) for (const k of skipped) await logSkip(k.storyKey, k.reason);
