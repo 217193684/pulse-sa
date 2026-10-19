@@ -1,6 +1,8 @@
 package za.co.pulsesa.ui
 
 import android.content.ActivityNotFoundException
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,18 +12,70 @@ import za.co.pulsesa.data.Api
 import za.co.pulsesa.data.FeedCard
 import java.io.IOException
 
-/** A place to share to. `pkg` = the app's package; null = Android's own "share to any app" sheet. */
-data class Target(val name: String, val mark: String, val pkg: String?)
+/** A place to share to. `pkg` = the app's package; null = Android's own "share to any app" sheet. `id` matches the server's post log. */
+data class Target(val name: String, val mark: String, val pkg: String?, val id: String = "other")
 
 val TARGETS = listOf(
-    Target("TikTok", "Tt", "com.zhiliaoapp.musically"),
-    Target("Instagram", "Ig", "com.instagram.android"),
-    Target("X", "X", "com.twitter.android"),
-    Target("Facebook", "f", "com.facebook.katana"),
-    Target("WhatsApp", "Wa", "com.whatsapp"),
-    Target("LinkedIn", "in", "com.linkedin.android"),
+    Target("TikTok", "Tt", "com.zhiliaoapp.musically", "tiktok"),
+    Target("Instagram", "Ig", "com.instagram.android", "instagram"),
+    Target("X", "X", "com.twitter.android", "x"),
+    Target("Facebook", "f", "com.facebook.katana", "facebook"),
+    Target("WhatsApp", "Wa", "com.whatsapp", "whatsapp"),
+    Target("LinkedIn", "in", "com.linkedin.android", "linkedin"),
     Target("More", "…", null),
 )
+
+/** Where our videos go: the short-video apps first. */
+val VIDEO_TARGETS = listOf(
+    Target("TikTok", "Tt", "com.zhiliaoapp.musically", "tiktok"),
+    Target("Instagram", "Ig", "com.instagram.android", "instagram"),
+    Target("YouTube", "▶", "com.google.android.youtube", "youtube"),
+    Target("Facebook", "f", "com.facebook.katana", "facebook"),
+    Target("WhatsApp", "Wa", "com.whatsapp", "whatsapp"),
+    Target("X", "X", "com.twitter.android", "x"),
+    Target("More", "…", null),
+)
+
+/** Caption + hashtags exactly as they should be posted. */
+fun clipCaption(card: FeedCard): String {
+    val cap = card.caption.orEmpty().trim()
+    val missing = card.hashtags.filter { !cap.contains(it, ignoreCase = true) }
+    return if (missing.isEmpty()) cap else (cap + "\n\n" + missing.joinToString(" ")).trim()
+}
+
+/**
+ * Posts one of our videos: downloads the MP4, copies the caption + hashtags to the clipboard
+ * (TikTok and Instagram ignore captions passed in, so you paste it), opens the app, and logs it.
+ */
+suspend fun shareClip(ctx: Context, card: FeedCard, target: Target?): Boolean {
+    val id = card.clipId ?: return false
+    val file = try { Api(ctx).clipFile(id) } catch (e: IOException) {
+        Toast.makeText(ctx, e.message ?: "Couldn't download the video", Toast.LENGTH_LONG).show(); return false
+    }
+    val caption = clipCaption(card)
+    (ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("Pulse SA caption", caption))
+    Toast.makeText(ctx, "Caption and hashtags copied. Paste them in the post", Toast.LENGTH_LONG).show()
+    val uri: Uri = FileProvider.getUriForFile(ctx, ctx.packageName + ".files", file)
+    val send = Intent(Intent.ACTION_SEND).apply {
+        type = "video/mp4"
+        putExtra(Intent.EXTRA_STREAM, uri)
+        putExtra(Intent.EXTRA_TEXT, caption)
+        putExtra(Intent.EXTRA_TITLE, card.title)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    val pkg = target?.pkg
+    try {
+        if (pkg != null && isInstalled(ctx, pkg)) ctx.startActivity(send.setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        else {
+            if (pkg != null) Toast.makeText(ctx, "${target.name} isn't installed, pick another app", Toast.LENGTH_SHORT).show()
+            ctx.startActivity(Intent.createChooser(send, "Post video to").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
+    } catch (_: ActivityNotFoundException) {
+        ctx.startActivity(Intent.createChooser(send, "Post video to").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    }
+    try { Api(ctx).logPost(id, target?.id ?: "other") } catch (_: IOException) { /* the post itself still went out */ }
+    return true
+}
 
 fun captionFor(card: FeedCard, server: String): String = buildString {
     append(card.title)

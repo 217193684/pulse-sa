@@ -15,7 +15,7 @@ data class Hotspot(
 @Serializable
 data class TrendItem(val query: String, val traffic: Long = 0, val url: String? = null)
 
-/** One card in the feed. `type` is "problem", "trending" or "video"; other fields depend on it. */
+/** One card in the feed. `type` is "problem", "trending", "video" (YouTube) or "clip" (our own short video). */
 @Serializable
 data class FeedCard(
     val type: String,
@@ -40,7 +40,53 @@ data class FeedCard(
     val creator: String? = null,
     val thumbnail: String? = null,
     val imageUrl: String? = null,
+    val clipId: String? = null,
+    val storyKey: String? = null,
+    val caption: String? = null,
+    val hashtags: List<String> = emptyList(),
+    val credits: List<String> = emptyList(),
+    val videoUrl: String? = null,
+    val posterUrl: String? = null,
+    val posted: List<String> = emptyList(),
 )
+
+/** One of our own short videos, as the server lists it. */
+@Serializable
+data class Clip(
+    val id: String,
+    val storyKey: String,
+    val day: String = "",
+    val title: String,
+    val caption: String = "",
+    val hashtags: List<String> = emptyList(),
+    val credits: List<String> = emptyList(),
+    val createdAt: String = "",
+    val videoUrl: String,
+    val posterUrl: String,
+    val posted: List<String> = emptyList(),
+) {
+    fun asCard() = FeedCard(type = "clip", id = "clip-$id", title = title, clipId = id, storyKey = storyKey, caption = caption,
+        hashtags = hashtags, credits = credits, videoUrl = videoUrl, posterUrl = posterUrl, posted = posted, updatedAt = createdAt)
+}
+
+@Serializable
+data class ClipsResponse(val clips: List<Clip> = emptyList())
+
+/** One line of the post log: a video sent somewhere, or a story skipped because it would be a repeat. */
+@Serializable
+data class PostLogItem(
+    val id: String,
+    val clipId: String? = null,
+    val storyKey: String,
+    val platform: String,
+    val status: String,
+    val detail: String? = null,
+    val createdAt: String,
+    val title: String? = null,
+)
+
+@Serializable
+data class PostLog(val log: List<PostLogItem> = emptyList())
 
 @Serializable
 data class FeedResponse(val generatedAt: String, val cards: List<FeedCard>)

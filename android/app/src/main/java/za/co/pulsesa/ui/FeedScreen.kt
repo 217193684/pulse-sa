@@ -97,11 +97,12 @@ fun FeedScreen(onOpen: (String) -> Unit, onShare: (FeedCard) -> Unit) {
                     Box(Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp, top = 4.dp, bottom = 12.dp)
                         .clip(RoundedCornerShape(24.dp)).background(Pulse.Surface).border(1.dp, Pulse.Line, RoundedCornerShape(24.dp))) {
                         when (card.type) {
+                            "clip" -> ClipCardView(card, active = pager.settledPage == i, onPost = { onShare(card) })
                             "trending" -> TrendingCardView(card)
                             "video" -> VideoCardView(card)
                             else -> ProblemCardView(card, i + 1, list.size, onOpen = { onOpen(card.id) }, onShare = { onShare(card) })
                         }
-                        if (i < list.size - 1) {
+                        if (i < list.size - 1 && card.type != "clip") {
                             Row(Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp).clickable { scope.launch { pager.animateScrollToPage(i + 1) } },
                                 verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.KeyboardArrowUp, null, tint = Pulse.Muted, modifier = Modifier.size(18.dp))

@@ -39,6 +39,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
+import coil.compose.AsyncImage
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.runtime.mutableIntStateOf
+import za.co.pulsesa.data.Clip
+import za.co.pulsesa.data.PostLogItem
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -59,6 +67,7 @@ fun ShareSheet(card: FeedCard, caption: String? = null, onDismiss: () -> Unit) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var busy by remember { mutableStateOf(false) }
+    if (card.type == "clip") { ClipShareSheet(card, onDismiss); return }
     val text = caption ?: captionFor(card, Prefs(ctx).serverUrl)
     ModalBottomSheet(onDismissRequest = onDismiss, containerColor = Pulse.Surface) {
         Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -73,24 +82,49 @@ fun ShareSheet(card: FeedCard, caption: String? = null, onDismiss: () -> Unit) {
     }
 }
 
+/** Bottom sheet: post one of our videos (MP4 + caption + hashtags) to an app. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TargetGrid(busy: Boolean, onPick: (Target) -> Unit) {
+fun ClipShareSheet(card: FeedCard, onDismiss: () -> Unit) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var busy by remember { mutableStateOf(false) }
+    ModalBottomSheet(onDismissRequest = onDismiss, containerColor = Pulse.Surface) {
+        Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            Text("Post this video", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Text(card.title, color = Pulse.Soft)
+            Text(card.hashtags.joinToString(" "), color = Pulse.Teal, fontSize = 13.sp)
+            if (card.posted.isNotEmpty()) Text("Already posted to " + card.posted.joinToString(", ") { platformName(it) } + ". Posting it there again would be a repeat.",
+                color = Pulse.Amber, fontSize = 12.sp)
+            Text("Sends the video. The caption and hashtags are copied, so just paste them.", color = Pulse.Muted, fontSize = 12.sp)
+            TargetGrid(busy, VIDEO_TARGETS, done = card.posted) { t ->
+                busy = true
+                scope.launch { shareClip(ctx, card, t); busy = false; onDismiss() }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TargetGrid(busy: Boolean, targets: List<Target> = TARGETS, done: List<String> = emptyList(), onPick: (Target) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        TARGETS.chunked(4).forEach { row ->
+        targets.chunked(4).forEach { row ->
             Row(Modifier.fillMaxWidth()) {
                 row.forEach { t ->
                     Column(Modifier.weight(1f).clickable(enabled = !busy) { onPick(t) }, horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(Modifier.size(52.dp).clip(RoundedCornerShape(16.dp)).background(if (t.pkg == null) Pulse.Amber else Pulse.Raised), contentAlignment = Alignment.Center) {
+                        val isDone = t.pkg != null && t.id in done
+                        Box(Modifier.size(52.dp).clip(RoundedCornerShape(16.dp)).background(if (t.pkg == null) Pulse.Amber else Pulse.Raised)
+                            .border(if (isDone) 2.dp else 0.dp, if (isDone) Pulse.Teal else Color.Transparent, RoundedCornerShape(16.dp)), contentAlignment = Alignment.Center) {
                             Text(t.mark, fontWeight = FontWeight.Bold, color = if (t.pkg == null) Pulse.Ground else Pulse.Text)
                         }
                         Spacer(Modifier.height(4.dp))
-                        Text(t.name, fontSize = 11.sp, color = Pulse.Soft)
+                        Text(if (isDone) "✓ " + t.name else t.name, fontSize = 11.sp, color = if (isDone) Pulse.Teal else Pulse.Soft)
                     }
                 }
                 repeat(4 - row.size) { Spacer(Modifier.weight(1f)) }
             }
         }
-        if (busy) Text("Preparing image…", color = Pulse.Muted, fontSize = 12.sp)
+        if (busy) Text("Preparing…", color = Pulse.Muted, fontSize = 12.sp)
     }
 }
 
@@ -110,12 +144,33 @@ fun PostsScreen(onOpen: (String) -> Unit) {
         daily = granted; prefs.dailyPost = granted
         if (granted) DailyPost.schedule(ctx, hour) else DailyPost.cancel(ctx)
     }
+    var clips by remember { mutableStateOf<List<Clip>?>(null) }
+    var log by remember { mutableStateOf<List<PostLogItem>>(emptyList()) }
+    var posting by remember { mutableStateOf<Clip?>(null) }
+    var refresh by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) { try { top = Api(ctx).top3() } catch (e: Exception) { error = e.message } }
+    LaunchedEffect(refresh) {
+        try { clips = Api(ctx).clips() } catch (_: Exception) { if (clips == null) clips = emptyList() }
+        try { log = Api(ctx).postLog() } catch (_: Exception) { }
+    }
+    posting?.let { c -> ClipShareSheet(c.asCard()) { posting = null; refresh++ } }
 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp)) {
             Text("Share & auto-post", fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Text("Turn what's trending on Pulse SA into posts for your accounts.", color = Pulse.Muted, fontSize = 13.sp)
+        }
+
+        Column(Modifier.padding(horizontal = 12.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Pulse.Surface).padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Today's videos", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+            Text("Made automatically every day at 17:00 from the biggest stories, with music, real photos and hashtags.", color = Pulse.Muted, fontSize = 12.sp)
+            val cl = clips
+            when {
+                cl == null -> Text("Loading…", color = Pulse.Muted, fontSize = 13.sp)
+                cl.isEmpty() -> Text("No videos yet. The next batch comes at 17:00.", color = Pulse.Muted, fontSize = 13.sp)
+                else -> cl.take(6).forEach { c -> ClipRow(c) { posting = c } }
+            }
         }
 
         Column(Modifier.padding(horizontal = 12.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Pulse.Surface).padding(16.dp),
@@ -143,6 +198,13 @@ fun PostsScreen(onOpen: (String) -> Unit) {
                     }
                 }
             }
+        }
+
+        if (log.isNotEmpty()) Column(Modifier.padding(horizontal = 12.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Pulse.Surface).padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Post log", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+            Text("Everything that went out, and every repeat that was stopped.", color = Pulse.Muted, fontSize = 12.sp)
+            log.take(20).forEach { l -> LogRow(l) }
         }
 
         Column(Modifier.padding(horizontal = 12.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Pulse.Surface).padding(16.dp),
@@ -198,4 +260,41 @@ fun Pill(text: String, on: Boolean, onClick: () -> Unit) {
             .border(1.dp, if (on) Pulse.Teal else Pulse.Line, RoundedCornerShape(50)).clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 9.dp),
     )
+}
+
+@Composable
+private fun ClipRow(c: Clip, onPost: () -> Unit) {
+    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Pulse.Ground).clickable(onClick = onPost).padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        AsyncImage(model = c.posterUrl, contentDescription = null, contentScale = ContentScale.Crop,
+            modifier = Modifier.width(64.dp).aspectRatio(9f / 16f).clip(RoundedCornerShape(10.dp)).background(Color.Black))
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+            Text(c.title, fontWeight = FontWeight.SemiBold, fontSize = 14.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(c.hashtags.take(4).joinToString(" "), color = Pulse.Teal, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(if (c.posted.isEmpty()) "Not posted yet" else "✓ " + c.posted.joinToString(", ") { platformName(it) },
+                color = if (c.posted.isEmpty()) Pulse.Muted else Pulse.Amber, fontSize = 12.sp)
+        }
+        Text("Post", color = Pulse.Ground, fontWeight = FontWeight.Bold, fontSize = 13.sp,
+            modifier = Modifier.clip(RoundedCornerShape(50)).background(Pulse.Teal).padding(horizontal = 14.dp, vertical = 8.dp))
+    }
+}
+
+@Composable
+private fun LogRow(l: PostLogItem) {
+    val skipped = l.status == "skipped_duplicate"
+    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text(if (skipped) "⊘" else "✓", color = if (skipped) Pulse.Amber else Pulse.Teal, fontWeight = FontWeight.Bold, modifier = Modifier.width(16.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                if (skipped) "Repeat stopped: " + (l.title ?: storyName(l.storyKey)) else (l.title ?: storyName(l.storyKey)) + " → " + platformName(l.platform),
+                fontSize = 13.sp, maxLines = 2, overflow = TextOverflow.Ellipsis,
+            )
+            Text((if (skipped && l.detail != null) l.detail + " · " else "") + ago(l.createdAt), color = Pulse.Muted, fontSize = 11.sp, maxLines = 2)
+        }
+    }
+}
+
+/** "power~johannesburg" → "Power · Johannesburg" */
+private fun storyName(key: String) = key.split("~").joinToString(" · ") { part ->
+    if (part == "za") "South Africa" else part.split("-").joinToString(" ") { w -> w.replaceFirstChar { it.uppercase() } }
 }
