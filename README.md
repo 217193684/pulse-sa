@@ -22,8 +22,10 @@ category and place's normal daily level over the week before. Signals older than
 `/api/feed` · `/api/map?category=water` · `/api/problems/<id>` · `/api/top3` · `/api/card/<id>` (1080×1350 PNG) · `/api/health`
 
 ## Setup
-1. Vercel: import this repo, add a Neon Postgres database (Storage → Neon), and set `CRON_SECRET`, `ADMIN_TOKEN` (long random strings) for Production.
-2. GitHub: repository variable `API_URL` = the Vercel address; secret `CRON_SECRET` = same value as in Vercel.
+1. Vercel: import this repo and add a Neon Postgres database (Storage → Neon). That's all the server needs.
+2. GitHub: repository variables `API_URL` and `PULSE_API_URL` = the Vercel address.
+   Collection needs no password: `/api/cron/collect` runs at most once every 10 minutes.
+   Optional: `ADMIN_TOKEN` in Vercel to add feed videos.
 3. Videos for the feed: `POST /api/admin/videos` with `Authorization: Bearer <ADMIN_TOKEN>` and `{"url":"https://youtu.be/…","title":"…"}`.
 
 ## Develop
