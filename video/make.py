@@ -20,6 +20,13 @@ GOOD = [re.compile(r"^(cc0|public domain|pd\b)", re.I), re.compile(r"^cc by \d",
 BAD_TITLE = re.compile(r"\b(map|logo|flag|coat of arms|seal|diagram|chart|locator|svg|emblem|signature|plan)\b", re.I)
 
 
+def note(msg, level="notice"):
+    """Print, and in GitHub Actions also show it as a run annotation."""
+    print(msg)
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::{level}::{msg.replace(chr(10), ' ')[:900]}")
+
+
 def http(url, data=None, headers=None, method=None, timeout=60):
     req = urllib.request.Request(url, data=data, headers={"user-agent": UA, **(headers or {})}, method=method)
     with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -155,9 +162,9 @@ def main():
         sys.exit("No GitHub run token: run inside GitHub Actions with id-token: write, or use --no-upload")
     plan = get_plan(args, token)
     for s in plan.get("skipped", []):
-        print(f"skip (repeat) {s['storyKey']}: {s['reason']}")
+        note(f"skip (repeat) {s['storyKey']}: {s['reason']}")
     scripts = plan.get("scripts", [])
-    print(f"{len(scripts)} video(s) to make")
+    note(f"{len(scripts)} video(s) to make")
     failures = 0
     for n, script in enumerate(scripts):
         t0 = time.time()
@@ -186,7 +193,9 @@ def main():
         if args.no_upload:
             continue
         status, res = upload(token, script, credits, video, poster)
-        print(f"  upload: {status} {res[:300]}")
+        photos = sum(1 for c in script["cards"] if c.get("photo"))
+        note(f"{script['storyKey']}: {video.stat().st_size / 1e6:.1f} MB, {photos}/{len(script['cards'])} photos, upload {status} {res[:300]}",
+             "notice" if status in (201, 409) else "error")
         if status not in (201, 409):
             failures += 1
     sys.exit(1 if failures else 0)
