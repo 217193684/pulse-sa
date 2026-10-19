@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["video/**", ".github/workflows/videos.yml"]
+    paths: ["video/**"]
 permissions:
   contents: read
   id-token: write
@@ -26,5 +26,9 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-inter
           pip install -q playwright numpy
           python -m playwright install --with-deps chromium
+      - name: Collect fresh news first
+        # So the videos never depend on the hourly collector having run on time.
+        continue-on-error: true
+        run: curl -sS --max-time 90 "$API_URL/api/cron/collect" | head -c 400; echo
       - name: Make and upload videos
         run: python video/make.py

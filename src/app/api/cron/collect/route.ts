@@ -9,7 +9,7 @@ export const maxDuration = 60;
 const MIN_GAP_MS = 10 * 60_000;
 
 /**
- * Runs one collection pass. Called by GitHub Actions every 30 minutes and Vercel Cron daily.
+ * Runs one collection pass. Called by GitHub Actions every hour, before each video run, and Vercel Cron daily.
  * No password is needed: collecting is harmless and repeatable, so instead it simply refuses to
  * run more than once every 10 minutes (protects the news sources and the database).
  * A request carrying CRON_SECRET (if one is set) skips that wait.
