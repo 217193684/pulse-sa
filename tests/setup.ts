@@ -8,5 +8,5 @@ beforeAll(async () => {
   const { db } = await import("../src/server/db");
   const { sql } = await import("drizzle-orm");
   await migrate(db(), { migrationsFolder: "./drizzle" });
-  await db().execute(sql`truncate table signals, collector_runs, videos, status`);
+  await db().execute(sql`truncate table signals, collector_runs, videos, status, clips, posts`);
 });

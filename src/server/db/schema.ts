@@ -8,7 +8,9 @@
  * - status: small key/value facts that change over time (e.g. the current Eskom stage).
  */
 import { sql } from "drizzle-orm";
-import { doublePrecision, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { customType, doublePrecision, index, integer, jsonb, pgTable, real, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({ dataType: () => "bytea" });
 
 export const signals = pgTable(
   "signals",
@@ -63,4 +65,40 @@ export const status = pgTable("status", {
   key: text("key").primaryKey(),
   value: jsonb("value").$type<Record<string, unknown>>().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * Short vertical videos made by the daily video job (one per trending story).
+ * Kept for 7 days. `articleKeys` = the articles the video was built from, used to spot repeats.
+ */
+export const clips = pgTable(
+  "clips",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    storyKey: text("story_key").notNull(), // problem id, e.g. "power~johannesburg"
+    day: text("day").notNull(), // YYYY-MM-DD (SAST)
+    title: text("title").notNull(),
+    caption: text("caption").notNull(),
+    hashtags: jsonb("hashtags").$type<string[]>().notNull(),
+    articleKeys: jsonb("article_keys").$type<string[]>().notNull(),
+    credits: jsonb("credits").$type<string[]>().notNull().default([]),
+    fingerprint: text("fingerprint").notNull(),
+    mp4: bytea("mp4").notNull(),
+    poster: bytea("poster"),
+    bytes: integer("bytes").notNull(),
+    durationSec: real("duration_sec").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex("clips_fingerprint_idx").on(t.fingerprint), index("clips_story_idx").on(t.storyKey, t.createdAt)],
+);
+
+/** Every post attempt and every skipped duplicate, per platform: the app's post log. */
+export const posts = pgTable("posts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  clipId: uuid("clip_id"),
+  storyKey: text("story_key"),
+  platform: text("platform").notNull(), // tiktok | instagram | youtube | facebook | whatsapp | x | other | all
+  status: text("status").notNull(), // shared | posted | failed | skipped_duplicate
+  detail: text("detail"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });

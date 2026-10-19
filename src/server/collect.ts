@@ -9,6 +9,7 @@ import { collectNews } from "./sources/news";
 import { collectTrends } from "./sources/trends";
 import { collectEskom } from "./sources/eskom";
 import { collectGdelt } from "./sources/gdelt";
+import { pruneClips } from "./video";
 
 export const RETAIN_DAYS = 30;
 
@@ -56,5 +57,6 @@ export async function collectAll() {
   const cutoff = new Date(Date.now() - RETAIN_DAYS * 86400_000);
   await db().delete(schema.signals).where(lt(schema.signals.publishedAt, cutoff));
   await db().delete(schema.collectorRuns).where(lt(schema.collectorRuns.startedAt, cutoff));
+  await pruneClips();
   return results;
 }
