@@ -1,0 +1,37 @@
+name: Android APK
+# Builds the app and attaches the APK to the "latest" release so it can be downloaded to a phone.
+# Optional repository variable PULSE_API_URL = the server address baked into the app.
+on:
+  push:
+    branches: [main]
+    paths: ["android/**", ".github/workflows/android.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "17" }
+      - uses: gradle/actions/setup-gradle@v4
+        with: { gradle-version: "8.11.1" }
+      - name: Build APK
+        working-directory: android
+        env:
+          PULSE_API_URL: ${{ vars.PULSE_API_URL }}
+        run: gradle --no-daemon assembleDebug
+      - name: Name the APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk "PulseSA-0.1.${{ github.run_number }}.apk"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PulseSA-apk
+          path: PulseSA-*.apk
+      - name: Publish to the "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag 2>/dev/null || true
+          gh release create latest PulseSA-*.apk --title "Pulse SA (latest build ${{ github.run_number }})" \
+            --notes "Install on Android: download the .apk, open it, allow 'install unknown apps' when asked." --latest

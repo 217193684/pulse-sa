@@ -14,3 +14,4 @@ android/local.properties
 android/.idea/
 *.apk
 *.keystore
+!android/app/debug.keystore
