@@ -1,0 +1,16 @@
+name: Collect data
+# Every 30 minutes, ask the server to fetch fresh news, trends, Eskom status and GDELT.
+# Needs: repository variable API_URL (e.g. https://pulse-sa.vercel.app) and secret CRON_SECRET.
+on:
+  schedule: [{ cron: "*/30 * * * *" }]
+  workflow_dispatch:
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    if: ${{ vars.API_URL != '' }}
+    steps:
+      - name: Trigger collection
+        run: |
+          code=$(curl -sS -o out.json -w '%{http_code}' --max-time 90 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.API_URL }}/api/cron/collect")
+          cat out.json; echo
+          test "$code" = "200"
