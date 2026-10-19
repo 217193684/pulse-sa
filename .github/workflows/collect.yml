@@ -1,16 +1,17 @@
 name: Collect data
 # Every 30 minutes, ask the server to fetch fresh news, trends, Eskom status and GDELT.
-# Needs: repository variable API_URL (e.g. https://pulse-sa.vercel.app).
+# The server address; a repository variable API_URL overrides it.
 on:
   schedule: [{ cron: "*/30 * * * *" }]
   workflow_dispatch:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    if: ${{ vars.API_URL != '' }}
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
     steps:
       - name: Trigger collection
         run: |
-          code=$(curl -sS -o out.json -w '%{http_code}' --max-time 90 "${{ vars.API_URL }}/api/cron/collect")
+          code=$(curl -sS -o out.json -w '%{http_code}' --max-time 90 "$API_URL/api/cron/collect")
           cat out.json; echo
           test "$code" = "200"
