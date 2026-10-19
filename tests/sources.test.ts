@@ -38,6 +38,11 @@ describe("Google Trends", () => {
     expect(s[0].extra).toMatchObject({ traffic: 50000 });
     expect(s[1]).toMatchObject({ title: "kaizer chiefs", category: "trending", weight: 4 });
     expect(parseTraffic("1,000,000+")).toBe(1000000);
+  });
+  it("a search is not filed under one stray related headline", () => {
+    const one = `<rss xmlns:ht="x"><channel><item><title>tax</title><ht:approx_traffic>10,000+</ht:approx_traffic>
+      <ht:news_item><ht:news_item_title>Hospital staff protest over pay</ht:news_item_title></ht:news_item></item></channel></rss>`;
+    expect(parseTrends(one)[0].category).toBe("trending");
     expect(trafficWeight(0)).toBe(1);
   });
 });

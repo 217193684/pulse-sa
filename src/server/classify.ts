@@ -27,7 +27,7 @@ export const CATEGORIES: Category[] = [
   { id: "health", label: "Health", color: "#4ADE80", phrase: "Health concerns",
     patterns: [w("hospitals?|clinics?"), w("outbreak|cholera|measles|mpox|listeria"), w("medicine shortages?|ambulances?")] },
   { id: "safety", label: "Safety", color: "#F87171", phrase: "Safety worries",
-    patterns: [w("protests?|service delivery|shutdown|march(?:es)? to"), w("shootings?|murders?|hijack(?:ing|ings)?|robber(?:y|ies)|kidnapp(?:ing|ed)"), w("strike|strikes")] },
+    patterns: [w("protests?|service delivery|shutdown|march(?:es)? to"), w("shootings?|murders?|hijack(?:ing|ings)?|robber(?:y|ies)|kidnapp(?:ing|ed)"), w("on strike|strike action|(?:workers|wage|national) strikes?|national shutdown|go(?:es|ing)? on strike")] },
 ];
 
 export const TRENDING: Category = { id: "trending", label: "Trending", color: "#EAF2F7", phrase: "Trending searches", patterns: [] };

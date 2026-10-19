@@ -26,6 +26,10 @@ describe("classify", () => {
   });
 
   it("a taxi strike is transport, not a general 'strike'", () => expect(classify("Taxi strike in Durban")).toBe("transport"));
+  it("'strike' only counts as industrial action", () => {
+    expect(classify("Police strike major blow to KZN drug trade")).toBeNull();
+    expect(classify("Municipal workers go on strike over wages")).toBe("safety");
+  });
 });
 
 describe("findPlace", () => {

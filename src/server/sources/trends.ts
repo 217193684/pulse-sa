@@ -26,14 +26,24 @@ export function parseTrends(body: string, now = new Date()): NewSignal[] {
     const news = asArray(it["ht:news_item"] as Record<string, unknown>[]).map((n) => ({
       title: cleanText(n["ht:news_item_title"]), url: String(n["ht:news_item_url"] ?? "") || null, source: cleanText(n["ht:news_item_source"]),
     }));
-    const t = tag([query, ...news.map((n) => n.title)].join(" · "), "trending")!;
+    // Categorise by the search itself. Related headlines are too broad (a search for "tax" can
+    // carry a hospital story) so they only decide the category when the search alone is unclear
+    // AND at least two headlines agree.
+    let t = tag(query);
+    if (!t) {
+      const votes = new Map<string, number>();
+      for (const n of news) { const c = tag(n.title); if (c) votes.set(c.category, (votes.get(c.category) ?? 0) + 1); }
+      const [best] = [...votes.entries()].sort((a, b) => b[1] - a[1]);
+      t = best && best[1] >= 2 ? tag(news.map((n) => n.title).join(" · "), best[0] as never) : null;
+    }
+    t ??= { ...tag(query, "trending")!, category: "trending" };
     const publishedAt = parseDate(it.pubDate, now);
     out.push({
       source: "trends",
       // the same search can trend again another day: one row per search per day
       externalId: sha(`${query.toLowerCase()}:${publishedAt.toISOString().slice(0, 10)}`),
       urlKey: null, title: query, url: `https://www.google.com/search?q=${encodeURIComponent(query)}`, publisher: "Google Trends",
-      ...t, weight: trafficWeight(traffic), extra: { traffic, news: news.slice(0, 3) }, publishedAt,
+      ...t!, weight: trafficWeight(traffic), extra: { traffic, news: news.slice(0, 3) }, publishedAt,
     });
   }
   return out;

@@ -6,15 +6,15 @@
 import { asArray, cleanText, fetchText, parseDate, sha, tag, urlKey, xml, type NewSignal } from "./common";
 
 export const DEFAULT_FEEDS: { name: string; url: string }[] = [
-  { name: "News24", url: "https://feeds.news24.com/articles/news24/SouthAfrica/rss" },
-  { name: "News24", url: "https://feeds.news24.com/articles/news24/TopStories/rss" },
-  { name: "TimesLIVE", url: "https://www.timeslive.co.za/rss/" },
+  // News24 blocks automated readers and TimesLIVE/EWN have no working public feed: left out on purpose.
   { name: "SABC News", url: "https://www.sabcnews.com/sabcnews/feed/" },
-  { name: "EWN", url: "https://ewn.co.za/RSS%20Feeds/Latest%20News" },
   { name: "The Citizen", url: "https://www.citizen.co.za/feed/" },
   { name: "GroundUp", url: "https://groundup.org.za/sitenews/rss/" },
   { name: "Daily Maverick", url: "https://www.dailymaverick.co.za/dmrss/" },
   { name: "IOL", url: "https://iol.co.za/rss/iol/news" },
+  { name: "Mail & Guardian", url: "https://mg.co.za/feed/" },
+  { name: "BusinessTech", url: "https://businesstech.co.za/news/feed/" },
+  { name: "The South African", url: "https://www.thesouthafrican.com/feed/" },
 ];
 
 export function feeds() {
