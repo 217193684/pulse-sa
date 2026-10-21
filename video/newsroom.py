@@ -27,6 +27,44 @@ def collect():
         return f"collect failed: {e}"
 
 
+def youtube_upload(script, clip_id):
+    """Uploads the finished video to the connected news channel as a Short. Quietly skips when no channel is connected."""
+    try:
+        _, body = http(f"{API}/api/youtube/token", data=b"", headers={"authorization": f"Bearer {github_token()}"}, method="POST", timeout=60)
+        tok = json.loads(body)["access_token"]
+    except urllib.error.HTTPError as e:
+        if e.code == 404: return "no channel connected"
+        return f"no upload token ({e.code})"
+    title = script["title"].strip()
+    if len(title) > 88: title = title[:87].rsplit(" ", 1)[0] + "…"
+    title += " #Shorts"
+    links = "\n".join(f"• {l['outlet']}: {l['url']}" for l in script.get("links", []))
+    description = f"{script['caption']}\n\nSources:\n{links}" if links else script["caption"]
+    tags = [t.lstrip("#") for t in script.get("hashtags", [])][:15]
+    info = {"snippet": {"title": title, "description": description[:4900], "tags": tags, "categoryId": "25", "defaultLanguage": "en"},
+            "status": {"privacyStatus": os.environ.get("YT_PRIVACY", "public"), "selfDeclaredMadeForKids": False, "embeddable": True}}
+    video = Path(script["_video"]).read_bytes()
+    try:
+        _, res = http("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status",
+                      data=multipart_related(json.dumps(info).encode(), video), method="POST", timeout=300,
+                      headers={"authorization": f"Bearer {tok}", "content-type": "multipart/related; boundary=pulsesa-yt"})
+        vid = json.loads(res)["id"]; ok, detail = True, f"https://youtube.com/shorts/{vid}"
+    except urllib.error.HTTPError as e:
+        ok, detail = False, f"YouTube said {e.code}: {e.read()[:250].decode('utf-8', 'replace')}"
+    try:
+        http(f"{API}/api/youtube/posted", data=json.dumps({"clipId": clip_id, "storyKey": script["storyKey"], "ok": ok, "detail": detail[:400]}).encode(),
+             headers={"authorization": f"Bearer {github_token()}", "content-type": "application/json"}, method="POST", timeout=60)
+    except Exception as e:
+        print("  couldn't log the YouTube post:", e)
+    return detail
+
+
+def multipart_related(meta, video):
+    b = b"--pulsesa-yt\r\ncontent-type: application/json; charset=UTF-8\r\n\r\n" + meta + b"\r\n"
+    b += b"--pulsesa-yt\r\ncontent-type: video/mp4\r\n\r\n" + video + b"\r\n--pulsesa-yt--\r\n"
+    return b
+
+
 def plan(token):
     _, body = http(f"{API}/api/video-plan?max={PER_ROUND}", data=b"", headers={"authorization": f"Bearer {token}"}, method="POST", timeout=90)
     return json.loads(body)
@@ -46,7 +84,11 @@ def main():
                   f"{len(scripts)} new stor{'y' if len(scripts) == 1 else 'ies'}, {p.get('madeToday', '?')}/{p.get('cap', '?')} made today")
             for s in scripts:
                 try:
-                    if make_one(s, github_token(), label="  ▶ "): made += 1
+                    if make_one(s, github_token(), label="  ▶ "):
+                        made += 1
+                        try: clip_id = json.loads(s.get("_upload") or "{}").get("id")
+                        except ValueError: clip_id = None
+                        if clip_id: print("  YouTube:", youtube_upload(s, clip_id))   # only brand-new clips, never repeats
                     else: failed += 1
                 except Exception:
                     failed += 1; traceback.print_exc()

@@ -103,6 +103,7 @@ export type VideoScript = {
   spots: { name: string; lat: number; lon: number; w: number }[];
   cards: VideoCard[]; caption: string; hashtags: string[]; articleKeys: string[];
   end?: { a: string; b: string; hl: string; ask: string };   // closing question (default: "Is your area affected?")
+  links?: { outlet: string; url: string }[];                   // the articles, linked in the YouTube description
 };
 
 type Sig = typeof schema.signals.$inferSelect;
@@ -355,6 +356,7 @@ export function buildNewsScript(st: Story, now = new Date()): VideoScript {
       };
     }),
     end: newsEnd(st),
+    links: picked.filter((a) => a.url).map((a) => ({ outlet: a.publisher ?? "News", url: a.url! })),
     caption: `${lead.title}${st.forecast ? " (forecast, not final)" : ""}\n\nSource: ${outlets}. ${newsEnd(st).ask.replace(" ⬇", "")} 👇\n\n${tags.join(" ")}`,
     hashtags: tags,
     articleKeys: st.arts.map(articleKey),
