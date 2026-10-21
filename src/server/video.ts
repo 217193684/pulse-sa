@@ -242,7 +242,7 @@ const STOP = new Set("the a an and or of to in on at for from with by as is are 
 // News categories people most want to hear about as soon as it happens.
 const PRIORITY = new Set<CategoryId>(["cost", "transport", "jobs", "grants", "power", "water", "weather", "good", "safety"]);
 
-type Story = { key: string; category: CategoryId; arts: Sig[]; publishers: string[]; place: Place | null; forecast: boolean; score: number; words: string[] };
+type Story = { key: string; category: CategoryId; arts: Sig[]; publishers: string[]; place: Place | null; forecast: boolean; score: number; words: string[]; rare: string[] };
 
 const wordsOf = (t: string) => [...new Set(t.toLowerCase().normalize("NFKD").replace(/[^\p{L}\p{N} ]/gu, " ").split(/\s+/).filter((w) => w.length > 2 && !STOP.has(w)))];
 const similar = (a: string[], b: string[]) => { const B = new Set(b); const n = a.filter((w) => B.has(w)).length; return n >= 2 && n / Math.min(a.length, b.length) >= 0.45; };
@@ -263,6 +263,8 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
     const g = groups.find((x) => similar(x.words, w));
     if (g) { g.arts.push(r); if (g.words.length < 40) g.words = [...new Set([...g.words, ...w])]; } else groups.push({ words: w, arts: [r] });
   }
+  const df = new Map<string, number>();
+  for (const g of groups) for (const w of g.words) df.set(w, (df.get(w) ?? 0) + 1);
   const out: Story[] = [];
   for (const g of groups) {
     const counts = new Map<CategoryId, number>();
@@ -281,7 +283,8 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
     if (!worthy) continue;
     const score = publishers.length * 3 + Math.min(g.arts.length, 6) + (ageH < 2 ? 4 : ageH < 6 ? 2 : 0) + (PRIORITY.has(category) ? 2 : 0) + (trending ? 3 : 0) + (forecast ? 1 : 0);
     const top = wordsOf(g.arts[g.arts.length - 1].title).slice(0, 4).sort().join("-");
-    out.push({ key: `n~${category}~${createHash("sha1").update(top).digest("hex").slice(0, 10)}`, category, arts: g.arts, publishers, place: placeSlug ? PLACE_BY_SLUG.get(placeSlug) ?? null : null, forecast, score, words: g.words });
+    const rare = g.words.filter((w) => (df.get(w) ?? 0) <= 3 && w.length > 3 && !/^\d+$/.test(w));
+    out.push({ key: `n~${category}~${createHash("sha1").update(top).digest("hex").slice(0, 10)}`, category, arts: g.arts, publishers, place: placeSlug ? PLACE_BY_SLUG.get(placeSlug) ?? null : null, forecast, score, words: g.words, rare });
   }
   return out.sort((a, b) => b.score - a.score);
 }
@@ -385,13 +388,23 @@ async function newsRepeat(articleKeys: string[], now: Date): Promise<string | nu
 export async function newsPlan(max = 3, now = new Date(), log = true) {
   const room = Math.max(0, DAILY_VIDEO_CAP - (await madeToday(now)));
   const scripts: VideoScript[] = []; const skipped: { storyKey: string; reason: string }[] = [];
+  // what today's videos were about, to catch follow-ups of the same event worded differently
+  const recent = (await db().select({ key: schema.clips.storyKey, title: schema.clips.title }).from(schema.clips)
+    .where(gte(schema.clips.createdAt, new Date(now.getTime() - 20 * HOUR)))).map((c) => ({ key: c.key, words: new Set(wordsOf(c.title)) }));
+  const followUp = (st: Story, against: { key: string; words: Set<string> }[]) => against.find((c) => {
+    const shared = st.words.filter((w) => c.words.has(w));
+    return shared.some((w) => st.rare.includes(w)) && (shared.length >= 2 || shared.some((w) => w.length >= 5));   // e.g. both about "mtbps"
+  });
+  const planned: { key: string; words: Set<string> }[] = [];
   if (room > 0) for (const st of await newsStories(now)) {
     if (scripts.length >= Math.min(max, room)) break;
     const s = buildNewsScript(st, now);
-    const why = (await repeatReason(s.storyKey, s.articleKeys, s.day, now)) ?? (await newsRepeat(s.articleKeys, now));
+    const fu = followUp(st, [...recent, ...planned]);
+    const why = (await repeatReason(s.storyKey, s.articleKeys, s.day, now)) ?? (await newsRepeat(s.articleKeys, now))
+      ?? (fu ? `same event as the ${fu.key} video made earlier` : null);
     if (why) { skipped.push({ storyKey: s.storyKey, reason: why }); continue; }
     if (scripts.some((x) => s.articleKeys.filter((k) => x.articleKeys.includes(k)).length / s.articleKeys.length >= REPEAT_OVERLAP)) continue;
-    scripts.push(s);
+    scripts.push(s); planned.push({ key: s.storyKey, words: new Set(st.words) });
   }
   if (log) for (const k of skipped.slice(0, 5)) await logSkip(k.storyKey, k.reason);
   return { scripts, skipped, madeToday: DAILY_VIDEO_CAP - room, cap: DAILY_VIDEO_CAP };

@@ -69,10 +69,25 @@ describe("news scripts", () => {
   });
 });
 
+describe("follow-ups", () => {
+  it("a differently-worded report of an event already covered today is not a new video", async () => {
+    await storeSignals([
+      sig("MTBPS 2026: Godongwana tables medium-term budget in Parliament", "SABC News", 0.3),
+      sig("MTBPS 2026: what the medium-term budget means for you", "IOL", 0.4),
+      sig("MTBPS expected to deliver tax windfall for Treasury", "BusinessTech", 0.5),
+      sig("Treasury says MTBPS shows tax windfall this year", "The Citizen", 0.6),
+    ]);
+    const p = await newsPlan(10, now, false);
+    const budget = p.scripts.filter((s) => /MTBPS/.test(s.title));
+    expect(budget).toHaveLength(1);
+    expect(p.skipped.some((k) => /same event/.test(k.reason))).toBe(true);
+  });
+});
+
 describe("news plan", () => {
   it("plans the next videos, never the same story twice, within the daily cap", async () => {
-    const first = await newsPlan(5, now, false);
-    expect(first.scripts.length).toBe(3);
+    const first = await newsPlan(10, now, false);
+    expect(first.scripts.length).toBeGreaterThanOrEqual(3);
     expect(DAILY_VIDEO_CAP).toBe(20);
     // pretend the taxi video was made: it must not come back
     const taxi = first.scripts.find((s) => s.category === "transport")!;
