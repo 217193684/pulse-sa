@@ -61,9 +61,9 @@ export const xml = new XMLParser({ ignoreAttributes: false, attributeNamePrefix:
 
 export const asArray = <T>(v: T | T[] | undefined | null): T[] => (v == null ? [] : Array.isArray(v) ? v : [v]);
 
-/** Classify + place-pin text; returns null when it isn't about a problem we track. */
-export function tag(text: string, fallbackCategory: CategoryId | null = null) {
-  const category = classify(text) ?? fallbackCategory;
+/** Classify + place-pin text; returns null when it fits no category (and there's no fallback). */
+export function tag(text: string, fallbackCategory: CategoryId | null = null, problemsOnly = false) {
+  const category = classify(text, problemsOnly) ?? fallbackCategory;
   if (!category) return null;
   const place = findPlace(text);
   return { category, placeSlug: place?.slug ?? null, lat: place?.lat ?? null, lon: place?.lon ?? null };

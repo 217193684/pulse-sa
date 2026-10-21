@@ -152,6 +152,43 @@ def upload(token, script, credits, video: Path, poster: Path):
 
 # ------------------------------------------------------------------ main
 
+def make_one(script, token, out=None, no_upload=False, label=""):
+    """Photos → render → beat → encode → upload for one script. Returns True when it worked (or was a known repeat)."""
+    t0 = time.time()
+    workdir = Path(out or tempfile.mkdtemp(prefix="pulse-")) / script["storyKey"].replace("~", "_")
+    workdir.mkdir(parents=True, exist_ok=True)
+    print(f"{label}{script['storyKey']}: {script['title']}")
+    script["national"] = script["storyKey"].endswith("~za") or not script.get("spots")
+    used, credits = set(), []
+    for i, card in enumerate(script["cards"]):
+        dest = workdir / f"photo{i}.jpg"
+        credit = card.get("credit") if card.get("photo") else find_photo(card["photoQueries"], used, dest)
+        if credit and not card.get("photo"):
+            card["photo"], card["credit"] = dest.as_uri(), credit
+        if card.get("credit"):
+            credits.append(card["credit"])
+        print(f"  card {i + 1}: {'photo ✓ ' + card['credit'] if card.get('photo') else 'no photo (map only)'}")
+    frames = render(script, workdir)
+    k = len(script["cards"]); slot = (CARD1 - CARD0) / max(1, k)
+    impacts = ",".join(f"{CARD0 + i * slot:.2f}" for i in range(k))
+    seed = zlib.crc32((script["storyKey"] + script["day"]).encode()) % 10_000
+    shift = {"water": 0, "power": -2, "transport": 2, "education": 3, "jobs": -3, "grants": 1, "cost": -1, "health": 4, "safety": -4,
+             "good": 5, "sport": 3, "politics": -2, "business": -1, "weather": 1, "entertainment": 4}.get(script["category"], 0)
+    music = workdir / "music.wav"
+    subprocess.run([sys.executable, str(HERE / "music.py"), str(music), str(seed), str(shift), impacts], check=True)
+    video, poster = encode(workdir, frames, music)
+    print(f"  encoded {video.stat().st_size / 1e6:.1f} MB in {time.time() - t0:.0f}s → {video}")
+    if no_upload:
+        return True
+    status, res = upload(token, script, credits, video, poster)
+    photos = sum(1 for c in script["cards"] if c.get("photo"))
+    note(f"{script['storyKey']}: {video.stat().st_size / 1e6:.1f} MB, {photos}/{len(script['cards'])} photos, upload {status} {res[:300]}",
+         "notice" if status in (201, 409) else "error")
+    script["_video"], script["_upload"] = str(video), res
+    return status in (201, 409)
+
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan"); ap.add_argument("--out"); ap.add_argument("--max", type=int, default=3)
@@ -167,36 +204,7 @@ def main():
     note(f"{len(scripts)} video(s) to make")
     failures = 0
     for n, script in enumerate(scripts):
-        t0 = time.time()
-        workdir = Path(args.out or tempfile.mkdtemp(prefix="pulse-")) / script["storyKey"].replace("~", "_")
-        workdir.mkdir(parents=True, exist_ok=True)
-        print(f"[{n + 1}/{len(scripts)}] {script['storyKey']}: {script['title']}")
-        script["national"] = script["storyKey"].endswith("~za")
-        used, credits = set(), []
-        for i, card in enumerate(script["cards"]):
-            dest = workdir / f"photo{i}.jpg"
-            credit = card.get("credit") if card.get("photo") else find_photo(card["photoQueries"], used, dest)
-            if credit and not card.get("photo"):
-                card["photo"], card["credit"] = dest.as_uri(), credit
-            if card.get("credit"):
-                credits.append(card["credit"])
-            print(f"  card {i + 1}: {'photo ✓ ' + card['credit'] if card.get('photo') else 'no photo (map only)'}")
-        frames = render(script, workdir)
-        k = len(script["cards"]); slot = (CARD1 - CARD0) / max(1, k)
-        impacts = ",".join(f"{CARD0 + i * slot:.2f}" for i in range(k))
-        seed = zlib.crc32((script["storyKey"] + script["day"]).encode()) % 10_000
-        shift = {"water": 0, "power": -2, "transport": 2, "education": 3, "jobs": -3, "grants": 1, "cost": -1, "health": 4, "safety": -4}.get(script["category"], 0)
-        music = workdir / "music.wav"
-        subprocess.run([sys.executable, str(HERE / "music.py"), str(music), str(seed), str(shift), impacts], check=True)
-        video, poster = encode(workdir, frames, music)
-        print(f"  encoded {video.stat().st_size / 1e6:.1f} MB in {time.time() - t0:.0f}s → {video}")
-        if args.no_upload:
-            continue
-        status, res = upload(token, script, credits, video, poster)
-        photos = sum(1 for c in script["cards"] if c.get("photo"))
-        note(f"{script['storyKey']}: {video.stat().st_size / 1e6:.1f} MB, {photos}/{len(script['cards'])} photos, upload {status} {res[:300]}",
-             "notice" if status in (201, 409) else "error")
-        if status not in (201, 409):
+        if not make_one(script, token, args.out, args.no_upload, f"[{n + 1}/{len(scripts)}] "):
             failures += 1
     sys.exit(1 if failures else 0)
 

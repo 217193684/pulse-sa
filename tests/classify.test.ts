@@ -1,6 +1,6 @@
 /** Category rules and place pinning. */
 import { describe, expect, it } from "vitest";
-import { classify } from "../src/server/classify";
+import { FORECAST, classify } from "../src/server/classify";
 import { findPlace } from "../src/server/geo/places";
 import { youtubeId } from "../src/server/youtube";
 import { parseProblemId, problemId, trendLabel } from "../src/server/problems";
@@ -21,8 +21,22 @@ describe("classify", () => {
     ["Service delivery protest blocks N2", "safety"],
   ])("%s → %s", (text, cat) => expect(classify(text)).toBe(cat));
 
-  it("ignores things that aren't problems", () => {
-    for (const t of ["Springbok coach names squad", "Kaizer Chiefs win the derby", "Book review: a new novel"]) expect(classify(t)).toBeNull();
+  it("sorts other news into news categories, and keeps them off the problem map", () => {
+    expect(classify("Springbok coach names squad")).toBe("sport");
+    expect(classify("Kaizer Chiefs win the derby")).toBe("sport");
+    expect(classify("Book review: a new novel")).toBeNull();
+    for (const t of ["Springbok coach names squad", "Kaizer Chiefs win the derby"]) expect(classify(t, true)).toBeNull();
+  });
+  it("news the newsroom cares about", () => {
+    expect(classify("Petrol price to drop by 50c in November")).toBe("cost");
+    expect(classify("SANTACO warns of taxi industry shutdown")).toBe("transport");
+    expect(classify("Department of Health is hiring: 300 nurse vacancies open")).toBe("jobs");
+    expect(classify("Learner from Soweto wins national science award")).toBe("good");
+    expect(classify("SAWS issues orange level 6 warning for disruptive rain")).toBe("weather");
+  });
+  it("spots forecasts so they can be labelled as expected, not fact", () => {
+    expect(FORECAST.test("Petrol price expected to drop in November, mid-month data shows")).toBe(true);
+    expect(FORECAST.test("Petrol price drops by 50c tonight")).toBe(false);
   });
 
   it("a taxi strike is transport, not a general 'strike'", () => expect(classify("Taxi strike in Durban")).toBe("transport"));

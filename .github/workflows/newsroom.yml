@@ -1,0 +1,42 @@
+name: Newsroom
+# Always on: checks the news every 3 minutes and makes a video for each new story straight away
+# (max 20 a day, set on the server). Each run lasts ~5h45m and then starts the next one itself.
+# The 3-hourly schedule only restarts it if the chain ever breaks; a second copy never runs at the same time.
+on:
+  workflow_dispatch:
+  schedule: [{ cron: "23 */3 * * *" }]
+permissions:
+  contents: read
+  id-token: write   # GitHub-signed identity for uploading videos (no passwords stored)
+  actions: write    # to start the next shift
+concurrency: { group: newsroom, cancel-in-progress: false }
+jobs:
+  shift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
+    steps:
+      - name: Only when public (unlimited free minutes)
+        id: gate
+        run: |
+          vis=$(curl -sS -H "authorization: Bearer ${{ github.token }}" "https://api.github.com/repos/${{ github.repository }}" | python3 -c "import sys,json;print(json.load(sys.stdin).get('visibility',''))")
+          echo "visibility: $vis"; [ "$vis" = "public" ] && echo "go=yes" >> "$GITHUB_OUTPUT" || echo "::warning::Newsroom paused: the repository is private, so running all day would use up the free minutes."
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == 'yes'
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'yes'
+        with: { python-version: "3.12" }
+      - name: Install tools
+        if: steps.gate.outputs.go == 'yes'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-inter
+          pip install -q playwright numpy
+          python -m playwright install --with-deps chromium
+      - name: Newsroom shift
+        if: steps.gate.outputs.go == 'yes'
+        run: python video/newsroom.py
+      - name: Start the next shift
+        if: always() && steps.gate.outputs.go == 'yes'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: gh workflow run newsroom.yml --repo "${{ github.repository }}" --ref main

@@ -135,10 +135,11 @@ function render(t){
     if(last&&last.photo){ph.style.backgroundImage=`url("${last.photo}")`;ph.style.clipPath='none';ph.style.opacity=Math.max(0,1-(t-CARD1)/.3);shade.style.opacity=ph.style.opacity}
     flash.style.opacity=(t<CARD1+.18)?.5*(1-(t-CARD1)/.18):0;
     const a=back((t-CARD1)/.35), b=ease((t-CARD1-.5)/.4), c2=ease((t-CARD1-.9)/.4);
-    html+=`<div class="end"><h1 style="transform:scale(${lerp(1.4,1,a)});transform-origin:left;opacity:${clamp((t-CARD1)/.1)}">Is your<br>area <span class="hl" style="display:inline-block">affected?</span></h1>`+
-      `<p style="opacity:${b}">Comment your suburb ⬇</p></div>`+
+    const E=S.end||{a:"Is your",b:"area",hl:"affected?",ask:"Comment your suburb ⬇"};
+    html+=`<div class="end"><h1 style="transform:scale(${lerp(1.4,1,a)});transform-origin:left;opacity:${clamp((t-CARD1)/.1)}">${esc(E.a)}<br>${esc(E.b)} <span class="hl" style="display:inline-block">${esc(E.hl)}</span></h1>`+
+      `<p style="opacity:${b}">${esc(E.ask)}</p></div>`+
       `<div class="brand" style="opacity:${c2}"><div class="ring"><i></i></div><span>Pulse<span style="color:#2DD4BF"> SA</span></span></div>`+
-      `<div class="sub" style="top:1360px;left:72px;opacity:${c2}">Follow for what Mzansi is dealing with today</div>`;
+      `<div class="sub" style="top:1360px;left:72px;opacity:${c2}">Follow for Mzansi news as it happens</div>`;
   }
   L.innerHTML=html;
 }

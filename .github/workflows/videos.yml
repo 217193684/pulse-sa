@@ -1,12 +1,8 @@
-name: Daily videos
-# Makes up to 3 short videos a day from the biggest problem stories and uploads them.
+name: Videos (manual)
+# Makes a few videos now from the newest stories. Normally the always-on Newsroom does this by itself.
 # Upload is authorised with this run's GitHub-signed token (id-token), so no secrets are stored.
 on:
-  schedule: [{ cron: "0 15 * * *" }]   # 17:00 South African time
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ["video/**"]
 permissions:
   contents: read
   id-token: write

@@ -10,18 +10,19 @@ import { cleanText, urlKey } from "../src/server/sources/common";
 const fx = (f: string) => readFileSync(`tests/fixtures/${f}`, "utf8");
 
 describe("news RSS/Atom", () => {
-  it("keeps only problem headlines, tagged and placed, with links", () => {
+  it("keeps every headline, tagged and placed, with links", () => {
     const s = parseFeed(fx("news24.xml"), "News24");
-    expect(s.map((x) => x.category)).toEqual(["water", "education", "power"]);
+    expect(s.map((x) => x.category)).toEqual(["water", "sport", "education", "power"]);
     expect(s[0]).toMatchObject({ placeSlug: "ethekwini", publisher: "News24", source: "news" });
     expect(s[0].urlKey).toBe("news24.com/news24/southafrica/news/umlazi-without-water-20261019");
-    expect(s[2].title).toBe("Eskom: Stage 2 load shedding from 16:00 & through the evening");
-    expect(s[1].publishedAt.toISOString()).toBe("2026-10-19T05:30:00.000Z");
+    expect(s[3].title).toBe("Eskom: Stage 2 load shedding from 16:00 & through the evening");
+    expect(s[2].publishedAt.toISOString()).toBe("2026-10-19T05:30:00.000Z");
   });
   it("reads Atom feeds too", () => {
     const s = parseFeed(fx("atom.xml"), "GroundUp");
-    expect(s).toHaveLength(1);
+    expect(s).toHaveLength(2);
     expect(s[0]).toMatchObject({ category: "transport", placeSlug: "cape-town", url: "https://groundup.org.za/article/taxi-strike-cape-town/" });
+    expect(s[1]).toMatchObject({ category: "general" });   // kept, but only becomes a video if several outlets cover it
   });
   it("normalises URLs and text", () => {
     expect(urlKey("https://WWW.News24.com/a/b/?utm=1#x")).toBe("news24.com/a/b");
@@ -62,9 +63,10 @@ describe("Eskom", () => {
 });
 
 describe("GDELT", () => {
-  it("keeps English problem articles, with dates and places", () => {
+  it("keeps English articles that fit a category, with dates and places", () => {
     const s = parseGdelt(fx("gdelt.json"));
-    expect(s.map((x) => x.placeSlug)).toEqual(["ethekwini", "msunduzi"]);
+    expect(s.map((x) => x.placeSlug)).toEqual(["ethekwini", "msunduzi", null]);
+    expect(s[2]).toMatchObject({ title: "Proteas name squad", category: "sport" });
     expect(s[1].publishedAt.toISOString()).toBe("2026-10-19T06:30:00.000Z");
     expect(parseGdeltDate("bad").getTime()).toBeGreaterThan(0);
   });

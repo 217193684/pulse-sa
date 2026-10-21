@@ -6,7 +6,7 @@
  */
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
 import { db, schema } from "./db";
-import { CATEGORIES, CATEGORY_BY_ID, type CategoryId } from "./classify";
+import { CATEGORIES, CATEGORY_BY_ID, PROBLEM_IDS, type CategoryId } from "./classify";
 import { PLACE_BY_SLUG } from "./geo/places";
 
 const HOUR = 3600_000;
@@ -29,7 +29,7 @@ const placePhrase = (place: { name: string; kind: string } | null | undefined) =
 export const problemId = (category: string, placeSlug: string | null) => `${category}~${placeSlug ?? NATIONAL}`;
 export function parseProblemId(id: string): { category: CategoryId; placeSlug: string | null } | null {
   const [cat, place] = id.split("~");
-  if (!CATEGORY_BY_ID.has(cat as CategoryId) || cat === "trending" || !place) return null;
+  if (!PROBLEM_IDS.has(cat as CategoryId) || !place) return null;
   if (place !== NATIONAL && !PLACE_BY_SLUG.has(place)) return null;
   return { category: cat as CategoryId, placeSlug: place === NATIONAL ? null : place };
 }
@@ -58,7 +58,7 @@ async function groups(now: Date): Promise<Group[]> {
     where published_at > ${d8} and category <> 'trending'
     group by category, place_slug`);
   return rows.rows
-    .filter((r) => Number(r.n24) > 0)
+    .filter((r) => Number(r.n24) > 0 && PROBLEM_IDS.has(r.category))   // the problem feed/map only; other news becomes videos
     .map((r) => ({ category: r.category, placeSlug: r.place_slug, w24: Number(r.w24), n24: Number(r.n24), last: new Date(r.last as string), daily: Number(r.wbase) / 7 }));
 }
 

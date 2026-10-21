@@ -29,12 +29,12 @@ export function parseTrends(body: string, now = new Date()): NewSignal[] {
     // Categorise by the search itself. Related headlines are too broad (a search for "tax" can
     // carry a hospital story) so they only decide the category when the search alone is unclear
     // AND at least two headlines agree.
-    let t = tag(query);
+    let t = tag(query, null, true);   // searches only feed the problem map; the news videos use headlines
     if (!t) {
       const votes = new Map<string, number>();
-      for (const n of news) { const c = tag(n.title); if (c) votes.set(c.category, (votes.get(c.category) ?? 0) + 1); }
+      for (const n of news) { const c = tag(n.title, null, true); if (c) votes.set(c.category, (votes.get(c.category) ?? 0) + 1); }
       const [best] = [...votes.entries()].sort((a, b) => b[1] - a[1]);
-      t = best && best[1] >= 2 ? tag(news.map((n) => n.title).join(" · "), best[0] as never) : null;
+      t = best && best[1] >= 2 ? tag(news.map((n) => n.title).join(" · "), best[0] as never, true) : null;
     }
     t ??= { ...tag(query, "trending")!, category: "trending" };
     const publishedAt = parseDate(it.pubDate, now);

@@ -1,8 +1,7 @@
 name: Collect data
-# Every hour, ask the server to fetch fresh news, trends, Eskom status and GDELT.
+# Ask the server to fetch fresh news, trends, Eskom status and GDELT now (the Newsroom does this every 3 minutes).
 # The server address; a repository variable API_URL overrides it.
 on:
-  schedule: [{ cron: "7 * * * *" }]
   workflow_dispatch:
 jobs:
   collect:

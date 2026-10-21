@@ -1,7 +1,6 @@
 /**
  * South African news headlines from public RSS feeds. We keep only the headline and the link
- * back to the publisher (never the article text), and only headlines that match a problem
- * category. Feeds can be changed with the NEWS_FEEDS env var: "Name|url,Name|url".
+ * back to the publisher (never the article text). Headlines are sorted into a category (or "general"). Feeds can be changed with the NEWS_FEEDS env var: "Name|url,Name|url".
  */
 import { asArray, cleanText, fetchText, parseDate, sha, tag, urlKey, xml, type NewSignal } from "./common";
 
@@ -38,7 +37,7 @@ export function parseFeed(body: string, publisher: string): NewSignal[] {
     const linkField = it.link as unknown;
     const link = typeof linkField === "string" ? linkField
       : asArray(linkField as Record<string, string>[]).find((l) => !l["@_rel"] || l["@_rel"] === "alternate")?.["@_href"] ?? null;
-    const t = tag(title);
+    const t = tag(title, "general");   // every headline is kept; unmatched ones only become videos when several outlets cover them
     if (!t) continue;
     const key = urlKey(link);
     out.push({
