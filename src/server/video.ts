@@ -1,3 +1,4 @@
+import { classify } from "./classify";
 /**
  * Turns today's top problems into video scripts, decides what NOT to post again, and stores
  * finished videos.
@@ -262,6 +263,7 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
   for (const r of rows) {
     r.title = cleanText(r.title);   // older rows may still carry HTML codes like &#124;
     if (NOT_NEWS.test(r.title)) continue;
+    if (r.source === "news" || r.source === "gdelt") r.category = classify(r.title) ?? r.category;   // re-check with today's rules
     const w = wordsOf(r.title);
     if (w.length < 2) continue;
     const g = groups.find((x) => similar(x.words, w));
