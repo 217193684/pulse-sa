@@ -49,6 +49,7 @@ export function cleanText(s: unknown): string {
     .replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;|&#8217;|&rsquo;/g, "'")
     .replace(/&#8216;|&lsquo;/g, "'").replace(/&#822[01];|&[lr]dquo;/g, '"').replace(/&#8211;|&ndash;/g, "–").replace(/&#8212;|&mdash;/g, "—")
     .replace(/&nbsp;/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&#(\d{2,6});/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]{2,6});/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/\s+/g, " ").trim();
 }
 

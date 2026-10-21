@@ -28,6 +28,7 @@ describe("news RSS/Atom", () => {
     expect(urlKey("https://WWW.News24.com/a/b/?utm=1#x")).toBe("news24.com/a/b");
     expect(urlKey("javascript:alert(1)")).toBeNull();
     expect(cleanText("<b>Hi</b> &amp;   there &#8217;s")).toBe("Hi & there 's");
+    expect(cleanText("MTBPS 2026 &#124; Fuel price relief &#x2013; tax")).toBe("MTBPS 2026 | Fuel price relief – tax");
   });
 });
 

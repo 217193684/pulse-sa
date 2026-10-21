@@ -13,6 +13,7 @@ import { and, desc, eq, gte, inArray, lt, sql } from "drizzle-orm";
 import { db, schema } from "./db";
 import { CATEGORY_BY_ID, FORECAST, type CategoryId } from "./classify";
 import { PLACES, PLACE_BY_SLUG, type Place } from "./geo/places";
+import { cleanText } from "./sources/common";
 import { problemCards, type ProblemCard } from "./problems";
 
 const HOUR = 3600_000;
@@ -255,6 +256,7 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
     .where(and(eq(schema.signals.source, "trends"), gte(schema.signals.publishedAt, new Date(now.getTime() - 24 * HOUR))))).map((t) => wordsOf(t.title));
   const groups: { words: string[]; arts: Sig[] }[] = [];
   for (const r of rows) {
+    r.title = cleanText(r.title);   // older rows may still carry HTML codes like &#124;
     const w = wordsOf(r.title);
     if (w.length < 2) continue;
     const g = groups.find((x) => similar(x.words, w));
