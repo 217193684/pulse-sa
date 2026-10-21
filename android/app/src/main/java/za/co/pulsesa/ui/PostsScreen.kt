@@ -163,13 +163,16 @@ fun PostsScreen(onOpen: (String) -> Unit) {
 
         Column(Modifier.padding(horizontal = 12.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Pulse.Surface).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Today's videos", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-            Text("Made automatically every day at 17:00 from the biggest stories, with music, real photos and hashtags.", color = Pulse.Muted, fontSize = 12.sp)
+            Text("News videos", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+            Text("Made automatically within minutes of a story breaking (up to 20 a day), with music, real photos and hashtags. New ones also go to your YouTube news channel by themselves.", color = Pulse.Muted, fontSize = 12.sp)
             val cl = clips
             when {
                 cl == null -> Text("Loading…", color = Pulse.Muted, fontSize = 13.sp)
-                cl.isEmpty() -> Text("No videos yet. The next batch comes at 17:00.", color = Pulse.Muted, fontSize = 13.sp)
-                else -> cl.take(6).forEach { c -> ClipRow(c) { posting = c } }
+                cl.isEmpty() -> Text("No videos yet. They appear here within minutes of a big story.", color = Pulse.Muted, fontSize = 13.sp)
+                else -> {
+                    BulkPost(cl) { refresh++ }
+                    cl.take(12).forEach { c -> ClipRow(c) { posting = c } }
+                }
             }
         }
 

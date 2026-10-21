@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
 export async function GET(req: Request) {
-  return json({ clips: await listClips(appUrl() || new URL(req.url).origin) }, 60);
+  return json({ clips: await listClips(appUrl() || new URL(req.url).origin, 40) }, 30);
 }
 
 const meta = z.object({
