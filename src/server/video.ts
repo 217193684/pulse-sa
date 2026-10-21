@@ -240,6 +240,9 @@ export async function listClips(base: string, limit = 12): Promise<ClipInfo[]> {
 export const DAILY_VIDEO_CAP = Number(process.env.DAILY_VIDEO_CAP || 20);
 const STOP = new Set("the a an and or of to in on at for from with by as is are was were be been has have had will would can could after before over into amid says said new more than its it this that his her their they he she we you who what why how not no up out about after says".split(" "));
 // News categories people most want to hear about as soon as it happens.
+// Polls, quizzes, opinion and "watch/listen" items aren't news stories.
+const NOT_NEWS = /^(?:POLL|QUIZ|OPINION|EDITORIAL|LETTER|WATCH|LISTEN|PODCAST|LIVE BLOG|SPONSORED|ADVERTORIAL|COMMENT|ANALYSIS|CARTOON)\b|\b(?:sponsored|advertorial|horoscope|crossword|lotto results|powerball results)\b/i;
+export const PER_HOUR = Number(process.env.VIDEOS_PER_HOUR || 4);
 const PRIORITY = new Set<CategoryId>(["cost", "transport", "jobs", "grants", "power", "water", "weather", "good", "safety"]);
 
 type Story = { key: string; category: CategoryId; arts: Sig[]; publishers: string[]; place: Place | null; forecast: boolean; score: number; words: string[]; rare: string[] };
@@ -258,6 +261,7 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
   const groups: { words: string[]; arts: Sig[] }[] = [];
   for (const r of rows) {
     r.title = cleanText(r.title);   // older rows may still carry HTML codes like &#124;
+    if (NOT_NEWS.test(r.title)) continue;
     const w = wordsOf(r.title);
     if (w.length < 2) continue;
     const g = groups.find((x) => similar(x.words, w));
@@ -387,6 +391,9 @@ async function newsRepeat(articleKeys: string[], now: Date): Promise<string | nu
 /** The next news videos to make right now: the best fresh stories, minus repeats, within today's cap. */
 export async function newsPlan(max = 3, now = new Date(), log = true) {
   const room = Math.max(0, DAILY_VIDEO_CAP - (await madeToday(now)));
+  // spread the day's videos out: at most PER_HOUR an hour, except stories 3+ outlets are covering
+  const [h] = await db().select({ n: sql<number>`count(*)::int` }).from(schema.clips).where(gte(schema.clips.createdAt, new Date(now.getTime() - HOUR)));
+  let hourRoom = Math.max(0, PER_HOUR - (h?.n ?? 0));
   const scripts: VideoScript[] = []; const skipped: { storyKey: string; reason: string }[] = [];
   // what today's videos were about, to catch follow-ups of the same event worded differently
   const recent = (await db().select({ key: schema.clips.storyKey, title: schema.clips.title }).from(schema.clips)
@@ -404,6 +411,8 @@ export async function newsPlan(max = 3, now = new Date(), log = true) {
       ?? (fu ? `same event as the ${fu.key} video made earlier` : null);
     if (why) { skipped.push({ storyKey: s.storyKey, reason: why }); continue; }
     if (scripts.some((x) => s.articleKeys.filter((k) => x.articleKeys.includes(k)).length / s.articleKeys.length >= REPEAT_OVERLAP)) continue;
+    if (hourRoom <= 0 && st.publishers.length < 3) continue;   // waits for the next hour (it stays in the running)
+    hourRoom--;
     scripts.push(s); planned.push({ key: s.storyKey, words: new Set(st.words) });
   }
   if (log) for (const k of skipped.slice(0, 5)) await logSkip(k.storyKey, k.reason);

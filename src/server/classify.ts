@@ -34,9 +34,10 @@ export const CATEGORIES: Category[] = [
 /** Other kinds of news (not problems). Ties go to the problem categories above. */
 export const NEWS_CATEGORIES: Category[] = [
   { id: "good", label: "Good news", color: "#34D399", phrase: "Good news",
-    patterns: [w("good news|celebrat(?:e|es|ed|ing|ion)|award(?:s|ed)?|wins?|won|champions?|record[- ]breaking|milestone|first ever|breakthrough"), w("rescued|reunited|donat(?:e|es|ed|ion)|graduat(?:e|es|ed|ion)|top (?:learners?|achievers?|matriculants?)|bursar(?:y|ies) awarded|opens? (?:a )?new|launch(?:es|ed)? (?:a )?new"), w("heroe?s?|inspiring|proud moment|makes? (?:SA|Mzansi|South Africa) proud")] },
+    patterns: [w("good news|celebrat(?:e|es|ed|ing|ion)|award(?:s|ed)?|record[- ]breaking|milestone|first ever|breakthrough|wins? (?:an? )?(?:award|prize|bursary|scholarship|competition)"), w("rescued|reunited|donat(?:e|es|ed|ion)|graduat(?:e|es|ed|ion)|top (?:learners?|achievers?|matriculants?)|bursar(?:y|ies) awarded|opens? (?:a )?new|launch(?:es|ed)? (?:a )?new"), w("heroe?s?|inspiring|proud moment|makes? (?:SA|Mzansi|South Africa) proud")] },
   { id: "sport", label: "Sport", color: "#60A5FA", phrase: "Sport",
-    patterns: [w("Bafana|Banyana|Springboks?|Boks|Proteas|Blitzboks|PSL|Betway Premiership|Kaizer Chiefs|Orlando Pirates|Mamelodi Sundowns|Sundowns|Stormers|Bulls|Sharks|Lions"), w("AFCON|World Cup|Olympics?|Comrades|cricket|rugby|soccer|football|athletics|boxing|marathon"), w("coach|striker|midfielder|goalkeeper|captain|match|fixture|derby|semi-final|final|league|tournament")] },
+    patterns: [w("Bafana|Banyana|Springboks?|Boks|Proteas|Blitzboks|PSL|Betway Premiership|Kaizer Chiefs|Chiefs|Orlando Pirates|Pirates|Mamelodi Sundowns|Sundowns|Stormers|Bulls|Sharks|Lions|Amakhosi|Buccaneers"),
+      w("Champions League|CAF|Premier League|Carling|Nedbank Cup|MTN8|URC|Currie Cup|SA20|goals?|scored|hat-trick|transfer|signs? for"), w("AFCON|World Cup|Olympics?|Comrades|cricket|rugby|soccer|football|athletics|boxing|marathon"), w("coach|striker|midfielder|goalkeeper|captain|match|fixture|derby|semi-final|final|league|tournament")] },
   { id: "politics", label: "Politics", color: "#C084FC", phrase: "Politics",
     patterns: [w("ANC|DA|EFF|MK [Pp]arty|ActionSA|IFP|PA|GNU|Ramaphosa|Mashatile|Malema|Zuma|Steenhuisen|Hlabisa"), w("parliament|cabinet|minister|premier|mayor|councillors?|municipal council|elections?|by-elections?|IEC|vote|budget speech|State of the Nation|SONA")] },
   { id: "business", label: "Money & business", color: "#FBBF24", phrase: "Money news",

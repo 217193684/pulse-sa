@@ -69,6 +69,17 @@ describe("news scripts", () => {
   });
 });
 
+describe("not news", () => {
+  it("polls, quizzes and opinion pieces never become videos", async () => {
+    await storeSignals([sig("POLL | Do coalition-run metros work better?", "IOL", 0.2), sig("POLL: do coalition metros work better", "The Citizen", 0.3)]);
+    expect((await newsStories(now)).some((s) => s.arts.some((a) => /POLL/.test(a.title)))).toBe(false);
+  });
+  it("football is sport, not good news", () => {
+    expect(classify("Ex-Chiefs defender 'very happy' after Champions League goal")).toBe("sport");
+    expect(classify("Soweto learner wins award for science project")).toBe("good");
+  });
+});
+
 describe("follow-ups", () => {
   it("a differently-worded report of an event already covered today is not a new video", async () => {
     await storeSignals([
