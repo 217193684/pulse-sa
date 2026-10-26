@@ -1,0 +1,434 @@
+{
+  "id": "srd-r370",
+  "title": "Why is the SRD grant stuck at R370?",
+  "caseNo": "PSA-2026-1026",
+  "date": "2026.10.26",
+  "voice": "af_heart",
+  "scenes": [
+    {
+      "type": "hook",
+      "value": "R370",
+      "label": "every month",
+      "lines": [
+        "Three hundred and seventy rand.",
+        "That's what about eight million South Africans get every month from the SRD grant.",
+        "Six years ago it was three hundred and fifty rand.",
+        "Since then, bread, taxi fares and electricity have all gone up. The grant barely moved.",
+        "So why is it stuck? And what can you actually do about it? Let's open the case."
+      ]
+    },
+    {
+      "type": "title",
+      "tag": [
+        "CASE",
+        "FILE"
+      ],
+      "headline": "The R370 Grant",
+      "sub": "Why it's stuck, and what you can do",
+      "stamp": "UNDER INVESTIGATION",
+      "lines": [
+        "Case file: the R370 grant."
+      ]
+    },
+    {
+      "type": "timeline",
+      "tag": [
+        "HOW IT",
+        "STARTED"
+      ],
+      "points": [
+        {
+          "year": "2020",
+          "value": "R350",
+          "note": "Covid lockdown relief",
+          "at": 0
+        },
+        {
+          "year": "2024",
+          "value": "R370",
+          "note": "First and only increase",
+          "at": 4
+        },
+        {
+          "year": "2027",
+          "value": "R370",
+          "note": "Extended to 31 March",
+          "at": 5
+        },
+        {
+          "year": "?",
+          "value": "NEW",
+          "note": "A permanent grant, one day",
+          "at": 5
+        }
+      ],
+      "lines": [
+        "The grant started in 2020, during the Covid lockdown.",
+        "Millions of people lost their income overnight, so government created a temporary three hundred and fifty rand payment.",
+        "It was meant to last a few months.",
+        "Instead, it has been extended every single year since then.",
+        "In 2024 it went up by twenty rand, to three hundred and seventy. That's the only increase it has ever had.",
+        "And in February this year, government extended it again, at the same amount, until the end of March 2027."
+      ]
+    },
+    {
+      "type": "stats",
+      "tag": [
+        "WHO",
+        "GETS IT"
+      ],
+      "items": [
+        {
+          "value": "8.5M",
+          "label": "people paid each month",
+          "color": "yellow",
+          "at": 0
+        },
+        {
+          "value": "15M",
+          "label": "people on the SRD system",
+          "color": "pink",
+          "at": 1
+        },
+        {
+          "value": "R624",
+          "label": "income limit per month",
+          "color": "blue",
+          "at": 2
+        }
+      ],
+      "lines": [
+        "Today, about eight and a half million people are paid each month.",
+        "But around fifteen million people are on the system.",
+        "To qualify, the money coming into your account must be less than six hundred and twenty four rand a month.",
+        "Earn a little more than that, and you're out."
+      ]
+    },
+    {
+      "type": "suspects",
+      "tag": [
+        "THE",
+        "SUSPECTS"
+      ],
+      "headline": "Three reasons it's stuck",
+      "cards": [
+        {
+          "n": "01",
+          "title": "Money",
+          "sub": "Treasury says it can't afford more",
+          "color": "yellow",
+          "at": [
+            1,
+            "Money"
+          ]
+        },
+        {
+          "n": "02",
+          "title": "\"Temporary\"",
+          "sub": "No law, renewed one year at a time",
+          "color": "pink",
+          "at": [
+            1,
+            "temporary"
+          ]
+        },
+        {
+          "n": "03",
+          "title": "Prices",
+          "sub": "R370 buys less every year",
+          "color": "blue",
+          "at": [
+            1,
+            "prices"
+          ]
+        }
+      ],
+      "lines": [
+        "So why hasn't it grown? There are three main suspects.",
+        "Money. The word temporary. And prices."
+      ]
+    },
+    {
+      "type": "bars",
+      "tag": [
+        "SUSPECT 01",
+        "MONEY"
+      ],
+      "headline": "What it costs each year",
+      "bars": [
+        {
+          "label": "R20 increase (2024)",
+          "value": 2,
+          "show": "R2bn",
+          "color": "yellow",
+          "at": 5
+        },
+        {
+          "label": "The grant today",
+          "value": 40,
+          "show": "R40bn",
+          "color": "blue",
+          "at": 1
+        },
+        {
+          "label": "Bigger grant + higher limit",
+          "value": 139,
+          "show": "up to R139bn",
+          "color": "pink",
+          "at": 2
+        }
+      ],
+      "lines": [
+        "Suspect number one: money.",
+        "The grant costs about forty billion rand a year.",
+        "In court, Treasury said making it bigger, and raising the income limit, could cost up to one hundred and thirty nine billion rand a year.",
+        "Treasury says government simply can't afford that right now.",
+        "But the activists who took government to court point out that the twenty rand increase in 2024 cost only about two billion rand.",
+        "So small, regular increases are possible. It's a choice about priorities."
+      ]
+    },
+    {
+      "type": "calendar",
+      "tag": [
+        "SUSPECT 02",
+        "TEMPORARY"
+      ],
+      "headline": "Renewed one year at a time",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "quote": "It will still be a temporary provision until such time that there is a law.",
+      "quoteBy": "Department of Social Development, April 2026",
+      "lines": [
+        "Suspect number two: the word temporary.",
+        "The SRD grant is not in any law. It lives in short-term rules that must be renewed every year.",
+        "Because it's always temporary, nobody plans a proper increase.",
+        "Government says it is working on a permanent replacement, a grant linked to jobs, skills and small business.",
+        "But the minister told Parliament that making a new policy takes about five years on average.",
+        "Until that law exists, the department says, the SRD will stay a temporary payment."
+      ],
+      "law": "~5 years",
+      "lawSub": "to make a new policy"
+    },
+    {
+      "type": "compare",
+      "tag": [
+        "SUSPECT 03",
+        "PRICES"
+      ],
+      "headline": "Grant vs. a basic food list",
+      "left": {
+        "label": "SRD grant",
+        "value": 370,
+        "show": "R370"
+      },
+      "right": {
+        "label": "14 basic food items",
+        "value": 426,
+        "show": "R426"
+      },
+      "gap": "-R56",
+      "note": "Cash-out fees at some shops: about R10 per R100",
+      "lines": [
+        "Suspect number three: prices.",
+        "In March, Daily Maverick priced a list of fourteen basic food items. It came to four hundred and twenty six rand.",
+        "That's fifty six rand more than the whole grant.",
+        "And if you withdraw your money at a spaza or shop, fees can take about ten rand for every hundred.",
+        "Every year the grant stays frozen, it buys a little less."
+      ]
+    },
+    {
+      "type": "court",
+      "tag": [
+        "THE",
+        "COURT CASE"
+      ],
+      "steps": [
+        {
+          "date": "Jan 2025",
+          "title": "High Court",
+          "text": "Rules ruled unconstitutional",
+          "at": 1
+        },
+        {
+          "date": "2025",
+          "title": "Government appeals",
+          "text": "Says it can't afford the changes",
+          "at": 3
+        },
+        {
+          "date": "25 Aug 2026",
+          "title": "Supreme Court of Appeal",
+          "text": "Case heard, judgment reserved",
+          "at": 4
+        }
+      ],
+      "lines": [
+        "There's also a court case that could change everything.",
+        "In January 2025, the Pretoria High Court found that parts of the SRD rules are unconstitutional.",
+        "It said people must be allowed to apply in person, not only online. It said the income limit and the grant must go up over time. And it said once-off gifts shouldn't count as income.",
+        "Government appealed.",
+        "The Supreme Court of Appeal heard the case on the twenty fifth of August. The judges have not decided yet."
+      ],
+      "stamp": "JUDGMENT PENDING"
+    },
+    {
+      "type": "bankcheck",
+      "tag": [
+        "WHY PEOPLE",
+        "GET DECLINED"
+      ],
+      "headline": "The monthly bank check",
+      "inflows": [
+        "R300 from family",
+        "R150 for school shoes",
+        "R200 stokvel payout"
+      ],
+      "total": "R650",
+      "limit": "R624",
+      "lines": [
+        "That last point matters, because of how SASSA checks you.",
+        "Every month, SASSA looks at the money coming into your bank account.",
+        "If your sister sends you three hundred rand, a relative helps with school shoes, and your stokvel pays out, that can add up to more than six hundred and twenty four rand.",
+        "The system can count it as income, and you're declined for that month.",
+        "The Institute for Economic Justice says most rejections come from this money check, and many of them are wrong."
+      ],
+      "inflowAt": [
+        [
+          2,
+          "sister"
+        ],
+        [
+          2,
+          "school"
+        ],
+        [
+          2,
+          "stokvel"
+        ]
+      ]
+    },
+    {
+      "type": "verdict",
+      "tag": [
+        "THE",
+        "VERDICT"
+      ],
+      "headline": "Stuck by design",
+      "points": [
+        "Treated as temporary",
+        "Squeezed by the budget",
+        "Waiting on the courts and a new law"
+      ],
+      "stamp": "CASE OPEN",
+      "lines": [
+        "So, the verdict.",
+        "The grant is stuck because it was built as a temporary fix, the budget is tight, and its permanent replacement isn't ready.",
+        "The courts and a new law could still change that. But that will take time."
+      ],
+      "pointAt": [
+        [
+          1,
+          "temporary"
+        ],
+        [
+          1,
+          "budget"
+        ],
+        [
+          1,
+          "replacement"
+        ]
+      ]
+    },
+    {
+      "type": "checklist",
+      "tag": [
+        "WHAT YOU",
+        "CAN DO"
+      ],
+      "items": [
+        {
+          "title": "Check your status every month",
+          "sub": "Only on srd.sassa.gov.za",
+          "at": 1
+        },
+        {
+          "title": "Declined? Read the reason",
+          "sub": "Then appeal if it's wrong. Don't wait",
+          "at": 2
+        },
+        {
+          "title": "Keep your details up to date",
+          "sub": "Phone number and bank account",
+          "at": 3
+        },
+        {
+          "title": "Watch your cash-out fees",
+          "sub": "Compare before you withdraw",
+          "at": 4
+        },
+        {
+          "title": "Never pay or share your PIN",
+          "sub": "SASSA will never ask for it",
+          "at": 5
+        }
+      ],
+      "lines": [
+        "So what can you do right now?",
+        "One. Check your status every month, and only on the official site, s r d dot sassa dot gov dot za.",
+        "Two. If you're declined, read the reason. If it's wrong, like a gift counted as income, appeal. There is a time limit, so don't wait.",
+        "Three. Keep your phone number and bank details up to date, or your payment can get stuck.",
+        "Four. Watch the fees. Compare where you withdraw, so more of the three seventy stays in your pocket.",
+        "And five. Never pay anyone to apply, and never share your PIN. SASSA will never ask for it."
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "Case still open",
+      "sub": "Follow for the court's decision",
+      "lines": [
+        "This case is still open. When the court decides, we'll explain what it means for you.",
+        "Follow Pulse SA News, and share this with someone who gets the grant."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "TimesLIVE / Business Day, 17 Feb 2026: SRD grant extended for another year with no increase",
+      "url": "https://www.timeslive.co.za/news/south-africa/2026-02-17-srd-grant-extended-for-another-year-with-no-increase-in-value/"
+    },
+    {
+      "name": "BusinessTech, 17 Feb 2026: New social grant for South Africa is coming",
+      "url": "https://businesstech.co.za/news/government/851239/new-social-grant-for-south-africa-is-coming/"
+    },
+    {
+      "name": "EWN, 29 Apr 2026: Tolashe says steady progress being made to transition SRD into permanent grant",
+      "url": "https://www.ewn.co.za/2026/04/29/tolashe-says-steady-progress-being-made-to-transition-srd-into-permanent-grant"
+    },
+    {
+      "name": "GroundUp, 25 Aug 2026: Judges grill Treasury on SRD grant",
+      "url": "https://groundup.org.za/article/expanding-the-srd-grant-could-cost-r139-billion-a-year-national-treasury-says/"
+    },
+    {
+      "name": "GroundUp, 24 Jan 2025: Rules regulating R370 SRD grant are unconstitutional, court finds",
+      "url": "https://groundup.org.za/article/rules-regulating-r370-a-month-srd-grant-are-unconstitutional-court-finds/"
+    },
+    {
+      "name": "Daily Maverick, 5 Mar 2026: SRD grant set for a redesign falls R60 short of our list of basic food items",
+      "url": "https://www.dailymaverick.co.za/article/2026-03-05-srd-grant-set-for-a-redesign-falls-r60-short-of-our-list-of-basic-food-items/"
+    }
+  ],
+  "thumb": {
+    "big": "R370",
+    "line": "Why is it STUCK?",
+    "stamp": "EXPLAINED",
+    "sub": "+ what you can do"
+  }
+}

@@ -1,0 +1,377 @@
+{
+ "scenes": [
+  {
+   "type": "hook",
+   "start": 0.6,
+   "lines": [
+    {
+     "text": "Three hundred and seventy rand.",
+     "start": 0.6,
+     "end": 2.348
+    },
+    {
+     "text": "That's what about eight million South Africans get every month from the SRD grant.",
+     "start": 2.667,
+     "end": 7.528
+    },
+    {
+     "text": "Six years ago it was three hundred and fifty rand.",
+     "start": 7.848,
+     "end": 10.475
+    },
+    {
+     "text": "Since then, bread, taxi fares and electricity have all gone up. The grant barely moved.",
+     "start": 10.795,
+     "end": 15.944
+    },
+    {
+     "text": "So why is it stuck? And what can you actually do about it? Let's open the case.",
+     "start": 16.264,
+     "end": 20.597
+    }
+   ],
+   "end": 20.597
+  },
+  {
+   "type": "title",
+   "start": 21.347,
+   "lines": [
+    {
+     "text": "Case file: the R370 grant.",
+     "start": 21.347,
+     "end": 23.992
+    }
+   ],
+   "end": 23.992
+  },
+  {
+   "type": "timeline",
+   "start": 24.742,
+   "lines": [
+    {
+     "text": "The grant started in 2020, during the Covid lockdown.",
+     "start": 24.742,
+     "end": 28.381
+    },
+    {
+     "text": "Millions of people lost their income overnight, so government created a temporary three hundred and fifty rand payment.",
+     "start": 28.701,
+     "end": 35.481
+    },
+    {
+     "text": "It was meant to last a few months.",
+     "start": 35.801,
+     "end": 37.457
+    },
+    {
+     "text": "Instead, it has been extended every single year since then.",
+     "start": 37.777,
+     "end": 40.995
+    },
+    {
+     "text": "In 2024 it went up by twenty rand, to three hundred and seventy. That's the only increase it has ever had.",
+     "start": 41.315,
+     "end": 48.707
+    },
+    {
+     "text": "And in February this year, government extended it again, at the same amount, until the end of March 2027.",
+     "start": 49.027,
+     "end": 56.28
+    }
+   ],
+   "end": 56.28
+  },
+  {
+   "type": "stats",
+   "start": 57.03,
+   "lines": [
+    {
+     "text": "Today, about eight and a half million people are paid each month.",
+     "start": 57.03,
+     "end": 60.533
+    },
+    {
+     "text": "But around fifteen million people are on the system.",
+     "start": 60.853,
+     "end": 63.448
+    },
+    {
+     "text": "To qualify, the money coming into your account must be less than six hundred and twenty four rand a month.",
+     "start": 63.768,
+     "end": 69.713
+    },
+    {
+     "text": "Earn a little more than that, and you're out.",
+     "start": 70.033,
+     "end": 71.858
+    }
+   ],
+   "end": 71.858
+  },
+  {
+   "type": "suspects",
+   "start": 72.608,
+   "lines": [
+    {
+     "text": "So why hasn't it grown? There are three main suspects.",
+     "start": 72.608,
+     "end": 75.481
+    },
+    {
+     "text": "Money. The word temporary. And prices.",
+     "start": 75.801,
+     "end": 78.141
+    }
+   ],
+   "end": 78.141
+  },
+  {
+   "type": "bars",
+   "start": 78.891,
+   "lines": [
+    {
+     "text": "Suspect number one: money.",
+     "start": 78.891,
+     "end": 80.655
+    },
+    {
+     "text": "The grant costs about forty billion rand a year.",
+     "start": 80.975,
+     "end": 83.492
+    },
+    {
+     "text": "In court, Treasury said making it bigger, and raising the income limit, could cost up to one hundred and thirty nine billion rand a year.",
+     "start": 83.812,
+     "end": 91.673
+    },
+    {
+     "text": "Treasury says government simply can't afford that right now.",
+     "start": 91.993,
+     "end": 95.098
+    },
+    {
+     "text": "But the activists who took government to court point out that the twenty rand increase in 2024 cost only about two billion rand.",
+     "start": 95.418,
+     "end": 103.725
+    },
+    {
+     "text": "So small, regular increases are possible. It's a choice about priorities.",
+     "start": 104.045,
+     "end": 108.682
+    }
+   ],
+   "end": 108.682
+  },
+  {
+   "type": "calendar",
+   "start": 109.432,
+   "lines": [
+    {
+     "text": "Suspect number two: the word temporary.",
+     "start": 109.432,
+     "end": 111.831
+    },
+    {
+     "text": "The SRD grant is not in any law. It lives in short-term rules that must be renewed every year.",
+     "start": 112.151,
+     "end": 118.542
+    },
+    {
+     "text": "Because it's always temporary, nobody plans a proper increase.",
+     "start": 118.862,
+     "end": 122.307
+    },
+    {
+     "text": "Government says it is working on a permanent replacement, a grant linked to jobs, skills and small business.",
+     "start": 122.627,
+     "end": 128.892
+    },
+    {
+     "text": "But the minister told Parliament that making a new policy takes about five years on average.",
+     "start": 129.212,
+     "end": 134.468
+    },
+    {
+     "text": "Until that law exists, the department says, the SRD will stay a temporary payment.",
+     "start": 134.788,
+     "end": 139.944
+    }
+   ],
+   "end": 139.944
+  },
+  {
+   "type": "compare",
+   "start": 140.694,
+   "lines": [
+    {
+     "text": "Suspect number three: prices.",
+     "start": 140.694,
+     "end": 142.633
+    },
+    {
+     "text": "In March, Daily Maverick priced a list of fourteen basic food items. It came to four hundred and twenty six rand.",
+     "start": 142.953,
+     "end": 149.925
+    },
+    {
+     "text": "That's fifty six rand more than the whole grant.",
+     "start": 150.245,
+     "end": 152.726
+    },
+    {
+     "text": "And if you withdraw your money at a spaza or shop, fees can take about ten rand for every hundred.",
+     "start": 153.046,
+     "end": 158.571
+    },
+    {
+     "text": "Every year the grant stays frozen, it buys a little less.",
+     "start": 158.891,
+     "end": 162.093
+    }
+   ],
+   "end": 162.093
+  },
+  {
+   "type": "court",
+   "start": 162.843,
+   "lines": [
+    {
+     "text": "There's also a court case that could change everything.",
+     "start": 162.843,
+     "end": 165.57
+    },
+    {
+     "text": "In January 2025, the Pretoria High Court found that parts of the SRD rules are unconstitutional.",
+     "start": 165.89,
+     "end": 173.521
+    },
+    {
+     "text": "It said people must be allowed to apply in person, not only online. It said the income limit and the grant must go up over time. And it said once-off gifts shouldn't count as income.",
+     "start": 173.841,
+     "end": 184.721
+    },
+    {
+     "text": "Government appealed.",
+     "start": 185.041,
+     "end": 186.184
+    },
+    {
+     "text": "The Supreme Court of Appeal heard the case on the twenty fifth of August. The judges have not decided yet.",
+     "start": 186.504,
+     "end": 192.643
+    }
+   ],
+   "end": 192.643
+  },
+  {
+   "type": "bankcheck",
+   "start": 193.393,
+   "lines": [
+    {
+     "text": "That last point matters, because of how SASSA checks you.",
+     "start": 193.393,
+     "end": 196.383
+    },
+    {
+     "text": "Every month, SASSA looks at the money coming into your bank account.",
+     "start": 196.703,
+     "end": 199.983
+    },
+    {
+     "text": "If your sister sends you three hundred rand, a relative helps with school shoes, and your stokvel pays out, that can add up to more than six hundred and twenty four rand.",
+     "start": 200.303,
+     "end": 209.946
+    },
+    {
+     "text": "The system can count it as income, and you're declined for that month.",
+     "start": 210.266,
+     "end": 213.973
+    },
+    {
+     "text": "The Institute for Economic Justice says most rejections come from this money check, and many of them are wrong.",
+     "start": 214.293,
+     "end": 220.959
+    }
+   ],
+   "end": 220.959
+  },
+  {
+   "type": "verdict",
+   "start": 221.709,
+   "lines": [
+    {
+     "text": "So, the verdict.",
+     "start": 221.709,
+     "end": 222.708
+    },
+    {
+     "text": "The grant is stuck because it was built as a temporary fix, the budget is tight, and its permanent replacement isn't ready.",
+     "start": 223.028,
+     "end": 230.055
+    },
+    {
+     "text": "The courts and a new law could still change that. But that will take time.",
+     "start": 230.375,
+     "end": 234.313
+    }
+   ],
+   "end": 234.313
+  },
+  {
+   "type": "checklist",
+   "start": 235.063,
+   "lines": [
+    {
+     "text": "So what can you do right now?",
+     "start": 235.063,
+     "end": 236.467
+    },
+    {
+     "text": "One. Check your status every month, and only on the official site, s r d dot sassa dot gov dot za.",
+     "start": 236.787,
+     "end": 243.58
+    },
+    {
+     "text": "Two. If you're declined, read the reason. If it's wrong, like a gift counted as income, appeal. There is a time limit, so don't wait.",
+     "start": 243.9,
+     "end": 251.814
+    },
+    {
+     "text": "Three. Keep your phone number and bank details up to date, or your payment can get stuck.",
+     "start": 252.134,
+     "end": 256.942
+    },
+    {
+     "text": "Four. Watch the fees. Compare where you withdraw, so more of the three seventy stays in your pocket.",
+     "start": 257.262,
+     "end": 262.869
+    },
+    {
+     "text": "And five. Never pay anyone to apply, and never share your PIN. SASSA will never ask for it.",
+     "start": 263.189,
+     "end": 268.602
+    }
+   ],
+   "end": 268.602
+  },
+  {
+   "type": "outro",
+   "start": 269.352,
+   "lines": [
+    {
+     "text": "This case is still open. When the court decides, we'll explain what it means for you.",
+     "start": 269.352,
+     "end": 274.08
+    },
+    {
+     "text": "Follow Pulse SA News, and share this with someone who gets the grant.",
+     "start": 274.4,
+     "end": 278.153
+    }
+   ],
+   "end": 278.153
+  }
+ ],
+ "duration": 280.653,
+ "voice": "kokoro:af_heart"
+}
