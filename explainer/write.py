@@ -145,6 +145,13 @@ the Auditor-General, SIU, Parliament (PMG) and research bodies. Cover:
    websites only), their rights, and what a street or community can do together.
 6. Everyday comparisons that make the big numbers understandable.
 
+If this is a GOOD-NEWS story: if the story is an achievement or improvement (not a problem), do not force a problem and a fix. Explain HOW it
+was done in plain steps: what changed, in what order, what each step does (use a comparison people know, e.g. a taxi that keeps
+breaking down vs one that is serviced). Then check it honestly: what the claim rests on (who measured it, is it the company's own
+number?), what else helped (lower demand, rooftop solar, more private power, weather, money), what is still not fixed, and what could
+undo it. Finish with what it means for ordinary people (bills, jobs, planning) instead of a repair list, and ask viewers whether
+they feel the difference.
+
 Write each fact as a bullet with its source in brackets: (Outlet, date, URL). Mark anything uncertain as UNCERTAIN.
 End with a SOURCES list: one line per source, "Outlet, date: headline | URL"."""
     tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 10, "user_location": {"type": "approximate", "country": "ZA", "timezone": "Africa/Johannesburg"}}]
@@ -191,9 +198,16 @@ Then write the script as JSON following the format in your instructions. Rules:
   honestly what the evidence shows for each: proven / being investigated / not proven / not explained. NEVER say a person
   or body is corrupt unless a court, the Auditor-General, SIU or a similar official finding says so; say it is a question
   that needs an answer, and who must answer it. If a budget was cut, say whether it was announced.
+- (Good-news stories: follow the GOOD-NEWS rule below instead of problem/solution.)
 - Give solutions people can act on: what an individual can do today, how to check things themselves (e.g. how to tell if
   a pipe leaks or is old), how to report it, and what a street or community can do together. Practical and safe; only
   official contact details you actually found.
+- GOOD-NEWS STORIES: if the story is an achievement or improvement (not a problem), do not force a problem and a fix. Explain HOW it
+was done in plain steps: what changed, in what order, what each step does (use a comparison people know, e.g. a taxi that keeps
+breaking down vs one that is serviced). Then check it honestly: what the claim rests on (who measured it, is it the company's own
+number?), what else helped (lower demand, rooftop solar, more private power, weather, money), what is still not fixed, and what could
+undo it. Finish with what it means for ordinary people (bills, jobs, planning) instead of a repair list, and ask viewers whether
+they feel the difference.
 - End by asking viewers a simple question to answer in the comments (in the outro), so people talk about it.
 - Write numbers the way a narrator says them ("three hundred and seventy rand", "eight and a half million", "forty billion rand").
   Years stay as digits ("2024"). On-screen fields (values, labels, show, notes) use digits ("R370", "8.5M").
