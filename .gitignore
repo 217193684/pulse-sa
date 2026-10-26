@@ -15,3 +15,4 @@ android/.idea/
 *.apk
 *.keystore
 !android/app/debug.keystore
+__pycache__/
