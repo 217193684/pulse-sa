@@ -3,5 +3,5 @@ import path from "node:path";
 
 export default defineConfig({
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
-  test: { environment: "node", setupFiles: ["./tests/setup.ts"], fileParallelism: false, testTimeout: 20000, exclude: ["node_modules", "android/**"] },
+  test: { environment: "node", setupFiles: ["./tests/setup.ts"], fileParallelism: false, testTimeout: 20000, exclude: ["node_modules", "android/**", "explainer/**"] },
 });
