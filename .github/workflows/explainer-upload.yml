@@ -1,0 +1,30 @@
+name: Explainer upload (retry)
+# Re-uploads an explainer that was already made (uses the video saved by that run, no new Claude tokens).
+on:
+  workflow_dispatch:
+    inputs:
+      run_id: { description: "Run number of the Daily explainer run that made the video", required: true }
+      episode: { description: "Episode id, e.g. 2026-10-26-water-crisis", required: true }
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
+      NTFY_TOPIC: ${{ vars.NTFY_TOPIC }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/download-artifact@v4
+        with: { name: "explainer-${{ inputs.episode }}", run-id: "${{ inputs.run_id }}", github-token: "${{ github.token }}", path: art }
+      - name: Upload to YouTube (private) and notify
+        run: |
+          find art -type f
+          mkdir -p explainer/episodes/${{ inputs.episode }}
+          V=$(find art -name "*-upload.mp4" | head -1); T=$(find art -name "*.jpg" | head -1)
+          python explainer/upload.py "${{ inputs.episode }}" "$V" "$T"

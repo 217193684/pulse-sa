@@ -42,8 +42,11 @@ def upload(path, meta, tok):
                                  data=json.dumps(meta).encode(), method="POST",
                                  headers={"authorization": f"Bearer {tok}", "content-type": "application/json; charset=UTF-8",
                                           "x-upload-content-type": "video/mp4", "x-upload-content-length": str(path.stat().st_size)})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        loc = r.headers["location"]
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            loc = r.headers["location"]
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"YouTube refused the upload ({e.code}): {e.read()[:600].decode('utf-8', 'replace')}")
     size, pos, chunk = path.stat().st_size, 0, 32 * 1024 * 1024
     with path.open("rb") as f:
         while pos < size:
