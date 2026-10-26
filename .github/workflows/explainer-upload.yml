@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 30
     env:
       API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
-      NTFY_TOPIC: ${{ vars.NTFY_TOPIC }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

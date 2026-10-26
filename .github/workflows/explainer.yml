@@ -22,7 +22,7 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       ELEVENLABS_API_KEY: ${{ secrets.EXPLAINER_ELEVENLABS_API_KEY }}
       ELEVENLABS_VOICE_ID: ${{ vars.EXPLAINER_VOICE_ID }}
-      NTFY_TOPIC: ${{ vars.NTFY_TOPIC }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
       EXPLAINER_MINUTES: ${{ inputs.minutes || vars.EXPLAINER_MINUTES || '5' }}
       TOPIC: ${{ inputs.topic }}
       KOKORO_DIR: /tmp/tts
