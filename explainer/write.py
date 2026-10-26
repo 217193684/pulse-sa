@@ -156,8 +156,25 @@ Reply with the new script JSON only, inside <script></script> tags."""
         if "web_search" not in str(e) and "tool" not in str(e): raise
         print("web search not available, writing from the articles only:", e)
         text, usage = run([{"role": "user", "content": prompt}], system)
+    return parse(text, usage), usage
+
+
+def parse(text, usage):
+    """The script JSON from Claude's reply; if it isn't valid JSON, Claude fixes it (no research needed)."""
+    (HERE / "out").mkdir(exist_ok=True)
+    (HERE / "out" / "last-reply.txt").write_text(text)
     m = re.search(r"<script>\s*(\{.*\})\s*</script>", text, re.S) or re.search(r"(\{.*\})", text, re.S)
-    return json.loads(m.group(1)), usage
+    raw = m.group(1) if m else text
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as e:
+        print(f"reply wasn't valid JSON ({e}); asking for a fixed copy")
+        fixed, u = run([{"role": "user", "content": f"This JSON has an error ({e}). Return the same content as valid JSON only, "
+                                                       f"inside <script></script> tags, changing nothing else:\n\n{raw}"}],
+                       "You fix JSON syntax. Escape quotes inside strings with \\\" or use single quotes inside text.")
+        for k in usage: usage[k] += u[k]
+        m = re.search(r"<script>\s*(\{.*\})\s*</script>", fixed, re.S) or re.search(r"(\{.*\})", fixed, re.S)
+        return json.loads(m.group(1))
 
 
 def check(s):
@@ -193,8 +210,12 @@ def main():
         for k in total: total[k] += u[k]
         story, question = stories[int(choice["index"])], choice["question"]
         print(f"picked: {question}  ({choice.get('why', '')})")
+    errs = ["not written"]
     for attempt in range(2):
-        s, u = write(question, story, today)
+        try:
+            s, u = write(question, story, today)
+        except Exception as e:
+            print("writing failed, trying again:", e); continue
         for k in total: total[k] += u[k]
         errs = check(s)
         if not errs: break

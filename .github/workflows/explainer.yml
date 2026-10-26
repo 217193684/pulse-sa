@@ -64,12 +64,13 @@ jobs:
           git add explainer/episodes/${{ steps.write.outputs.id }}/script.json explainer/episodes/${{ steps.write.outputs.id }}/timing.json 2>/dev/null || true
           git commit -m "Explainer: ${{ steps.write.outputs.id }} [skip ci]" && git pull --rebase -q && git push -q || echo "nothing to save"
       - uses: actions/upload-artifact@v4
-        if: always() && steps.write.outputs.id != ''
+        if: always()
         with:
           name: explainer-${{ steps.write.outputs.id }}
           path: |
             explainer/out/${{ steps.write.outputs.id }}-upload.mp4
             explainer/out/${{ steps.write.outputs.id }}.jpg
             explainer/episodes/${{ steps.write.outputs.id }}/script.json
+            explainer/out/last-reply.txt
           retention-days: 7
           if-no-files-found: ignore
