@@ -64,20 +64,23 @@ def claude(messages, system, max_tokens=24000, tools=None):
             raise RuntimeError(f"Claude API {e.code}: {msg}")
 
 
-def run(messages, system, tools=None):
-    """Calls Claude until it finishes (server-side web search can pause a long turn)."""
+def run(messages, system, tools=None, max_tokens=24000):
+    """Calls Claude until it finishes (server-side web search can pause a long turn). Returns all its text."""
     usage = {"input_tokens": 0, "output_tokens": 0, "searches": 0}
-    for _ in range(6):
-        r = claude(messages, system, tools=tools)
+    texts = []
+    for _ in range(8):
+        r = claude(messages, system, max_tokens=max_tokens, tools=tools)
         u = r.get("usage", {})
         usage["input_tokens"] += u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0)
         usage["output_tokens"] += u.get("output_tokens", 0)
         usage["searches"] += (u.get("server_tool_use") or {}).get("web_search_requests", 0)
+        texts.append("".join(b.get("text", "") for b in r["content"] if b.get("type") == "text"))
         if r.get("stop_reason") == "pause_turn":
             messages = messages + [{"role": "assistant", "content": r["content"]}]
             continue
-        text = "".join(b.get("text", "") for b in r["content"] if b.get("type") == "text")
-        return text, usage
+        if r.get("stop_reason") == "max_tokens":
+            print("  (Claude ran out of room in this reply)")
+        return "\n".join(texts), usage
     raise RuntimeError("Claude kept pausing")
 
 
@@ -118,23 +121,53 @@ Reply with JSON only: {{"index": <number>, "question": "<the question the video 
     return choice, usage
 
 
-def write(question, story, today):
-    """Step 2: research and write the script."""
+def research(question, story, today):
+    """Step 2a: read the articles and search the web; returns research notes (plain text with sources)."""
     arts = []
     for a in story["articles"][:5]:
         arts.append(f"### {a['outlet']} — {a['title']}\nURL: {a['url']}\nPublished: {a.get('publishedAt')}\n{article_text(a['url'])}")
+    prompt = f"""Today is {today:%A %d %B %Y}. We are making a Pulse SA News explainer video that answers: "{question}"
+
+News articles about it:
+
+{chr(10).join(arts) or '(none: research it from scratch)'}
+
+Research it with web search and write RESEARCH NOTES (not the script). Prefer South African news outlets, government sites,
+the Auditor-General, SIU, Parliament (PMG) and research bodies. Cover:
+1. The background in plain words: how it started, who decides what, key numbers and dates.
+2. The main causes (2-4), with evidence for each.
+3. Money: what was promised or budgeted, by whom and when, and what was actually spent or delivered. Note any gap or
+   contradiction, and what official findings (Auditor-General, SIU, courts, Parliament) say about it, if any.
+4. What people are saying: real quotes from residents, officials, experts and critics in the articles (who said it, where).
+5. What an ordinary person can do: how to check the problem themselves, how and where to report it (official numbers and
+   websites only), their rights, and what a street or community can do together.
+6. Everyday comparisons that make the big numbers understandable.
+
+Write each fact as a bullet with its source in brackets: (Outlet, date, URL). Mark anything uncertain as UNCERTAIN.
+End with a SOURCES list: one line per source, "Outlet, date: headline | URL"."""
+    tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 10, "user_location": {"type": "approximate", "country": "ZA", "timezone": "Africa/Johannesburg"}}]
+    try:
+        notes, usage = run([{"role": "user", "content": prompt}], "You are a careful South African news researcher.", tools=tools, max_tokens=12000)
+    except RuntimeError as e:
+        if "web_search" not in str(e) and "tool" not in str(e): raise
+        print("web search not available, using the articles only:", e)
+        notes, usage = run([{"role": "user", "content": prompt}], "You are a careful South African news researcher.", max_tokens=12000)
+    (HERE / "out").mkdir(exist_ok=True)
+    (HERE / "out" / "research-notes.txt").write_text(notes)
+    return notes, usage
+
+
+def write(question, story, today):
+    """Step 2: research, then write the script from the notes (no tools, so the reply is clean JSON)."""
+    notes, usage = research(question, story, today)
+    print(f"  research notes: {len(notes.split())} words, {usage['searches']} searches")
     example = (HERE / "episodes" / "srd-r370" / "script.json").read_text()
     system = (HERE / "SCENES.md").read_text()
     prompt = f"""Today is {today:%A %d %B %Y}. Write a Pulse SA News explainer that answers: "{question}"
 
-News articles about it:
+Use ONLY these research notes for facts, numbers, quotes and sources:
 
-{chr(10).join(arts)}
-
-Research first with web search: the background (how it started, key numbers, who decided what), the main causes, what
-experts, government, critics and ordinary residents say, any money that was promised or budgeted and what was actually
-delivered, and practical, official things an ordinary person or a community can do (official websites, phone numbers,
-rights, deadlines, how to check things themselves). Prefer South African news outlets, government sites and research bodies.
+{notes}
 
 WHO WE ARE TALKING TO: South Africans who may not have finished school. Someone who never studied economics or law must
 understand every sentence the first time they hear it. If they can't, the video has failed.
@@ -171,15 +204,20 @@ Here is a finished script in the right format (a different topic) to show the st
 
 {example}
 
-Reply with the new script JSON only, inside <script></script> tags."""
-    tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 10, "user_location": {"type": "approximate", "country": "ZA", "timezone": "Africa/Johannesburg"}}]
-    try:
-        text, usage = run([{"role": "user", "content": prompt}], system, tools=tools)
-    except RuntimeError as e:
-        if "web_search" not in str(e) and "tool" not in str(e): raise
-        print("web search not available, writing from the articles only:", e)
-        text, usage = run([{"role": "user", "content": prompt}], system)
+Reply with the new script JSON only, inside <script></script> tags. Make sure it is complete: every scene has lines, and
+it ends with "sources"."""
+    text, u = run([{"role": "user", "content": prompt}], system, max_tokens=24000)
+    for k in usage: usage[k] += u[k]
     return parse(text, usage), usage
+
+
+def fix(s, errs, usage):
+    """Asks Claude to repair specific problems in a script it wrote (cheap: no research)."""
+    text, u = run([{"role": "user", "content": "Fix these problems in this explainer script and return the whole corrected JSON inside "
+                   f"<script></script> tags. Problems: {errs}\n\n<script>{json.dumps(s, ensure_ascii=False)}</script>"}],
+                  (HERE / "SCENES.md").read_text(), max_tokens=24000)
+    for k in usage: usage[k] += u[k]
+    return parse(text, usage)
 
 
 def parse(text, usage):
@@ -242,8 +280,15 @@ def main():
             print("writing failed, trying again:", e); continue
         for k in total: total[k] += u[k]
         errs = check(s)
+        for _ in range(2):
+            if not errs: break
+            print("script problems, asking for a fix:", errs)
+            try:
+                s = fix(s, errs, total)
+                errs = check(s)
+            except Exception as e:
+                print("fix failed:", e)
         if not errs: break
-        print("script problems, trying again:", errs)
     if errs: sys.exit(f"script still has problems: {errs}")
     slug = re.sub(r"[^a-z0-9]+", "-", s.get("id", "explainer").lower()).strip("-")[:40] or "explainer"
     ep_id = f"{today:%Y-%m-%d}-{slug}"

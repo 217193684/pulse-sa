@@ -72,5 +72,6 @@ jobs:
             explainer/out/${{ steps.write.outputs.id }}.jpg
             explainer/episodes/${{ steps.write.outputs.id }}/script.json
             explainer/out/last-reply.txt
+            explainer/out/research-notes.txt
           retention-days: 7
           if-no-files-found: ignore
