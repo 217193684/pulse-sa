@@ -10,7 +10,7 @@ const ep = process.argv[2];
 const timing = JSON.parse(readFileSync(join(ep, 'timing.json'), 'utf8'));
 // the mood of each scene type: tense while we look at the problem, lighter for the fixes
 const MOOD = {hook: 'bright', title: 'bright', timeline: 'light', stats: 'light', suspects: 'tense', bars: 'tense', calendar: 'tense', compare: 'tense',
-  court: 'groove', bankcheck: 'tense', verdict: 'break', checklist: 'groove', outro: 'bright'};
+  court: 'groove', bankcheck: 'tense', verdict: 'break', checklist: 'groove', outro: 'bright', scenario: 'light', voices: 'tense', moneytrail: 'tense', howto: 'groove'};
 const sections = [];
 for (const s of timing.scenes) {
   const m = MOOD[s.type] || 'light';

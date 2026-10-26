@@ -40,8 +40,24 @@ top left (e.g. ["SUSPECT 01", "MONEY"], ["WHAT YOU", "CAN DO"]).
 - **checklist** – what the viewer can do. `items` (3-5): [{"title": "max 34 chars", "sub": "max 44 chars", "at": n}]. One line per item.
 - **outro** – `headline` (max 20 chars), `sub` (max 40 chars). 2 lines, the last one asks people to follow Pulse SA News.
 
+- **scenario** – an everyday person living the story (always an illustration, stamped EXAMPLE). `name` (e.g. "Gogo Nomsa"),
+  `place`, `look` ("gogo" | "woman" | "man" | "youngman" | "child" | "worker"), `mood` ("worried" | "angry" | "happy" | "thinking" | "calm"),
+  `bubbles` (2-4): [{"text": "what they say, max 60 chars", "at": n, "who": "person" or "narrator"}]. 3-5 lines.
+  Use it early (right after the title) so viewers see themselves in the story, and again later to show a fix working.
+- **voices** – what people are saying. `headline` (optional, default "What people are saying"), `items` (2-4):
+  [{"text": "max 70 chars", "who": "max 40 chars", "at": n}]. Use REAL quotes from the articles ("Resident, Soweto (SABC News)",
+  "Water minister (EWN)") or common questions clearly labelled as such ("A question many people ask"). Never invent a quote and
+  put a real person's or outlet's name on it.
+- **moneytrail** – follow the money: what was promised/budgeted vs what was delivered/seen, and the gap.
+  `headline`, `promised` {"label","show","value"}, `delivered` {"label","show","value"}, `gap` ("R150m?", max 7 chars),
+  `reasons` (2-3): [{"title": "max 18 chars, e.g. Corruption?", "status": "max 16 chars: PROVEN / BEING INVESTIGATED / NOT PROVEN / NOT ANNOUNCED / NO REPORT YET", "color", "at": n}],
+  optional `promisedAt`, `deliveredAt`, `gapAt`. Only use with real numbers from sources.
+- **howto** – numbered practical steps people can do themselves (check, report, organise). `headline` (max 30 chars),
+  `steps` (3-5): [{"title": "max 36 chars", "sub": "max 44 chars", "at": n}].
+
 ## The story shape (case file)
 
-hook → title → (timeline or stats: the background) → suspects (3 causes) → one scene per cause (bars / calendar /
-compare / court / bankcheck / stats) → optional extra (court case, who is affected) → verdict → checklist → outro.
-11-14 scenes.
+hook → title → scenario (someone living it) → background (timeline / stats) → voices (what people are saying) →
+suspects (3 causes) → one scene per cause (bars / calendar / compare / court / bankcheck / stats / moneytrail) →
+moneytrail if there is a gap between money promised and results → verdict → howto and/or checklist (what you can do,
+including what a community can do together) → outro. 12-20 scenes.

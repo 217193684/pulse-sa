@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       topic: { description: "Explain this instead of picking from the news (optional)", required: false, default: "" }
-      minutes: { description: "Length in minutes", required: false, default: "5" }
+      minutes: { description: "Length in minutes, or auto (as long as the story needs)", required: false, default: "auto" }
       upload: { description: "Upload to YouTube (private)", type: boolean, default: true }
 permissions:
   contents: write   # saves the script so topics aren't repeated
@@ -23,7 +23,7 @@ jobs:
       ELEVENLABS_API_KEY: ${{ secrets.EXPLAINER_ELEVENLABS_API_KEY }}
       ELEVENLABS_VOICE_ID: ${{ vars.EXPLAINER_VOICE_ID }}
       NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-      EXPLAINER_MINUTES: ${{ inputs.minutes || vars.EXPLAINER_MINUTES || '5' }}
+      EXPLAINER_MINUTES: ${{ inputs.minutes || vars.EXPLAINER_MINUTES || 'auto' }}
       TOPIC: ${{ inputs.topic }}
       KOKORO_DIR: /tmp/tts
     steps:

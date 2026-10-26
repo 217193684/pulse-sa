@@ -4,6 +4,7 @@ import {BigNumeral, BurstLabel, Bubble, EvidenceCard, RubberStamp, StickyNote} f
 import {Confetti, Halftone, Headline, Pop, Rays} from './kit/stage';
 import {H, HF, chunky, misprint, popScale, shake} from './kit/theme';
 import type {Ctx, Sfx} from './Explainer';
+import {Person} from './people';
 
 /**
  * One component per scene type. A script (written by hand or by Claude) picks a type for each part of the story
@@ -13,7 +14,7 @@ import type {Ctx, Sfx} from './Explainer';
 const COL: Record<string, string> = {yellow: H.yellow, pink: H.pink, blue: H.blue, orange: H.orange};
 const col = (c?: string) => COL[c ?? 'yellow'] ?? c ?? H.yellow;
 /** dark scenes sit on the navy night background, the rest on paper */
-export const DARK = new Set(['hook', 'stats', 'calendar', 'court', 'verdict', 'outro']);
+export const DARK = new Set(['hook', 'stats', 'calendar', 'court', 'verdict', 'outro', 'voices']);
 
 type SceneDef = {View: React.FC<Ctx>; sfx?: (c: Ctx) => Sfx[]};
 
@@ -470,6 +471,149 @@ const Outro: React.FC<Ctx> = (c) => {
   );
 };
 
+
+// ---------------------------------------------------------------- scenario: an everyday person living the story (always an EXAMPLE)
+const Scenario: React.FC<Ctx> = (c) => {
+  const {f, d, at, L, E} = c;
+  const bubbles = d.bubbles as {text: string; at?: any; who?: 'person' | 'narrator'}[];
+  // the person talks while any of their bubbles' lines are being spoken
+  const talking = bubbles.some((b, i) => {
+    const t = at(b.at, i);
+    const li = L.indexOf(t);
+    return f >= t && f < (li >= 0 ? E[li] : t + 60);
+  });
+  const shown = bubbles.map((b, i) => ({...b, t: at(b.at, i)})).filter((b) => f >= b.t).slice(-3);
+  return (
+    <Push c={c}>
+      <Halftone color={H.yellow} cx={420} cy={560} radius={520} step={22} opacity={0.65} />
+      <Halftone color={H.blue} cx={1820} cy={160} radius={300} step={22} opacity={0.4} />
+      <Pop f={f} at={c.a + 6} x={150} y={300} from={0.6}>
+        <Person look={d.look} mood={d.mood} f={f} seed={c.k} talking={talking} size={430} />
+      </Pop>
+      <Pop f={f} at={c.a + 10} x={170} y={190} rot={-3}>
+        <div style={{display: 'inline-block', background: H.ink, color: H.paperLight, fontFamily: HF.sans, fontSize: 34, padding: '8px 20px', borderRadius: 8, boxShadow: misprint(H.pink, 5)}}>
+          {d.name}{d.place ? <span style={{color: H.yellow}}> · {d.place}</span> : null}
+        </div>
+      </Pop>
+      <div style={{position: 'absolute', left: 1500, top: 150}}>
+        <RubberStamp f={f} at={c.a + 18} text="EXAMPLE" size={34} rot={8} color={H.blue} />
+      </div>
+      {shown.map((b, i) => {
+        const narrator = b.who === 'narrator';
+        return (
+          <Pop key={b.t} f={f} at={b.t} x={720 + (narrator ? 120 : 0)} y={260 + i * 190} rot={i % 2 ? 1.5 : -1.5}>
+            <div style={{width: 960, padding: '20px 30px', background: narrator ? H.ink : H.paperLight, color: narrator ? H.paperLight : H.ink, border: `5px solid ${H.ink}`, borderRadius: 22, boxShadow: `8px 8px 0 ${narrator ? H.pink : H.ink}`, fontFamily: narrator ? HF.sans : HF.hand, fontSize: narrator ? 36 : 50, lineHeight: 1.2}}>
+              {b.text}
+            </div>
+          </Pop>
+        );
+      })}
+    </Push>
+  );
+};
+
+// ---------------------------------------------------------------- voices: what people are saying (real quotes or common questions)
+const Voices: React.FC<Ctx> = (c) => {
+  const {f, d, at} = c;
+  const items = d.items as {text: string; who: string; at?: any}[];
+  const cols = items.length > 2 ? 2 : items.length;
+  return (
+    <Push c={c}>
+      <Halftone color={H.blueDeep} cx={960} cy={520} radius={[1100, 700]} mode="in" inner={0.45} step={24} maxR={14} opacity={0.9} />
+      <Title c={c} text={d.headline ?? 'What people are saying'} dark />
+      {items.map((it, i) => {
+        const t = at(it.at, i);
+        const x = cols === 1 ? 460 : 150 + (i % 2) * 830;
+        const y = 290 + Math.floor(i / 2) * 300;
+        return (
+          <Pop key={i} f={f} at={t} x={x} y={y} rot={[-2, 1.5, 1, -1.5][i % 4]}>
+            <div style={{position: 'relative', width: 780}}>
+              <div style={{padding: '22px 30px', background: H.paperLight, border: `5px solid ${H.ink}`, borderRadius: 22, boxShadow: `8px 8px 0 ${[H.yellow, H.pink, H.blue, H.orange][i % 4]}`}}>
+                <div style={{fontFamily: HF.serif, fontSize: 38, color: H.ink, lineHeight: 1.25}}>“{it.text}”</div>
+                <div style={{fontFamily: HF.sans, fontSize: 24, color: H.pink, marginTop: 10}}>{it.who}</div>
+              </div>
+            </div>
+          </Pop>
+        );
+      })}
+    </Push>
+  );
+};
+
+// ---------------------------------------------------------------- moneytrail: promised vs delivered, and where the rest might have gone
+const MoneyTrail: React.FC<Ctx> = (c) => {
+  const {f, d, at} = c;
+  const p = d.promised as {label: string; show: string; value: number};
+  const g = d.delivered as {label: string; show: string; value: number};
+  const reasons = (d.reasons ?? []) as {title: string; status: string; color?: string; at?: any}[];
+  const tp = at(d.promisedAt, 0), tg = at(d.deliveredAt, 1), tq = at(d.gapAt, 2);
+  const max = Math.max(p.value, g.value);
+  const W = 1100;
+  const wp = (W * p.value) / max * easeOut(clamp01((f - tp) / 24));
+  const wg = (W * g.value) / max * easeOut(clamp01((f - tg) / 24));
+  return (
+    <Push c={c}>
+      <Halftone color={H.pink} cx={1800} cy={140} radius={360} step={22} opacity={0.5} />
+      <Title c={c} text={d.headline ?? 'Follow the money'} />
+      {[[p, wp, tp, 280, H.blue], [g, wg, tg, 420, H.yellow]].map(([s, w, t, y, color]: any, i) => (
+        <React.Fragment key={i}>
+          <Pop f={f} at={t} x={110} y={y + 16} style={{width: 380, textAlign: 'right'}}>
+            <div style={{fontFamily: HF.sans, fontSize: 34, color: H.ink, lineHeight: 1.1}}>{s.label}</div>
+          </Pop>
+          {f >= t && <div style={{position: 'absolute', left: 520, top: y, width: w, height: 100, background: color, border: `5px solid ${H.ink}`, borderRadius: 6}} />}
+          <Pop f={f} at={t + 16} x={i === 0 ? 540 : 520 + (W * s.value) / max + 24} y={y + 14}>
+            <div style={{fontFamily: HF.round, fontSize: 64, lineHeight: 1, whiteSpace: 'nowrap', ...chunky(i === 0 ? H.paperLight : H.ink, 3)}}>{s.show}</div>
+          </Pop>
+        </React.Fragment>
+      ))}
+      {f >= tq && (
+        <div style={{position: 'absolute', left: 520 + (W * g.value) / max, top: 420, width: Math.max(0, W - (W * g.value) / max), height: 100, border: `5px dashed ${H.red}`, borderRadius: 6, opacity: clamp01((f - tq) / 8)}} />
+      )}
+      <div style={{position: 'absolute', left: 1440, top: 330}}>
+        <BurstLabel f={f} at={tq} text={d.gap ?? '?'} size={260} rot={-8} color={H.yellow} />
+      </div>
+      {reasons.map((r, i) => {
+        const t = at(r.at, 3 + i);
+        return (
+          <Pop key={i} f={f} at={t} x={200 + i * 520} y={600}>
+            <div style={{width: 480, padding: '16px 22px', background: H.paperLight, border: `4px solid ${H.ink}`, borderRadius: 10, boxShadow: `6px 6px 0 rgba(28,35,64,0.3)`}}>
+              <div style={{fontFamily: HF.sans, fontSize: 36, color: H.ink}}>{r.title}</div>
+              <div style={{display: 'inline-block', marginTop: 10, fontFamily: HF.mono, fontWeight: 700, fontSize: 22, color: H.paperLight, background: col(r.color ?? 'pink'), padding: '4px 10px', borderRadius: 4}}>{r.status}</div>
+            </div>
+          </Pop>
+        );
+      })}
+    </Push>
+  );
+};
+
+// ---------------------------------------------------------------- howto: numbered practical steps (check, report, organise)
+const HowTo: React.FC<Ctx> = (c) => {
+  const {f, d, at} = c;
+  const steps = d.steps as {title: string; sub?: string; at?: any}[];
+  const rowH = Math.min(150, 620 / steps.length);
+  return (
+    <Push c={c}>
+      <Halftone color={H.blue} cx={1780} cy={900} radius={420} step={22} opacity={0.5} />
+      <Title c={c} text={d.headline} y={140} size={76} />
+      {steps.map((s, i) => {
+        const t = at(s.at, i);
+        return (
+          <Pop key={i} f={f} at={t} x={260} y={250 + i * rowH}>
+            <div style={{display: 'flex', alignItems: 'center', gap: 28, width: 1400}}>
+              <div style={{width: 88, height: 88, borderRadius: 44, background: [H.yellow, H.pink, H.blue, H.orange][i % 4], border: `5px solid ${H.ink}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: HF.round, fontSize: 52, color: H.ink, flexShrink: 0}}>{i + 1}</div>
+              <div style={{flex: 1, padding: '10px 24px', background: H.paperLight, border: `4px solid ${H.ink}`, borderRadius: 10, boxShadow: '6px 6px 0 rgba(28,35,64,0.25)'}}>
+                <div style={{fontFamily: HF.sans, fontSize: 40, color: H.ink, lineHeight: 1.15}}>{s.title}</div>
+                {s.sub && <div style={{fontFamily: HF.sans, fontSize: 28, color: H.inkSoft, marginTop: 4}}>{s.sub}</div>}
+              </div>
+            </div>
+          </Pop>
+        );
+      })}
+    </Push>
+  );
+};
+
 const pops = (c: Ctx, frames: number[], vol = 0.35): Sfx[] => frames.map((t) => ['pop', t, vol] as Sfx);
 
 export const SCENES: Record<string, SceneDef> = {
@@ -490,6 +634,10 @@ export const SCENES: Record<string, SceneDef> = {
   bankcheck: {View: BankCheck, sfx: (c) => [...(c.d.inflows as string[]).map((_, i) => ['ding', c.at(c.d.inflowAt?.[i], 2), 0.3] as Sfx), ['stamp', (c.L[3] ?? 0) + 5, 0.65]]},
   verdict: {View: Verdict, sfx: (c) => [...pops(c, (c.d.points as string[]).map((_, i) => c.at(c.d.pointAt?.[i], 1))), ['stamp', (c.L[2] ?? c.L[c.L.length - 1]) + 15, 0.65]]},
   checklist: {View: Checklist, sfx: (c) => (c.d.items as any[]).flatMap((p, i) => [['pop', c.at(p.at, i), 0.3], ['ding', c.at(p.at, i) + 12, 0.3]] as Sfx[])},
+  scenario: {View: Scenario, sfx: (c) => [['pop', c.a + 6, 0.3], ['stamp', c.a + 23, 0.35], ...(c.d.bubbles as any[]).map((b, i) => ['pop', c.at(b.at, i), 0.3] as Sfx)]},
+  voices: {View: Voices, sfx: (c) => pops(c, (c.d.items as any[]).map((p, i) => c.at(p.at, i)))},
+  moneytrail: {View: MoneyTrail, sfx: (c) => [['pop', c.at(c.d.promisedAt, 0), 0.35], ['pop', c.at(c.d.deliveredAt, 1), 0.35], ['boing', c.at(c.d.gapAt, 2), 0.45], ...((c.d.reasons ?? []) as any[]).map((r, i) => ['paper', c.at(r.at, 3 + i), 0.4] as Sfx)]},
+  howto: {View: HowTo, sfx: (c) => (c.d.steps as any[]).flatMap((p, i) => [['pop', c.at(p.at, i), 0.3]] as Sfx[])},
   outro: {View: Outro, sfx: (c) => [['confetti', (c.L[1] ?? c.a + 40) + 4, 0.45]]},
 };
 

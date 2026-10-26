@@ -15,9 +15,13 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 API = os.environ.get("API_URL", "https://pulse-sa.vercel.app").rstrip("/")
 MODEL = os.environ.get("EXPLAINER_MODEL", "claude-sonnet-5-5")
-MINUTES = float(os.environ.get("EXPLAINER_MINUTES", "5"))
+_m = os.environ.get("EXPLAINER_MINUTES", "auto").strip().lower()
+# "auto": as long as the story needs (usually 6-10 minutes); a number fixes the length
+MIN_MIN, MAX_MIN = (5.0, 12.0) if _m in ("", "auto") else (float(_m) * 0.85, float(_m) * 1.15)
+MINUTES = (MIN_MIN + MAX_MIN) / 2
 UA = "PulseSA-explainer/0.1 (https://github.com/217193684/pulse-sa)"
-TYPES = {"hook", "title", "timeline", "stats", "suspects", "bars", "calendar", "compare", "court", "bankcheck", "verdict", "checklist", "outro"}
+TYPES = {"hook", "title", "timeline", "stats", "suspects", "bars", "calendar", "compare", "court", "bankcheck", "verdict", "checklist", "outro",
+         "scenario", "voices", "moneytrail", "howto"}
 SAST = dt.timezone(dt.timedelta(hours=2))
 
 
@@ -44,7 +48,7 @@ def article_text(url, limit=9000):
     return re.sub(r"\s+", " ", t).strip()[:limit]
 
 
-def claude(messages, system, max_tokens=16000, tools=None):
+def claude(messages, system, max_tokens=24000, tools=None):
     body = {"model": MODEL, "max_tokens": max_tokens, "system": system, "messages": messages}
     if tools: body["tools"] = tools
     for attempt in range(4):
@@ -101,7 +105,7 @@ def pick(stories, done):
 Explainers we already made recently (don't repeat these topics):
 {chr(10).join('- ' + t for t in done) or '- none'}
 
-Pick ONE story for a {MINUTES:.0f}-minute animated explainer for ordinary South Africans: the kind of thing people argue about
+Pick ONE story for an animated explainer for ordinary South Africans: the kind of thing people argue about
 without understanding WHY it happens, where we can also say what they can do about it. Prefer money, prices, jobs, transport,
 electricity, water, grants, housing, health services, laws and government decisions that affect daily life.
 Avoid: sport results, celebrity news, single crimes or deaths, anything that would mean showing or naming victims,
@@ -120,7 +124,6 @@ def write(question, story, today):
     for a in story["articles"][:5]:
         arts.append(f"### {a['outlet']} — {a['title']}\nURL: {a['url']}\nPublished: {a.get('publishedAt')}\n{article_text(a['url'])}")
     example = (HERE / "episodes" / "srd-r370" / "script.json").read_text()
-    words = int(MINUTES * 150)
     system = (HERE / "SCENES.md").read_text()
     prompt = f"""Today is {today:%A %d %B %Y}. Write a Pulse SA News explainer that answers: "{question}"
 
@@ -129,19 +132,39 @@ News articles about it:
 {chr(10).join(arts)}
 
 Research first with web search: the background (how it started, key numbers, who decided what), the main causes, what
-experts, government and critics say, and practical, official things an ordinary person can do (official websites, numbers,
-rights, deadlines). Prefer South African news outlets, government sites and research bodies.
+experts, government, critics and ordinary residents say, any money that was promised or budgeted and what was actually
+delivered, and practical, official things an ordinary person or a community can do (official websites, phone numbers,
+rights, deadlines, how to check things themselves). Prefer South African news outlets, government sites and research bodies.
+
+WHO WE ARE TALKING TO: South Africans who may not have finished school. Someone who never studied economics or law must
+understand every sentence the first time they hear it. If they can't, the video has failed.
 
 Then write the script as JSON following the format in your instructions. Rules:
-- About {words} words of narration in total ({MINUTES:.0f} minutes), 11-14 scenes, in the case-file shape.
-- Simple, warm, clear South African English, short sentences, like explaining to a friend. No jargon without explaining it.
+- Length: as long as the story needs to be explained simply, between {MIN_MIN:.0f} and {MAX_MIN:.0f} minutes
+  (about {int(MIN_MIN * 140)}-{int(MAX_MIN * 140)} words of narration). Never squeeze: if a point needs a story or an example
+  to be clear, take the time. 12-20 scenes, in the case-file shape.
+- Very simple, warm South African English, like talking to a neighbour. Short sentences (mostly under 15 words). Everyday
+  words. Explain every big number with a comparison people know ("that's enough to pay ... ", "that's like every taxi in
+  Soweto ..."). No jargon; if a word like "municipality" or "budget" is needed, say what it means the first time.
+- Use scenarios: invent everyday people (e.g. "Gogo Nomsa in Soweto", "Thabo, a taxi driver in Durban") to show how the
+  problem hits real life and how a fix would help. Always say clearly they are examples.
+- Be the viewer's voice: say out loud what people are thinking and asking ("Many people are asking: where did the money
+  go?"). Include a voices scene with real quotes from the articles, or common questions labelled as such.
+- Look for gaps and contradictions: money promised vs work done, targets vs results, what officials said vs what happened.
+  If there is a gap, show it (moneytrail) and ask the question plainly ("So where did the other R150 million go?"). Then go
+  through the possible explanations people raise (corruption, budget cut, costs went up, delays, bad planning) and say
+  honestly what the evidence shows for each: proven / being investigated / not proven / not explained. NEVER say a person
+  or body is corrupt unless a court, the Auditor-General, SIU or a similar official finding says so; say it is a question
+  that needs an answer, and who must answer it. If a budget was cut, say whether it was announced.
+- Give solutions people can act on: what an individual can do today, how to check things themselves (e.g. how to tell if
+  a pipe leaks or is old), how to report it, and what a street or community can do together. Practical and safe; only
+  official contact details you actually found.
+- End by asking viewers a simple question to answer in the comments (in the outro), so people talk about it.
 - Write numbers the way a narrator says them ("three hundred and seventy rand", "eight and a half million", "forty billion rand").
   Years stay as digits ("2024"). On-screen fields (values, labels, show, notes) use digits ("R370", "8.5M").
 - Every fact, number and quote must come from the articles above or your search results, and be listed in "sources"
   (name: "Outlet, date: headline", url). If you are not sure of something, leave it out. Never invent quotes.
 - Be fair: give government's reason and the critics' view. Say "about" for rounded numbers.
-- An illustrative example (like a sample bank statement) must be said to be an example in the narration.
-- The checklist must be practical and safe; only mention official websites you found.
 - caseNo "PSA-{today:%Y-%m%d}", date "{today:%Y.%m.%d}", voice "af_heart".
 
 Here is a finished script in the right format (a different topic) to show the style and level of detail:
@@ -149,7 +172,7 @@ Here is a finished script in the right format (a different topic) to show the st
 {example}
 
 Reply with the new script JSON only, inside <script></script> tags."""
-    tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 8, "user_location": {"type": "approximate", "country": "ZA", "timezone": "Africa/Johannesburg"}}]
+    tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 10, "user_location": {"type": "approximate", "country": "ZA", "timezone": "Africa/Johannesburg"}}]
     try:
         text, usage = run([{"role": "user", "content": prompt}], system, tools=tools)
     except RuntimeError as e:
@@ -183,7 +206,7 @@ def check(s):
     for k in ("id", "title", "caseNo", "date", "scenes", "sources", "thumb"):
         if k not in s: errs.append(f"missing {k}")
     sc = s.get("scenes", [])
-    if not 9 <= len(sc) <= 16: errs.append(f"{len(sc)} scenes")
+    if not 10 <= len(sc) <= 22: errs.append(f"{len(sc)} scenes")
     for i, x in enumerate(sc):
         if x.get("type") not in TYPES: errs.append(f"scene {i}: unknown type {x.get('type')}")
         if not x.get("lines") or not all(isinstance(l, str) and l.strip() for l in x["lines"]): errs.append(f"scene {i}: no lines")
@@ -191,7 +214,8 @@ def check(s):
     if sc and sc[0].get("type") != "hook": errs.append("first scene must be hook")
     if not any(x.get("type") == "checklist" for x in sc): errs.append("no checklist (what you can do)")
     n = sum(len(l.split()) for x in sc for l in x.get("lines", []))
-    if n < MINUTES * 150 * 0.7: errs.append(f"only {n} words")
+    if n < MIN_MIN * 140 * 0.8: errs.append(f"only {n} words")
+    if n > MAX_MIN * 140 * 1.2: errs.append(f"{n} words is too long")
     if len(s.get("sources", [])) < 2: errs.append("fewer than 2 sources")
     return errs
 

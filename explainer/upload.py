@@ -13,7 +13,8 @@ sys.path.insert(0, str(HERE.parent / "video"))
 from make import API, github_token, http  # noqa: E402
 
 NAMES = {"hook": "Intro", "timeline": "How it started", "stats": "The numbers", "suspects": "Why it happens", "verdict": "The verdict",
-         "checklist": "What you can do", "outro": "What happens next", "court": "The process", "bankcheck": "How the check works"}
+         "checklist": "What you can do", "outro": "What happens next", "court": "The process", "bankcheck": "How the check works",
+         "scenario": "A real-life example", "voices": "What people are saying", "moneytrail": "Follow the money", "howto": "Check it yourself"}
 
 
 def description(script, timing):
