@@ -15,7 +15,7 @@ from make import API, github_token, http, make_one, note  # noqa: E402
 CHECK_EVERY = int(os.environ.get("CHECK_EVERY", 180))          # seconds between news checks
 RUN_FOR = int(os.environ.get("RUN_FOR", 5 * 3600 + 45 * 60))     # stop before GitHub's 6-hour limit
 PER_ROUND = int(os.environ.get("PER_ROUND", 4))                  # at most this many videos per check (the rest come next round)
-SHORTS_PER_DAY = int(os.environ.get("YT_SHORTS_PER_DAY", 8))   # new channels can upload ~10 videos a day; 2 stay free for the explainer
+SHORTS_PER_DAY = int(os.environ.get("YT_SHORTS_PER_DAY", 6))   # new channels can upload ~10 videos a day; keep room for explainers
 
 
 def collect():

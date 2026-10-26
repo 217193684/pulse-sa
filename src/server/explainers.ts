@@ -84,5 +84,5 @@ export async function saveExplainer(id: string, p: Partial<Explainer> & { replac
       preview_url = coalesce(${p.previewUrl ?? null}, explainers.preview_url),
       thumbs = case when ${p.thumbs ? JSON.stringify(p.thumbs) : null}::jsonb is null then explainers.thumbs else ${p.thumbs ? JSON.stringify(p.thumbs) : null}::jsonb end,
       description = coalesce(${p.description ?? null}, explainers.description), youtube_id = coalesce(${p.youtubeId ?? null}, explainers.youtube_id),
-      error = ${p.error ?? null}, updated_at = now()`);
+      error = case when ${p.status ?? null}::text is null and ${p.error ?? null}::text is null then explainers.error else ${p.error ?? null} end, updated_at = now()`);
 }
