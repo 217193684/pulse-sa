@@ -2,3 +2,4 @@ node_modules/
 out/
 episodes/*/public/
 episodes/*/props.json
+__pycache__/

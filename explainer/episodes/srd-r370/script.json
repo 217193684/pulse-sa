@@ -15,6 +15,13 @@
         "Six years ago it was three hundred and fifty rand.",
         "Since then, bread, taxi fares and electricity have all gone up. The grant barely moved.",
         "So why is it stuck? And what can you actually do about it? Let's open the case."
+      ],
+      "was": "R350",
+      "wasNote": "in 2020",
+      "ups": [
+        "Bread",
+        "Taxi fares",
+        "Electricity"
       ]
     },
     {
@@ -241,7 +248,8 @@
         "That's fifty six rand more than the whole grant.",
         "And if you withdraw your money at a spaza or shop, fees can take about ten rand for every hundred.",
         "Every year the grant stays frozen, it buys a little less."
-      ]
+      ],
+      "noteTitle": "Fees!"
     },
     {
       "type": "court",
@@ -312,7 +320,9 @@
           2,
           "stokvel"
         ]
-      ]
+      ],
+      "note": "Most rejections come from this money check",
+      "noteBy": "Institute for Economic Justice"
     },
     {
       "type": "verdict",

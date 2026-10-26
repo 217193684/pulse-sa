@@ -1,0 +1,75 @@
+name: Daily explainer
+# Once a day: Claude picks the biggest story people need explained, researches it and writes a ~5 minute
+# case-file script; the animation is rendered here and uploaded to Pulse SA News as PRIVATE.
+# You get a phone notification, watch it, and switch it to Public yourself in YouTube Studio.
+on:
+  schedule: [{ cron: "17 4 * * *" }]   # 06:17 in South Africa
+  workflow_dispatch:
+    inputs:
+      topic: { description: "Explain this instead of picking from the news (optional)", required: false, default: "" }
+      minutes: { description: "Length in minutes", required: false, default: "5" }
+      upload: { description: "Upload to YouTube (private)", type: boolean, default: true }
+permissions:
+  contents: write   # saves the script so topics aren't repeated
+  id-token: write   # GitHub-signed identity for the YouTube upload (no passwords stored)
+concurrency: { group: explainer, cancel-in-progress: false }
+jobs:
+  explainer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ELEVENLABS_API_KEY: ${{ secrets.EXPLAINER_ELEVENLABS_API_KEY }}
+      ELEVENLABS_VOICE_ID: ${{ vars.EXPLAINER_VOICE_ID }}
+      NTFY_TOPIC: ${{ vars.NTFY_TOPIC }}
+      EXPLAINER_MINUTES: ${{ inputs.minutes || vars.EXPLAINER_MINUTES || '5' }}
+      TOPIC: ${{ inputs.topic }}
+      KOKORO_DIR: /tmp/tts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: explainer/package-lock.json }
+      - name: Check the Claude key works
+        run: |
+          [ -n "$ANTHROPIC_API_KEY" ] || { echo "::error::ANTHROPIC_API_KEY secret is missing"; exit 1; }
+          code=$(curl -s -o /tmp/m.json -w "%{http_code}" https://api.anthropic.com/v1/models -H "x-api-key: $ANTHROPIC_API_KEY" -H "anthropic-version: 2023-06-01")
+          echo "Claude API answered $code"; [ "$code" = "200" ] || { head -c 300 /tmp/m.json; echo; echo "::error::The Claude key was refused ($code)"; exit 1; }
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q numpy kokoro-onnx==0.6.1 trafilatura
+          cd explainer && npm ci --no-audit --no-fund
+      - uses: actions/cache@v4
+        with: { path: /tmp/tts, key: kokoro-v1.0-int8 }
+      - name: Voice model
+        run: |
+          mkdir -p /tmp/tts && cd /tmp/tts
+          [ -f kokoro-v1.0.int8.onnx ] || curl -sSL -o kokoro-v1.0.int8.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.int8.onnx
+          [ -f voices-v1.0.bin ] || curl -sSL -o voices-v1.0.bin https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+      - name: Write the script (Claude)
+        id: write
+        run: python explainer/write.py
+      - name: Voice, animate and render
+        run: bash explainer/make.sh "${{ steps.write.outputs.id }}"
+      - name: Upload to YouTube (private) and notify
+        if: ${{ inputs.upload != false }}
+        run: python explainer/upload.py "${{ steps.write.outputs.id }}" "explainer/out/${{ steps.write.outputs.id }}-upload.mp4" "explainer/out/${{ steps.write.outputs.id }}.jpg"
+      - name: Keep the script (so the topic isn't repeated)
+        if: always() && steps.write.outputs.id != ''
+        run: |
+          git config user.name "pulse-sa-bot"; git config user.email "pulse-sa-bot@users.noreply.github.com"
+          git add explainer/episodes/${{ steps.write.outputs.id }}/script.json explainer/episodes/${{ steps.write.outputs.id }}/timing.json 2>/dev/null || true
+          git commit -m "Explainer: ${{ steps.write.outputs.id }} [skip ci]" && git pull --rebase -q && git push -q || echo "nothing to save"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.write.outputs.id != ''
+        with:
+          name: explainer-${{ steps.write.outputs.id }}
+          path: |
+            explainer/out/${{ steps.write.outputs.id }}-upload.mp4
+            explainer/out/${{ steps.write.outputs.id }}.jpg
+            explainer/episodes/${{ steps.write.outputs.id }}/script.json
+          retention-days: 7
+          if-no-files-found: ignore

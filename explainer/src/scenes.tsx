@@ -32,7 +32,7 @@ const Title: React.FC<{c: Ctx; text: string; y?: number; size?: number; dark?: b
 const Hook: React.FC<Ctx> = (c) => {
   const {f, d, L, at} = c;
   const t0 = L[0];
-  const up = (d.ups as string[] | undefined) ?? ['Bread', 'Taxi fares', 'Electricity'];
+  const up = (d.ups as string[] | undefined) ?? [];
   const sh = shake(f, t0 + 5, 12);
   return (
     <>
@@ -47,9 +47,11 @@ const Hook: React.FC<Ctx> = (c) => {
         <Pop f={f} at={t0 + 16} x={1240} y={610} rot={-6}>
           <div style={{fontFamily: HF.hand, fontSize: 84, color: H.paperLight, textShadow: misprint(H.pink, 4)}}>{d.label}</div>
         </Pop>
-        <Pop f={f} at={L[2] ?? t0} x={70} y={190} rot={-8}>
-          <StickyNote f={f} at={L[2] ?? t0} title={d.was ?? 'R350'} sub={d.wasNote ?? 'in 2020'} w={260} />
-        </Pop>
+        {d.was && (
+          <Pop f={f} at={L[2] ?? t0} x={70} y={190} rot={-8}>
+            <StickyNote f={f} at={L[2] ?? t0} title={d.was} sub={d.wasNote} w={260} />
+          </Pop>
+        )}
         {up.map((u, i) => (
           <Pop key={u} f={f} at={at(L.length > 3 ? [3, u.split(' ')[0]] : 0) } x={250 + i * 470} y={760}>
             <div style={{display: 'flex', alignItems: 'center', gap: 14, padding: '10px 24px', background: H.paperLight, border: `4px solid ${H.ink}`, borderRadius: 999, boxShadow: misprint(H.pink, 5), fontFamily: HF.sans, fontSize: 36, color: H.ink}}>
@@ -231,7 +233,7 @@ const Calendar: React.FC<Ctx> = (c) => {
               <div style={{height: 54, background: H.pink, borderBottom: `5px solid ${H.ink}`}} />
               <div style={{fontFamily: HF.mono, fontWeight: 700, fontSize: 52, color: H.ink, textAlign: 'center', marginTop: 34}}>{y}</div>
               <div style={{position: 'absolute', left: 6, top: 150}}>
-                <RubberStamp f={f} at={st} text="RENEWED" size={28} rot={-14} seed={i + 2} />
+                <RubberStamp f={f} at={st} text={d.stampText ?? 'RENEWED'} size={28} rot={-14} seed={i + 2} />
               </div>
             </div>
           </Pop>
@@ -287,7 +289,7 @@ const Compare: React.FC<Ctx> = (c) => {
       </div>
       {d.note && (
         <Pop f={f} at={L[3] ?? tg + 30} x={1430} y={560} rot={-5}>
-          <StickyNote f={f} at={L[3] ?? tg + 30} title="Fees!" sub={d.note} w={340} rot={0} />
+          <StickyNote f={f} at={L[3] ?? tg + 30} title={d.noteTitle ?? 'Note!'} sub={d.note} w={340} rot={0} />
         </Pop>
       )}
     </Push>
@@ -371,11 +373,11 @@ const BankCheck: React.FC<Ctx> = (c) => {
       <div style={{position: 'absolute', left: 520, top: 520}}>
         <RubberStamp f={f} at={stampAt} text="DECLINED" size={120} rot={-12} />
       </div>
-      {L[4] !== undefined && (
+      {L[4] !== undefined && d.note && (
         <Pop f={f} at={L[4]} x={1260} y={620} rot={-3}>
           <div style={{width: 520, background: H.ink, color: H.paperLight, fontFamily: HF.sans, fontSize: 32, lineHeight: 1.3, padding: '22px 26px', borderRadius: 10, boxShadow: misprint(H.pink, 7)}}>
-            Most rejections come from this money check
-            <div style={{fontSize: 22, color: H.yellow, marginTop: 8}}>Institute for Economic Justice</div>
+            {d.note}
+            {d.noteBy && <div style={{fontSize: 22, color: H.yellow, marginTop: 8}}>{d.noteBy}</div>}
           </div>
         </Pop>
       )}
