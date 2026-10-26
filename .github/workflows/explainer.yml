@@ -41,7 +41,7 @@ jobs:
           echo "Claude API answered $code"; [ "$code" = "200" ] || { head -c 300 /tmp/m.json; echo; echo "::error::The Claude key was refused ($code)"; exit 1; }
       - name: Install tools
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 300 sudo apt-get install -y -qq ffmpeg && break; echo "apt was slow, trying again"; sleep 15; done; ffmpeg -version | head -1
           pip install -q numpy kokoro-onnx==0.6.1 trafilatura
           cd explainer && npm ci --no-audit --no-fund
       - uses: actions/cache@v4
