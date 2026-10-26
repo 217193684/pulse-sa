@@ -14,7 +14,8 @@ from make import API, github_token, http, make_one, note  # noqa: E402
 
 CHECK_EVERY = int(os.environ.get("CHECK_EVERY", 180))          # seconds between news checks
 RUN_FOR = int(os.environ.get("RUN_FOR", 5 * 3600 + 45 * 60))     # stop before GitHub's 6-hour limit
-PER_ROUND = int(os.environ.get("PER_ROUND", 4))                  # at most this many videos per check (the rest come next round)
+PER_ROUND = int(os.environ.get("PER_ROUND", 4))
+SHORTS_PER_DAY = int(os.environ.get("YT_SHORTS_PER_DAY", 8))   # new channels can upload ~10 videos a day; 2 stay free for the explainer                  # at most this many videos per check (the rest come next round)
 
 
 def collect():
@@ -31,7 +32,9 @@ def youtube_upload(script, clip_id):
     """Uploads the finished video to the connected news channel as a Short. Quietly skips when no channel is connected."""
     try:
         _, body = http(f"{API}/api/youtube/token", data=b"", headers={"authorization": f"Bearer {github_token()}"}, method="POST", timeout=60)
-        tok = json.loads(body)["access_token"]
+        d = json.loads(body); tok = d["access_token"]
+        if d.get("uploads24h", 0) >= SHORTS_PER_DAY:
+            return f"skipped: {d['uploads24h']} uploads in 24h, keeping room for the daily explainer (YouTube allows about 10 a day)"
     except urllib.error.HTTPError as e:
         if e.code == 404: return "no channel connected"
         return f"no upload token ({e.code})"
