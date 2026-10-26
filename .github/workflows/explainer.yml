@@ -1,17 +1,17 @@
 name: Daily explainer
-# Once a day: Claude picks the biggest story people need explained, researches it and writes a ~5 minute
-# case-file script; the animation is rendered here and uploaded to Pulse SA News as PRIVATE.
-# You get a phone notification, watch it, and switch it to Public yourself in YouTube Studio.
+# Once a day (and whenever you ask for a topic in the app): Claude picks or takes the topic, researches it and writes
+# a case-file script; the animation is rendered here and saved as a GitHub release. It then shows in the app's
+# Explain tab, where you watch it, pick a thumbnail and press Send to YouTube. Your phone gets a notification.
 on:
   schedule: [{ cron: "17 4 * * *" }]   # 06:17 in South Africa
   workflow_dispatch:
     inputs:
       topic: { description: "Explain this instead of picking from the news (optional)", required: false, default: "" }
       minutes: { description: "Length in minutes, or auto (as long as the story needs)", required: false, default: "auto" }
-      upload: { description: "Upload to YouTube (private)", type: boolean, default: true }
+      request_id: { description: "(set by the app) the request this video answers", required: false, default: "" }
 permissions:
-  contents: write   # saves the script so topics aren't repeated
-  id-token: write   # GitHub-signed identity for the YouTube upload (no passwords stored)
+  contents: write   # saves the script and the finished video (as a release)
+  id-token: write   # GitHub-signed identity for reporting to the Pulse SA server (no passwords stored)
 concurrency: { group: explainer, cancel-in-progress: false }
 jobs:
   explainer:
@@ -25,6 +25,8 @@ jobs:
       NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
       EXPLAINER_MINUTES: ${{ inputs.minutes || vars.EXPLAINER_MINUTES || 'auto' }}
       TOPIC: ${{ inputs.topic }}
+      REQUEST_ID: ${{ inputs.request_id }}
+      GH_TOKEN: ${{ github.token }}
       KOKORO_DIR: /tmp/tts
     steps:
       - uses: actions/checkout@v4
@@ -54,9 +56,11 @@ jobs:
         run: python explainer/write.py
       - name: Voice, animate and render
         run: bash explainer/make.sh "${{ steps.write.outputs.id }}"
-      - name: Upload to YouTube (private) and notify
-        if: ${{ inputs.upload != false }}
-        run: python explainer/upload.py "${{ steps.write.outputs.id }}" "explainer/out/${{ steps.write.outputs.id }}-upload.mp4" "explainer/out/${{ steps.write.outputs.id }}.jpg"
+      - name: Put it in the app and notify
+        run: python explainer/publish.py "${{ steps.write.outputs.id }}"
+      - name: Report a failure to the app
+        if: failure()
+        run: python explainer/publish.py --failed "${{ steps.write.outputs.id }}"
       - name: Keep the script (so the topic isn't repeated)
         if: always() && steps.write.outputs.id != ''
         run: |
@@ -68,8 +72,7 @@ jobs:
         with:
           name: explainer-${{ steps.write.outputs.id }}
           path: |
-            explainer/out/${{ steps.write.outputs.id }}-upload.mp4
-            explainer/out/${{ steps.write.outputs.id }}.jpg
+            explainer/out/${{ steps.write.outputs.id }}-preview.mp4
             explainer/episodes/${{ steps.write.outputs.id }}/script.json
             explainer/out/last-reply.txt
             explainer/out/research-notes.txt

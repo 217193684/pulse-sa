@@ -1,30 +1,32 @@
-name: Explainer upload (retry)
-# Re-uploads an explainer that was already made (uses the video saved by that run, no new Claude tokens).
+name: Explainer to YouTube
+# Started by the newsroom when you press "Send to YouTube" in the app's Explain tab (or by hand here).
+# Uses the video already made (saved as the release explainer-<id>): no new Claude tokens.
 on:
   workflow_dispatch:
     inputs:
-      run_id: { description: "Run number of the Daily explainer run that made the video", required: true }
-      episode: { description: "Episode id, e.g. 2026-10-26-water-crisis", required: true }
+      episode: { description: "Episode id, e.g. 2026-10-26-sa-water-leaks", required: true }
+      thumb: { description: "Thumbnail 0, 1 or 2", required: false, default: "0" }
+      privacy: { description: "public, unlisted or private", required: false, default: "public" }
 permissions:
   contents: read
   id-token: write
-  actions: read
+concurrency: { group: "explainer-upload-${{ inputs.episode }}", cancel-in-progress: false }
 jobs:
   upload:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
       NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - uses: actions/download-artifact@v4
-        with: { name: "explainer-${{ inputs.episode }}", run-id: "${{ inputs.run_id }}", github-token: "${{ github.token }}", path: art }
-      - name: Upload to YouTube (private) and notify
+      - name: Get the video and thumbnail
         run: |
-          find art -type f
-          mkdir -p explainer/episodes/${{ inputs.episode }}
-          V=$(find art -name "*-upload.mp4" | head -1); T=$(find art -name "*.jpg" | head -1)
-          python explainer/upload.py "${{ inputs.episode }}" "$V" "$T"
+          EP="${{ inputs.episode }}"; T="${{ inputs.thumb }}"
+          gh release download "explainer-$EP" --repo "${{ github.repository }}" -D art -p "$EP-upload.mp4" -p "$EP-thumb-$T.jpg"
+          ls -la art
+      - name: Upload to YouTube
+        run: python explainer/upload.py "${{ inputs.episode }}" "art/${{ inputs.episode }}-upload.mp4" "art/${{ inputs.episode }}-thumb-${{ inputs.thumb }}.jpg" "${{ inputs.privacy }}"

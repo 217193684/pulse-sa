@@ -76,6 +76,32 @@ class Api(private val context: Context) {
         file
     }
 
+    suspend fun explainers(): List<Explainer> = withContext(Dispatchers.IO) { json.decodeFromString<ExplainersResponse>(get("/api/explainers")).explainers }
+
+    /** Owner-only actions send the owner key; the server answers with a plain-language error if something is wrong. */
+    private fun ownerPost(path: String, body: String): String {
+        val req = Request.Builder().url(base + path).header("x-owner-key", Prefs(context).ownerKey)
+            .post(body.toRequestBody("application/json".toMediaType())).build()
+        client.newCall(req).execute().use { res ->
+            val text = res.body?.string() ?: ""
+            if (!res.isSuccessful) {
+                val msg = Regex("\"error\"\\s*:\\s*\"([^\"]+)\"").find(text)?.groupValues?.get(1) ?: "Server said ${res.code}"
+                throw IOException(msg)
+            }
+            return text
+        }
+    }
+
+    /** Asks for a new explainer video about a topic (it takes about 30-60 minutes to make). */
+    suspend fun requestExplainer(topic: String) = withContext(Dispatchers.IO) {
+        ownerPost("/api/explainers", kotlinx.serialization.json.buildJsonObject { put("topic", kotlinx.serialization.json.JsonPrimitive(topic)) }.toString())
+    }
+
+    /** Sends a finished explainer to YouTube with the chosen thumbnail (0-2) and privacy. */
+    suspend fun sendExplainer(id: String, thumb: Int, privacy: String) = withContext(Dispatchers.IO) {
+        ownerPost("/api/explainers/" + enc(id) + "/send", """{"thumb":$thumb,"privacy":"$privacy"}""")
+    }
+
     private fun enc(s: String) = URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 
     companion object {

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import za.co.pulsesa.data.FeedCard
 import za.co.pulsesa.ui.DetailScreen
+import za.co.pulsesa.ui.ExplainScreen
 import za.co.pulsesa.ui.FeedScreen
 import za.co.pulsesa.ui.MapScreen
 import za.co.pulsesa.ui.MeScreen
@@ -56,6 +58,7 @@ private val TABS = listOf(
     Triple("feed", "Feed", Icons.Default.Slideshow),
     Triple("map", "Map", Icons.Default.Map),
     Triple("posts", "Posts", Icons.Default.Send),
+    Triple("explain", "Explain", Icons.Default.Lightbulb),
     Triple("me", "Me", Icons.Default.Person),
 )
 
@@ -63,6 +66,8 @@ private val TABS = listOf(
 private fun App(tab: String, setTab: (String) -> Unit) {
     var detail by rememberSaveable { mutableStateOf<String?>(null) }
     var sharing by androidx.compose.runtime.remember { mutableStateOf<FeedCard?>(null) }
+    var askTopic by rememberSaveable { mutableStateOf<String?>(null) }
+    val explain: (String) -> Unit = { topic -> askTopic = topic; detail = null; setTab("explain") }
     BackHandler(enabled = detail != null) { detail = null }
 
     Scaffold(
@@ -86,10 +91,11 @@ private fun App(tab: String, setTab: (String) -> Unit) {
         Box(Modifier.fillMaxSize().background(Pulse.Ground).padding(pad)) {
             val open: (String) -> Unit = { detail = it }
             val d = detail
-            if (d != null) DetailScreen(d, onBack = { detail = null }, onShare = { sharing = it })
+            if (d != null) DetailScreen(d, onBack = { detail = null }, onShare = { sharing = it }, onExplain = explain)
             else when (tab) {
                 "map" -> MapScreen(open)
-                "posts" -> PostsScreen(open)
+                "posts" -> PostsScreen(open, onExplain = explain)
+                "explain" -> ExplainScreen(askTopic, onAsked = { askTopic = null })
                 "me" -> MeScreen(open)
                 else -> FeedScreen(open, onShare = { sharing = it })
             }

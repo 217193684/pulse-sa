@@ -27,4 +27,9 @@ class Prefs(context: Context) {
     var saved: Set<String>
         get() = p.getStringSet("saved", null) ?: emptySet()
         set(v) = p.edit().putStringSet("saved", v).apply()
+
+    /** The owner key (the server's ADMIN_TOKEN): lets this phone ask for explainers and send them to YouTube. */
+    var ownerKey: String
+        get() = p.getString("ownerKey", "") ?: ""
+        set(v) = p.edit().putString("ownerKey", v.trim()).apply()
 }

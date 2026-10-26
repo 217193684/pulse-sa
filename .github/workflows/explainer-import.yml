@@ -1,0 +1,41 @@
+name: Explainer import (one-off)
+# Puts an explainer made before the Explain tab existed into the app (from that run's saved video).
+on:
+  workflow_dispatch:
+    inputs:
+      run_id: { description: "Run number of the Daily explainer run that made the video", required: true }
+      episode: { description: "Episode id", required: true }
+permissions:
+  contents: write
+  id-token: write
+  actions: read
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: explainer/package-lock.json }
+      - uses: actions/download-artifact@v4
+        with: { name: "explainer-${{ inputs.episode }}", run-id: "${{ inputs.run_id }}", github-token: "${{ github.token }}", path: art }
+      - name: Thumbnails and a small copy
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          EP="${{ inputs.episode }}"; mkdir -p explainer/out
+          cp "$(find art -name "$EP-upload.mp4" | head -1)" "explainer/out/$EP-upload.mp4"
+          ffmpeg -y -loglevel error -i "explainer/out/$EP-upload.mp4" -vf "scale=1280:720" -c:v libx264 -preset veryfast -crf 27 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k "explainer/out/$EP-preview.mp4"
+          cd explainer && npm ci --no-audit --no-fund
+          E="episodes/$EP"; mkdir -p "$E/public"
+          for v in 0 1 2; do
+            python3 -c "import json; p={'script':json.load(open('$E/script.json')),'timing':json.load(open('$E/timing.json')),'variant':$v}; json.dump(p, open('$E/props-thumb.json','w'))"
+            npx remotion still src/index.ts Thumb "out/$EP-thumb-$v.jpg" --props="$E/props-thumb.json" --public-dir="$E/public" --image-format=jpeg
+          done
+      - name: Put it in the app
+        run: python explainer/publish.py "${{ inputs.episode }}"

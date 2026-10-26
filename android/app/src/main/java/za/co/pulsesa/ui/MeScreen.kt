@@ -34,6 +34,7 @@ fun MeScreen(onOpen: (String) -> Unit) {
     val ctx = LocalContext.current
     val prefs = remember { Prefs(ctx) }
     var server by remember { mutableStateOf(prefs.serverUrl) }
+    var key by remember { mutableStateOf(prefs.ownerKey) }
     val saved = remember { prefs.saved.toList() }
 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -55,6 +56,16 @@ fun MeScreen(onOpen: (String) -> Unit) {
                     "the publisher, groups them by problem and place, and compares today with a normal week.",
                 color = Pulse.Soft, fontSize = 13.sp, lineHeight = 18.sp,
             )
+        }
+        Section("Owner key") {
+            Text("Lets this phone ask for explainer videos and send them to YouTube. It's the ADMIN_TOKEN password you made in Vercel.",
+                color = Pulse.Soft, fontSize = 13.sp, lineHeight = 18.sp)
+            OutlinedTextField(value = key, onValueChange = { key = it }, singleLine = true, label = { Text("Owner key") },
+                visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
+            Button(onClick = {
+                prefs.ownerKey = key
+                Toast.makeText(ctx, "Owner key saved", Toast.LENGTH_SHORT).show()
+            }, colors = ButtonDefaults.buttonColors(containerColor = Pulse.Teal, contentColor = Pulse.Ground)) { Text("Save key") }
         }
         Section("Server") {
             OutlinedTextField(value = server, onValueChange = { server = it }, singleLine = true, label = { Text("Server address") }, modifier = Modifier.fillMaxWidth())

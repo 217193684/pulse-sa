@@ -129,7 +129,7 @@ private fun TargetGrid(busy: Boolean, targets: List<Target> = TARGETS, done: Lis
 }
 
 @Composable
-fun PostsScreen(onOpen: (String) -> Unit) {
+fun PostsScreen(onOpen: (String) -> Unit, onExplain: (String) -> Unit = {}) {
     val ctx = LocalContext.current
     val prefs = remember { Prefs(ctx) }
     val scope = rememberCoroutineScope()
@@ -171,7 +171,7 @@ fun PostsScreen(onOpen: (String) -> Unit) {
                 cl.isEmpty() -> Text("No videos yet. They appear here within minutes of a big story.", color = Pulse.Muted, fontSize = 13.sp)
                 else -> {
                     BulkPost(cl) { refresh++ }
-                    cl.take(12).forEach { c -> ClipRow(c) { posting = c } }
+                    cl.take(12).forEach { c -> ClipRow(c, onExplain = { onExplain(c.title) }) { posting = c } }
                 }
             }
         }
@@ -266,7 +266,7 @@ fun Pill(text: String, on: Boolean, onClick: () -> Unit) {
 }
 
 @Composable
-private fun ClipRow(c: Clip, onPost: () -> Unit) {
+private fun ClipRow(c: Clip, onExplain: () -> Unit = {}, onPost: () -> Unit) {
     Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Pulse.Ground).clickable(onClick = onPost).padding(10.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         AsyncImage(model = c.posterUrl, contentDescription = null, contentScale = ContentScale.Crop,
@@ -277,8 +277,12 @@ private fun ClipRow(c: Clip, onPost: () -> Unit) {
             Text(if (c.posted.isEmpty()) "Not posted yet" else "✓ " + c.posted.joinToString(", ") { platformName(it) },
                 color = if (c.posted.isEmpty()) Pulse.Muted else Pulse.Amber, fontSize = 12.sp)
         }
-        Text("Post", color = Pulse.Ground, fontWeight = FontWeight.Bold, fontSize = 13.sp,
-            modifier = Modifier.clip(RoundedCornerShape(50)).background(Pulse.Teal).padding(horizontal = 14.dp, vertical = 8.dp))
+        Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("Post", color = Pulse.Ground, fontWeight = FontWeight.Bold, fontSize = 13.sp,
+                modifier = Modifier.clip(RoundedCornerShape(50)).background(Pulse.Teal).padding(horizontal = 14.dp, vertical = 8.dp))
+            Text("Explain", color = Pulse.Ground, fontWeight = FontWeight.Bold, fontSize = 12.sp,
+                modifier = Modifier.clip(RoundedCornerShape(50)).background(Pulse.Amber).clickable(onClick = onExplain).padding(horizontal = 12.dp, vertical = 6.dp))
+        }
     }
 }
 

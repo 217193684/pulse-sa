@@ -141,3 +141,27 @@ data class ProblemDetail(
 
 @Serializable
 data class Top3(val date: String, val cards: List<FeedCard> = emptyList(), val caption: String = "")
+
+/** A long explainer video (5-12 minutes). status: queued, making, ready, send, sending, on_youtube, failed. */
+@Serializable
+data class Explainer(
+    val id: String,
+    val title: String,
+    val topic: String? = null,
+    val status: String,
+    val minutes: Double? = null,
+    val videoUrl: String? = null,
+    val previewUrl: String? = null,
+    val thumbs: List<String> = emptyList(),
+    val description: String? = null,
+    val youtubeId: String? = null,
+    val thumb: Int? = null,
+    val privacy: String? = null,
+    val source: String = "daily",
+    val error: String? = null,
+    val createdAt: String = "",
+    val updatedAt: String = "",
+)
+
+@Serializable
+data class ExplainersResponse(val explainers: List<Explainer> = emptyList())

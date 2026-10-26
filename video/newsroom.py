@@ -6,7 +6,7 @@ then makes and uploads a video for each new story straight away (up to the daily
 
 One GitHub run lasts ~5h45m; the workflow then starts the next run, so it never stops.
 """
-import json, os, sys, time, traceback, urllib.error
+import json, os, subprocess, sys, time, traceback, urllib.error
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -73,12 +73,41 @@ def plan(token):
     return json.loads(body)
 
 
+def explainer_jobs():
+    """Starts explainer work asked for in the app: making a video about a topic, or sending one to YouTube.
+    (The newsroom runs all day, so it is the quickest way to react; it has permission to start other workflows.)"""
+    if not os.environ.get("GH_TOKEN"): return
+    try:
+        _, body = http(f"{API}/api/explainers/jobs", data=b"", headers={"authorization": f"Bearer {github_token()}"}, method="POST", timeout=60)
+        jobs = json.loads(body).get("jobs", [])
+    except Exception as e:
+        print("  explainer jobs: couldn't check:", e); return
+    repo = os.environ.get("GITHUB_REPOSITORY", "217193684/pulse-sa")
+    for j in jobs:
+        if j["status"] == "queued":
+            cmd = ["gh", "workflow", "run", "explainer.yml", "--repo", repo, "--ref", "main", "-f", f"topic={j['topic']}", "-f", f"request_id={j['id']}"]
+            new = "making"
+        else:
+            cmd = ["gh", "workflow", "run", "explainer-upload.yml", "--repo", repo, "--ref", "main", "-f", f"episode={j['id']}",
+                   "-f", f"thumb={j.get('thumb') or 0}", "-f", f"privacy={j.get('privacy') or 'public'}"]
+            new = "sending"
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        ok = r.returncode == 0
+        print(f"  explainer {j['id']}: {'started' if ok else 'could not start'} {new} {r.stderr.strip()[:200]}")
+        try:
+            http(f"{API}/api/explainers/{j['id']}/status", data=json.dumps({"status": new} if ok else {"status": "failed", "error": "couldn't start the job"}).encode(),
+                 headers={"authorization": f"Bearer {github_token()}", "content-type": "application/json"}, method="POST", timeout=60)
+        except Exception as e:
+            print("  explainer status not saved:", e)
+
+
 def main():
     start = time.time(); made = failed = rounds = 0
     note(f"newsroom on: checking every {CHECK_EVERY // 60} min for {RUN_FOR // 3600}h{RUN_FOR % 3600 // 60:02d}")
     while time.time() - start < RUN_FOR - 600:                 # leave 10 min to finish a video
         rounds += 1; t0 = time.time()
         got = collect()
+        explainer_jobs()
         try:
             token = github_token()                               # fresh each round: these tokens are short-lived
             p = plan(token)

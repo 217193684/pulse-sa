@@ -44,7 +44,7 @@ import za.co.pulsesa.data.ProblemDetail
 private val SOURCE_LABEL = mapOf("news" to "News", "gdelt" to "News (GDELT)", "trends" to "Google search", "eskom" to "Eskom")
 
 @Composable
-fun DetailScreen(id: String, onBack: () -> Unit, onShare: (FeedCard) -> Unit) {
+fun DetailScreen(id: String, onBack: () -> Unit, onShare: (FeedCard) -> Unit, onExplain: (String) -> Unit = {}) {
     val ctx = LocalContext.current
     var d by remember { mutableStateOf<ProblemDetail?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -116,6 +116,13 @@ fun DetailScreen(id: String, onBack: () -> Unit, onShare: (FeedCard) -> Unit) {
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.padding(12.dp).fillMaxWidth().height(52.dp),
                         ) { Text("Post this", fontWeight = FontWeight.Bold) }
+                    }
+                    item {
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = { onExplain(listOfNotNull(p.title, p.signals.firstOrNull()?.title?.let { "Latest headline: $it" }).joinToString(". ")) },
+                            shape = RoundedCornerShape(16.dp),
+                            modifier = Modifier.padding(horizontal = 12.dp).fillMaxWidth().height(52.dp),
+                        ) { Text("Explain this in a video", fontWeight = FontWeight.Bold, color = Pulse.Teal) }
                     }
                 }
             }

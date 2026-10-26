@@ -76,17 +76,33 @@ def notify(title, text, link):
         print("notification failed:", e)
 
 
-def main(ep_id, video, thumb):
+def report(ep_id, data):
+    try:
+        http(f"{API}/api/explainers/{ep_id}/status", data=json.dumps(data).encode(),
+             headers={"authorization": f"Bearer {github_token()}", "content-type": "application/json"}, method="POST", timeout=60)
+    except Exception as e:
+        print("couldn't update the app:", e)
+
+
+def main(ep_id, video, thumb, privacy="public"):
+    """Uploads as a normal (long) video with the thumbnail chosen in the app."""
     ep = HERE / "episodes" / ep_id
     script = json.loads((ep / "script.json").read_text())
     timing = json.loads((ep / "timing.json").read_text())
-    tok = token()
     title = script["title"].strip()
     title = (title if len(title) <= 80 else title[:79] + "…") + " | Explained"
     meta = {"snippet": {"title": title[:100], "description": description(script, timing), "categoryId": "25", "defaultLanguage": "en",
                         "tags": ["South Africa", "Explained", "Pulse SA", "SA News"]},
-            "status": {"privacyStatus": os.environ.get("EXPLAINER_PRIVACY", "private"), "selfDeclaredMadeForKids": False, "embeddable": True}}
-    vid = upload(Path(video), meta, tok)
+            "status": {"privacyStatus": privacy if privacy in ("public", "unlisted", "private") else "public", "selfDeclaredMadeForKids": False, "embeddable": True}}
+    try:
+        tok = token()
+        vid = upload(Path(video), meta, tok)
+    except Exception as e:
+        msg = str(e)
+        friendly = "YouTube's daily upload limit is used up. Press Send again later." if "uploadLimitExceeded" in msg else msg[:300]
+        report(ep_id, {"status": "failed", "error": friendly})
+        notify("Explainer not sent", f"{script['title']}: {friendly}", "https://studio.youtube.com")
+        raise
     print("uploaded:", vid)
     try:
         urllib.request.urlopen(urllib.request.Request(f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={vid}", data=Path(thumb).read_bytes(),
@@ -94,20 +110,19 @@ def main(ep_id, video, thumb):
         thumb_ok = True
     except urllib.error.HTTPError as e:
         thumb_ok = False
-        print(f"thumbnail not set ({e.code}): {e.read()[:200]!r} — custom thumbnails need a phone-verified channel")
+        print(f"thumbnail not set ({e.code}): {e.read()[:200]!r}")
     try:
         http(f"{API}/api/youtube/posted", data=json.dumps({"clipId": None, "storyKey": f"explainer~{ep_id}"[:80], "ok": True, "detail": f"https://youtu.be/{vid}"}).encode(),
              headers={"authorization": f"Bearer {github_token()}", "content-type": "application/json"}, method="POST", timeout=60)
     except Exception as e:
         print("couldn't log the upload:", e)
-    mins = timing["duration"] / 60
-    notify("New explainer ready to check", f"{script['title']} ({mins:.1f} min). It's PRIVATE: watch it, then set it to Public in YouTube Studio."
-           + ("" if thumb_ok else " (Thumbnail not set: verify the channel by phone.)"), f"https://studio.youtube.com/video/{vid}/edit")
+    report(ep_id, {"status": "on_youtube", "youtubeId": vid, **({} if thumb_ok else {"error": "Thumbnail not set: choose one in YouTube Studio."})})
+    notify("Explainer is on YouTube", f"{script['title']} is now {meta['status']['privacyStatus']} on Pulse SA News."
+           + ("" if thumb_ok else " The thumbnail couldn't be set; choose one in YouTube Studio."), f"https://youtu.be/{vid}")
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-            f.write(f"### {script['title']}\n\nPrivate on YouTube: https://youtu.be/{vid} · edit: https://studio.youtube.com/video/{vid}/edit\n\n"
-                    f"Length {mins:.1f} min · Claude tokens in {script.get('usage', {}).get('input_tokens')} / out {script.get('usage', {}).get('output_tokens')}\n")
+            f.write(f"### {script['title']}\n\nOn YouTube ({meta['status']['privacyStatus']}): https://youtu.be/{vid}\n")
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:5])
