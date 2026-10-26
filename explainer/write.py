@@ -79,7 +79,9 @@ def run(messages, system, tools=None, max_tokens=24000):
             messages = messages + [{"role": "assistant", "content": r["content"]}]
             continue
         if r.get("stop_reason") == "max_tokens":
-            print("  (Claude ran out of room in this reply)")
+            kinds = {}
+            for b in r["content"]: kinds[b.get("type")] = kinds.get(b.get("type"), 0) + len(json.dumps(b))
+            print(f"  (Claude ran out of room in this reply; output {u.get('output_tokens')} tokens; content sizes by type {kinds})")
         return "\n".join(texts), usage
     raise RuntimeError("Claude kept pausing")
 
@@ -161,7 +163,7 @@ def write(question, story, today):
     """Step 2: research, then write the script from the notes (no tools, so the reply is clean JSON)."""
     notes, usage = research(question, story, today)
     print(f"  research notes: {len(notes.split())} words, {usage['searches']} searches")
-    example = (HERE / "episodes" / "srd-r370" / "script.json").read_text()
+    example = json.dumps(json.loads((HERE / "episodes" / "srd-r370" / "script.json").read_text()), ensure_ascii=False, separators=(",", ":"))
     system = (HERE / "SCENES.md").read_text()
     prompt = f"""Today is {today:%A %d %B %Y}. Write a Pulse SA News explainer that answers: "{question}"
 
@@ -204,7 +206,7 @@ Here is a finished script in the right format (a different topic) to show the st
 
 {example}
 
-Reply with the new script JSON only, inside <script></script> tags. Make sure it is complete: every scene has lines, and
+Reply with the new script JSON only (compact, no indentation), inside <script></script> tags. Make sure it is complete: every scene has lines, and
 it ends with "sources"."""
     text, u = run([{"role": "user", "content": prompt}], system, max_tokens=24000)
     for k in usage: usage[k] += u[k]
