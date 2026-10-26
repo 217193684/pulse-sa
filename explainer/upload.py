@@ -5,7 +5,7 @@ Uploads a finished explainer to the Pulse SA News channel as PRIVATE, so it can 
 
 Then sends a phone notification (ntfy topic in NTFY_TOPIC) with the YouTube Studio link.
 """
-import json, os, sys, urllib.error, urllib.request
+import json, os, re, sys, urllib.error, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -17,19 +17,26 @@ NAMES = {"hook": "Intro", "timeline": "How it started", "stats": "The numbers", 
          "scenario": "A real-life example", "voices": "What people are saying", "moneytrail": "Follow the money", "howto": "Check it yourself"}
 
 
-def description(script, timing):
-    chap, seen = [], set()
-    for sc, t in zip(script["scenes"], timing["scenes"]):
-        name = NAMES.get(sc["type"]) or (sc.get("tag") or ["", ""])[1].title() or sc.get("headline", "")
-        if not name or name in seen or sc["type"] == "title": continue
-        seen.add(name)
-        s = 0 if sc["type"] == "hook" else int(t["start"])
-        chap.append(f"{s // 60}:{s % 60:02d} {name}")
+BASE_TAGS = ["#SouthAfrica", "#PulseSANews", "#Explained"]
+
+
+def hashtags(script):
+    """Topic hashtags people actually search (written by Claude), then the channel's own. Max 8."""
+    out, seen = [], set()
+    for h in list(script.get("hashtags") or []) + BASE_TAGS:
+        h = "#" + re.sub(r"[^0-9A-Za-z_]", "", str(h))
+        if len(h) > 2 and h.lower() not in seen:
+            seen.add(h.lower()); out.append(h)
+    return out[:8]
+
+
+def description(script, timing=None):
+    """Short, for search: the question, one line that hooks, a comment question, hashtags and 3 sources."""
     hook = " ".join(script["scenes"][0]["lines"][:2])
-    src = "\n".join(f"• {x['name']}: {x['url']}" for x in script.get("sources", []))
-    return (f"{script['title']}\n\n{hook}\n\n" + "\n".join(chap) + f"\n\nSources:\n{src}\n\n"
-            "Pulse SA News explains the stories behind the headlines. Facts come from the sources above; "
-            "examples on screen are illustrations.\n\n#SouthAfrica #PulseSA #Explained #SANews")[:4900]
+    ask = (script["scenes"][-1].get("lines") or [""])[-1] if script["scenes"][-1].get("type") == "outro" else ""
+    src = "\n".join(f"• {x['name'].split(':')[0].split(',')[0].strip()}: {x['url']}" for x in script.get("sources", [])[:3])
+    parts = [script["title"], hook, ask if "?" in ask else "", " ".join(hashtags(script)), f"Sources:\n{src}" if src else ""]
+    return "\n\n".join(x for x in parts if x)[:4900]
 
 
 def token():
@@ -92,7 +99,7 @@ def main(ep_id, video, thumb, privacy="public"):
     title = script["title"].strip()
     title = (title if len(title) <= 80 else title[:79] + "…") + " | Explained"
     meta = {"snippet": {"title": title[:100], "description": description(script, timing), "categoryId": "25", "defaultLanguage": "en",
-                        "tags": ["South Africa", "Explained", "Pulse SA", "SA News"]},
+                        "tags": [re.sub(r"(?<=[a-z])(?=[A-Z])", " ", h[1:]) for h in hashtags(script)] + ["South Africa", "SA News"]},
             "status": {"privacyStatus": privacy if privacy in ("public", "unlisted", "private") else "public", "selfDeclaredMadeForKids": False, "embeddable": True}}
     try:
         tok = token()

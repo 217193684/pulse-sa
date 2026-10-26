@@ -1,583 +1,590 @@
 {
-  "id": "2026-10-26-sa-water-leaks",
-  "title": "Why does SA keep running out of water, and where does the pipe money go?",
-  "caseNo": "PSA-2026-1026",
-  "date": "2026.10.26",
-  "voice": "af_heart",
-  "thumb": {
-    "big": "47%",
-    "line": "Where does water GO?",
-    "stamp": "EXPLAINED",
-    "sub": "+ how to report leaks"
+ "id": "2026-10-26-sa-water-leaks",
+ "title": "Why does SA keep running out of water, and where does the pipe money go?",
+ "caseNo": "PSA-2026-1026",
+ "date": "2026.10.26",
+ "voice": "af_heart",
+ "thumb": {
+  "big": "47%",
+  "line": "Where does water GO?",
+  "stamp": "EXPLAINED",
+  "sub": "+ how to report leaks"
+ },
+ "scenes": [
+  {
+   "type": "hook",
+   "value": "47%",
+   "label": "of water lost",
+   "lines": [
+    "Forty seven percent.",
+    "That is how much treated water South Africa loses, on the latest government result. Nearly half.",
+    "It leaks out of pipes, gets stolen, or is never paid for because of faulty meters.",
+    "In June, some Joburg suburbs were still dry twelve days after maintenance work began.",
+    "So why does the water keep running out? Where does the pipe money go? And what can you do? Let's open the case."
+   ]
   },
-  "scenes": [
+  {
+   "type": "title",
+   "tag": [
+    "CASE",
+    "FILE"
+   ],
+   "headline": "The Leaking Country",
+   "sub": "Where our water and pipe money go",
+   "stamp": "UNDER INVESTIGATION",
+   "lines": [
+    "Case file: why the taps run dry, and where the pipe money goes."
+   ]
+  },
+  {
+   "type": "scenario",
+   "tag": [
+    "MEET",
+    "NOMSA"
+   ],
+   "name": "Gogo Nomsa",
+   "place": "Johannesburg (example)",
+   "look": "gogo",
+   "mood": "worried",
+   "bubbles": [
     {
-      "type": "hook",
-      "value": "47%",
-      "label": "of water lost",
-      "lines": [
-        "Forty seven percent.",
-        "That is how much treated water South Africa loses, on the latest government result. Nearly half.",
-        "It leaks out of pipes, gets stolen, or is never paid for because of faulty meters.",
-        "In June, some Joburg suburbs were still dry twelve days after maintenance work began.",
-        "So why does the water keep running out? Where does the pipe money go? And what can you do? Let's open the case."
-      ]
+     "text": "Example only. This is not a real person.",
+     "at": 0,
+     "who": "narrator"
     },
     {
-      "type": "title",
-      "tag": [
-        "CASE",
-        "FILE"
-      ],
-      "headline": "The Leaking Country",
-      "sub": "Where our water and pipe money go",
-      "stamp": "UNDER INVESTIGATION",
-      "lines": [
-        "Case file: why the taps run dry, and where the pipe money goes."
-      ]
+     "text": "The tap is dry again. I must fetch buckets.",
+     "at": 1,
+     "who": "person"
     },
     {
-      "type": "scenario",
-      "tag": [
-        "MEET",
-        "NOMSA"
-      ],
-      "name": "Gogo Nomsa",
-      "place": "Johannesburg (example)",
-      "look": "gogo",
-      "mood": "worried",
-      "bubbles": [
-        {
-          "text": "Example only. This is not a real person.",
-          "at": 0,
-          "who": "narrator"
-        },
-        {
-          "text": "The tap is dry again. I must fetch buckets.",
-          "at": 1,
-          "who": "person"
-        },
-        {
-          "text": "And look, clean water runs down the street!",
-          "at": 3,
-          "who": "person"
-        }
-      ],
-      "lines": [
-        "Meet Gogo Nomsa. She is an example, not a real person.",
-        "She lives in Johannesburg. Some mornings she turns on the tap and nothing comes out.",
-        "So she carries buckets from a neighbour, and she waits.",
-        "Meanwhile, a broken pipe down her street pours clean water into the gutter for days."
-      ]
-    },
-    {
-      "type": "stats",
-      "tag": [
-        "THE",
-        "NUMBERS"
-      ],
-      "items": [
-        {
-          "value": "47%",
-          "label": "treated water lost nationally",
-          "color": "yellow",
-          "at": 1
-        },
-        {
-          "value": "655M",
-          "label": "litres lost a day in Joburg",
-          "color": "pink",
-          "at": 3
-        },
-        {
-          "value": "24%",
-          "label": "Cape Town: lowest big city",
-          "color": "blue",
-          "at": 5
-        }
-      ],
-      "lines": [
-        "Let's start with the numbers.",
-        "The latest government report says nearly half of all treated water is lost. That is forty seven percent.",
-        "Lost means leaks, theft, meters that read wrong, and water that nobody pays for.",
-        "Reuters says Joburg loses more than a third of its water through burst pipes, about six hundred and fifty five million litres a day.",
-        "That is about two hundred and sixty Olympic swimming pools, every single day.",
-        "Cape Town does better, at about twenty four percent, the lowest of the big cities, though that counts all unbilled water, not only leaks."
-      ]
-    },
-    {
-      "type": "timeline",
-      "tag": [
-        "HOW IT",
-        "STARTED"
-      ],
-      "points": [
-        {
-          "year": "2013",
-          "value": "37%",
-          "note": "Lost; target set at 15%",
-          "at": 1
-        },
-        {
-          "year": "2024",
-          "value": "47%",
-          "note": "Losses getting worse",
-          "at": 3
-        },
-        {
-          "year": "2026",
-          "value": "47%",
-          "note": "Latest No Drop result",
-          "at": 4
-        }
-      ],
-      "lines": [
-        "Is this new? No.",
-        "A 2013 study of one hundred and thirty two municipalities, which are your local councils, found about thirty seven percent of water was lost.",
-        "The minister at the time set a target of fifteen percent.",
-        "In 2024, Daily Maverick reported that the losses were getting worse, at about forty seven percent.",
-        "And the latest government result is forty seven percent again.",
-        "The numbers are counted a little differently, but neither one is close to fifteen."
-      ]
-    },
-    {
-      "type": "stats",
-      "tag": [
-        "THE",
-        "REPORT CARDS"
-      ],
-      "items": [
-        {
-          "value": "47%",
-          "label": "sewage systems critical",
-          "color": "pink",
-          "at": 3
-        },
-        {
-          "value": "7.9%",
-          "label": "drinking critical, was 9.9%",
-          "color": "yellow",
-          "at": 2
-        },
-        {
-          "value": "61.9%",
-          "label": "drinking systems low-risk",
-          "color": "blue",
-          "at": 4
-        }
-      ],
-      "lines": [
-        "It is not all bad news, so let's be fair.",
-        "Government released its water report cards on thirty first March this year.",
-        "For drinking water, things are a little better, and the systems in real danger fell to about eight percent.",
-        "But sewage, the dirty water we flush away, is getting worse, with critical systems up from thirty nine to forty seven percent.",
-        "The department says drinking water has settled, but at a high level of risk."
-      ]
-    },
-    {
-      "type": "voices",
-      "tag": [
-        "WHAT PEOPLE",
-        "ARE SAYING"
-      ],
-      "headline": "What people are saying",
-      "items": [
-        {
-          "text": "Why is my tap dry, when water runs down my street?",
-          "who": "A question many people ask",
-          "at": 1
-        },
-        {
-          "text": "Where did the money for fixing pipes go?",
-          "who": "A question many people ask",
-          "at": 2
-        },
-        {
-          "text": "Legislation alone cannot solve water value chain challenges",
-          "who": "Parliament water committee, Nov 2025",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "People are asking hard questions.",
-        "Many are asking: why is my tap dry, when water runs down my street?",
-        "And: where did the money for fixing pipes go?",
-        "Parliament's water committee said new laws are not enough without trained people to do the work."
-      ]
-    },
-    {
-      "type": "suspects",
-      "tag": [
-        "THE",
-        "SUSPECTS"
-      ],
-      "headline": "Why the taps run dry",
-      "cards": [
-        {
-          "n": "01",
-          "title": "Old pipes",
-          "sub": "Pipes are not replaced fast enough",
-          "color": "yellow",
-          "at": [
-            1,
-            "Old"
-          ]
-        },
-        {
-          "n": "02",
-          "title": "No upkeep",
-          "sub": "Leaks, theft, and no repair plans",
-          "color": "pink",
-          "at": [
-            1,
-            "upkeep"
-          ]
-        },
-        {
-          "n": "03",
-          "title": "The money",
-          "sub": "Water money does not go back to water",
-          "color": "blue",
-          "at": [
-            1,
-            "money"
-          ]
-        }
-      ],
-      "lines": [
-        "So why does this keep happening? There are three main suspects.",
-        "Old pipes. No upkeep. And where the money goes."
-      ]
-    },
-    {
-      "type": "bars",
-      "tag": [
-        "SUSPECT 01",
-        "OLD PIPES"
-      ],
-      "headline": "Pipes replaced in Joburg",
-      "bars": [
-        {
-          "label": "Pipes Joburg needs per year",
-          "value": 180,
-          "show": "175-185 km",
-          "color": "yellow",
-          "at": 4
-        },
-        {
-          "label": "Pipes replaced last year",
-          "value": 17,
-          "show": "17 km",
-          "color": "pink",
-          "at": [
-            4,
-            "seventeen"
-          ]
-        }
-      ],
-      "lines": [
-        "Suspect one: old pipes.",
-        "Large parts of Joburg's pipes are about eighty years old.",
-        "Joburg Water says about sixty percent of its water equipment is past its designed life, like a taxi that should have retired years ago.",
-        "The city has about twelve thousand kilometres of pipes, about nine trips from Joburg to Cape Town.",
-        "Joburg Water said it must replace between one hundred and seventy five and one hundred and eighty five kilometres a year, but last year it replaced seventeen.",
-        "Africa Check says cities should replace about one and a half to two percent of their pipes every year.",
-        "And from July to mid December 2025, one Gauteng dashboard recorded more than twenty thousand leaks and bursts."
-      ]
-    },
-    {
-      "type": "compare",
-      "tag": [
-        "SUSPECT 02",
-        "NO UPKEEP"
-      ],
-      "headline": "Joburg's repair spending",
-      "left": {
-        "label": "2020/21",
-        "value": 2800,
-        "show": "R2.8bn"
-      },
-      "right": {
-        "label": "2023/24",
-        "value": 229,
-        "show": "R229m"
-      },
-      "gap": "-92%",
-      "noteTitle": "Norm",
-      "note": "Treasury norm: 8%. Joburg spent under 1%",
-      "leftAt": 1,
-      "rightAt": 2,
-      "gapAt": 2,
-      "lines": [
-        "Suspect two: no upkeep, which means fixing leaks and servicing pipes on time, like servicing a car.",
-        "In the 2020 and 2021 year, Joburg spent two point eight billion rand on repairs and maintenance.",
-        "By 2023 and 2024, that fell to two hundred and twenty nine million, about ninety two percent less.",
-        "Treasury says big cities should spend eight percent of their budget on this.",
-        "The Auditor-General, who checks how government spends our money, found Joburg spent the least of all eight big cities.",
-        "Across the country, thirty one of one hundred and fifty four water councils had no plan to maintain their water systems."
-      ]
-    },
-    {
-      "type": "moneytrail",
-      "tag": [
-        "SUSPECT 03",
-        "THE MONEY"
-      ],
-      "headline": "Joburg's water money",
-      "promised": {
-        "label": "Water income",
-        "show": "R11.9bn",
-        "value": 11.9
-      },
-      "delivered": {
-        "label": "Set aside for pipes and plants",
-        "show": "R1.3bn",
-        "value": 1.3
-      },
-      "gap": "R10.6bn",
-      "promisedAt": 1,
-      "deliveredAt": 2,
-      "gapAt": 4,
-      "reasons": [
-        {
-          "title": "R4bn moved",
-          "status": "ON PAPER ONLY",
-          "color": "pink",
-          "at": 5
-        },
-        {
-          "title": "No law forces it",
-          "status": "DWS CONFIRMS",
-          "color": "yellow",
-          "at": 7
-        },
-        {
-          "title": "City overspending",
-          "status": "AUDIT FOUND",
-          "color": "blue",
-          "at": 8
-        }
-      ],
-      "lines": [
-        "Now the big question: where does the pipe money go?",
-        "In February, the Finance Minister said Joburg's water brings in eleven point nine billion rand.",
-        "But only one point three billion was set aside for Joburg Water to build and fix things.",
-        "Some of that income pays running costs, like buying water from Rand Water.",
-        "Even so, many people ask: so where did the rest go?",
-        "Some point to four billion rand the city moved out of Joburg Water's account.",
-        "The Auditor-General's office says that money exists on paper, not as cash, and both the city and Joburg Water say it is owed.",
-        "Another reason: the head of the water department said no law forces councils to spend water income on water pipes.",
-        "The audit also found the city overspent by two point three eight billion rand, mainly on staff costs and short-term loan costs.",
-        "Unpaid contractors are part of it too, with twenty two water projects delayed over seventy two million rand owed.",
-        "Joburg Water also blames theft, vandalism, illegal connections and non-payment, and the city says power cuts hurt pumping.",
-        "As for corruption, we found no official finding about Joburg Water, but the city must still explain where the money went."
-      ]
-    },
-    {
-      "type": "stats",
-      "tag": [
-        "WHAT THE",
-        "AUDITORS SAW"
-      ],
-      "items": [
-        {
-          "value": "R15bn",
-          "label": "national water losses, 2024-25",
-          "color": "yellow",
-          "at": 1
-        },
-        {
-          "value": "R10bn",
-          "label": "Joburg Water losses, 4 years",
-          "color": "pink",
-          "at": 2
-        },
-        {
-          "value": "78%",
-          "label": "audited projects had findings",
-          "color": "blue",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "The Auditor-General reported on every council's books in June.",
-        "Poor care of pipes and equipment cost about fifteen billion rand in lost water in one year.",
-        "Joburg Water alone lost about ten billion rand of drinking water over four years.",
-        "The Auditor-General looked at one hundred and twenty nine building projects and found problems in one hundred and one of them.",
-        "The real losses are likely higher, because seventeen councils did not report theirs.",
-        "And all eight big cities failed to get a clean audit, which is the top mark."
-      ]
-    },
-    {
-      "type": "bars",
-      "tag": [
-        "MONEY",
-        "SENT BACK"
-      ],
-      "headline": "Water grants handed back",
-      "bars": [
-        {
-          "label": "North West",
-          "value": 309,
-          "show": "R309m",
-          "color": "yellow",
-          "at": 2
-        },
-        {
-          "label": "Eastern Cape",
-          "value": 261,
-          "show": "R261m",
-          "color": "pink",
-          "at": 3
-        },
-        {
-          "label": "Free State",
-          "value": 234,
-          "show": "R234m",
-          "color": "blue",
-          "at": 4
-        }
-      ],
-      "lines": [
-        "There is one more twist: some money was given for water, and never spent.",
-        "When a council does not spend a grant on time, it has to hand the money back.",
-        "North West handed back about three hundred and nine million rand in water grants.",
-        "Eastern Cape returned about two hundred and sixty one million rand.",
-        "And Free State sent back about two hundred and thirty four million rand."
-      ]
-    },
-    {
-      "type": "verdict",
-      "tag": [
-        "THE",
-        "VERDICT"
-      ],
-      "headline": "The short answer",
-      "points": [
-        "Old pipes are not replaced fast",
-        "Repair budgets were cut back",
-        "Water money is not ring-fenced"
-      ],
-      "pointAt": [
-        1,
-        2,
-        3
-      ],
-      "stamp": "CASE OPEN",
-      "lines": [
-        "So, what is the short answer?",
-        "Pipes are old, and Joburg replaced seventeen kilometres when it needed well over a hundred.",
-        "Repair spending fell sharply, so leaks run for days.",
-        "And no law forces councils to spend water income on water, so the money can go elsewhere."
-      ]
-    },
-    {
-      "type": "howto",
-      "tag": [
-        "WHAT YOU",
-        "CAN DO"
-      ],
-      "headline": "How to report a leak",
-      "steps": [
-        {
-          "title": "Note where the leak is",
-          "sub": "Street name, nearest corner, and a photo",
-          "at": 1
-        },
-        {
-          "title": "Report it to your municipality",
-          "sub": "Call or use the app, get a reference number",
-          "at": 2
-        },
-        {
-          "title": "Follow up with that number",
-          "sub": "Keep a record of dates and replies",
-          "at": 3
-        },
-        {
-          "title": "Tell your ward councillor",
-          "sub": "Ask when the repair will be done",
-          "at": 4
-        }
-      ],
-      "lines": [
-        "Now, what can you do?",
-        "First, note exactly where the leak is, and take a photo.",
-        "Second, report it to your municipality and keep the reference number.",
-        "Third, follow up using that number, and write down every reply.",
-        "And fourth, tell your ward councillor and ask for a date."
-      ]
-    },
-    {
-      "type": "checklist",
-      "tag": [
-        "WHAT YOU",
-        "CAN DO"
-      ],
-      "items": [
-        {
-          "title": "Store some emergency water",
-          "sub": "A few clean containers for dry days",
-          "at": 0
-        },
-        {
-          "title": "Check your own taps and meter",
-          "sub": "A moving meter with taps off means a leak",
-          "at": 1
-        },
-        {
-          "title": "Ask where water income goes",
-          "sub": "Ask council for the water budget in writing",
-          "at": 2
-        },
-        {
-          "title": "Organise your street or ward",
-          "sub": "Report together and attend ward meetings",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "Keep a few clean containers of water at home for dry days.",
-        "Check your own meter, because if it moves with every tap off, you have a leak.",
-        "Ask your council in writing where the water income goes.",
-        "And organise with neighbours, because a whole street reporting together is harder to ignore."
-      ]
-    },
-    {
-      "type": "outro",
-      "headline": "Follow Pulse SA News",
-      "sub": "New case files every week",
-      "lines": [
-        "That is the case file on our leaking pipes and the money that should fix them.",
-        "Follow Pulse SA News so you never miss the next one."
-      ]
+     "text": "And look, clean water runs down the street!",
+     "at": 3,
+     "who": "person"
     }
-  ],
-  "sources": [
+   ],
+   "lines": [
+    "Meet Gogo Nomsa. She is an example, not a real person.",
+    "She lives in Johannesburg. Some mornings she turns on the tap and nothing comes out.",
+    "So she carries buckets from a neighbour, and she waits.",
+    "Meanwhile, a broken pipe down her street pours clean water into the gutter for days."
+   ]
+  },
+  {
+   "type": "stats",
+   "tag": [
+    "THE",
+    "NUMBERS"
+   ],
+   "items": [
     {
-      "name": "Auditor-General of South Africa: municipal audit outcomes report",
-      "url": "https://www.agsa.co.za"
+     "value": "47%",
+     "label": "treated water lost nationally",
+     "color": "yellow",
+     "at": 1
     },
     {
-      "name": "Reuters: Johannesburg water losses and burst pipes",
-      "url": "https://www.reuters.com"
+     "value": "655M",
+     "label": "litres lost a day in Joburg",
+     "color": "pink",
+     "at": 3
     },
     {
-      "name": "Daily Maverick: reporting on non-revenue water losses",
-      "url": "https://www.dailymaverick.co.za"
-    },
-    {
-      "name": "Africa Check: how much water do cities lose and replace",
-      "url": "https://africacheck.org"
-    },
-    {
-      "name": "Department of Water and Sanitation: Blue, Green and No Drop reports",
-      "url": "https://www.dws.gov.za"
+     "value": "24%",
+     "label": "Cape Town: lowest big city",
+     "color": "blue",
+     "at": 5
     }
-  ],
-  "usage": {
-    "input_tokens": 161263,
-    "output_tokens": 48474,
-    "searches": 10
+   ],
+   "lines": [
+    "Let's start with the numbers.",
+    "The latest government report says nearly half of all treated water is lost. That is forty seven percent.",
+    "Lost means leaks, theft, meters that read wrong, and water that nobody pays for.",
+    "Reuters says Joburg loses more than a third of its water through burst pipes, about six hundred and fifty five million litres a day.",
+    "That is about two hundred and sixty Olympic swimming pools, every single day.",
+    "Cape Town does better, at about twenty four percent, the lowest of the big cities, though that counts all unbilled water, not only leaks."
+   ]
+  },
+  {
+   "type": "timeline",
+   "tag": [
+    "HOW IT",
+    "STARTED"
+   ],
+   "points": [
+    {
+     "year": "2013",
+     "value": "37%",
+     "note": "Lost; target set at 15%",
+     "at": 1
+    },
+    {
+     "year": "2024",
+     "value": "47%",
+     "note": "Losses getting worse",
+     "at": 3
+    },
+    {
+     "year": "2026",
+     "value": "47%",
+     "note": "Latest No Drop result",
+     "at": 4
+    }
+   ],
+   "lines": [
+    "Is this new? No.",
+    "A 2013 study of one hundred and thirty two municipalities, which are your local councils, found about thirty seven percent of water was lost.",
+    "The minister at the time set a target of fifteen percent.",
+    "In 2024, Daily Maverick reported that the losses were getting worse, at about forty seven percent.",
+    "And the latest government result is forty seven percent again.",
+    "The numbers are counted a little differently, but neither one is close to fifteen."
+   ]
+  },
+  {
+   "type": "stats",
+   "tag": [
+    "THE",
+    "REPORT CARDS"
+   ],
+   "items": [
+    {
+     "value": "47%",
+     "label": "sewage systems critical",
+     "color": "pink",
+     "at": 3
+    },
+    {
+     "value": "7.9%",
+     "label": "drinking critical, was 9.9%",
+     "color": "yellow",
+     "at": 2
+    },
+    {
+     "value": "61.9%",
+     "label": "drinking systems low-risk",
+     "color": "blue",
+     "at": 4
+    }
+   ],
+   "lines": [
+    "It is not all bad news, so let's be fair.",
+    "Government released its water report cards on thirty first March this year.",
+    "For drinking water, things are a little better, and the systems in real danger fell to about eight percent.",
+    "But sewage, the dirty water we flush away, is getting worse, with critical systems up from thirty nine to forty seven percent.",
+    "The department says drinking water has settled, but at a high level of risk."
+   ]
+  },
+  {
+   "type": "voices",
+   "tag": [
+    "WHAT PEOPLE",
+    "ARE SAYING"
+   ],
+   "headline": "What people are saying",
+   "items": [
+    {
+     "text": "Why is my tap dry, when water runs down my street?",
+     "who": "A question many people ask",
+     "at": 1
+    },
+    {
+     "text": "Where did the money for fixing pipes go?",
+     "who": "A question many people ask",
+     "at": 2
+    },
+    {
+     "text": "Legislation alone cannot solve water value chain challenges",
+     "who": "Parliament water committee, Nov 2025",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "People are asking hard questions.",
+    "Many are asking: why is my tap dry, when water runs down my street?",
+    "And: where did the money for fixing pipes go?",
+    "Parliament's water committee said new laws are not enough without trained people to do the work."
+   ]
+  },
+  {
+   "type": "suspects",
+   "tag": [
+    "THE",
+    "SUSPECTS"
+   ],
+   "headline": "Why the taps run dry",
+   "cards": [
+    {
+     "n": "01",
+     "title": "Old pipes",
+     "sub": "Pipes are not replaced fast enough",
+     "color": "yellow",
+     "at": [
+      1,
+      "Old"
+     ]
+    },
+    {
+     "n": "02",
+     "title": "No upkeep",
+     "sub": "Leaks, theft, and no repair plans",
+     "color": "pink",
+     "at": [
+      1,
+      "upkeep"
+     ]
+    },
+    {
+     "n": "03",
+     "title": "The money",
+     "sub": "Water money does not go back to water",
+     "color": "blue",
+     "at": [
+      1,
+      "money"
+     ]
+    }
+   ],
+   "lines": [
+    "So why does this keep happening? There are three main suspects.",
+    "Old pipes. No upkeep. And where the money goes."
+   ]
+  },
+  {
+   "type": "bars",
+   "tag": [
+    "SUSPECT 01",
+    "OLD PIPES"
+   ],
+   "headline": "Pipes replaced in Joburg",
+   "bars": [
+    {
+     "label": "Pipes Joburg needs per year",
+     "value": 180,
+     "show": "175-185 km",
+     "color": "yellow",
+     "at": 4
+    },
+    {
+     "label": "Pipes replaced last year",
+     "value": 17,
+     "show": "17 km",
+     "color": "pink",
+     "at": [
+      4,
+      "seventeen"
+     ]
+    }
+   ],
+   "lines": [
+    "Suspect one: old pipes.",
+    "Large parts of Joburg's pipes are about eighty years old.",
+    "Joburg Water says about sixty percent of its water equipment is past its designed life, like a taxi that should have retired years ago.",
+    "The city has about twelve thousand kilometres of pipes, about nine trips from Joburg to Cape Town.",
+    "Joburg Water said it must replace between one hundred and seventy five and one hundred and eighty five kilometres a year, but last year it replaced seventeen.",
+    "Africa Check says cities should replace about one and a half to two percent of their pipes every year.",
+    "And from July to mid December 2025, one Gauteng dashboard recorded more than twenty thousand leaks and bursts."
+   ]
+  },
+  {
+   "type": "compare",
+   "tag": [
+    "SUSPECT 02",
+    "NO UPKEEP"
+   ],
+   "headline": "Joburg's repair spending",
+   "left": {
+    "label": "2020/21",
+    "value": 2800,
+    "show": "R2.8bn"
+   },
+   "right": {
+    "label": "2023/24",
+    "value": 229,
+    "show": "R229m"
+   },
+   "gap": "-92%",
+   "noteTitle": "Norm",
+   "note": "Treasury norm: 8%. Joburg spent under 1%",
+   "leftAt": 1,
+   "rightAt": 2,
+   "gapAt": 2,
+   "lines": [
+    "Suspect two: no upkeep, which means fixing leaks and servicing pipes on time, like servicing a car.",
+    "In the 2020 and 2021 year, Joburg spent two point eight billion rand on repairs and maintenance.",
+    "By 2023 and 2024, that fell to two hundred and twenty nine million, about ninety two percent less.",
+    "Treasury says big cities should spend eight percent of their budget on this.",
+    "The Auditor-General, who checks how government spends our money, found Joburg spent the least of all eight big cities.",
+    "Across the country, thirty one of one hundred and fifty four water councils had no plan to maintain their water systems."
+   ]
+  },
+  {
+   "type": "moneytrail",
+   "tag": [
+    "SUSPECT 03",
+    "THE MONEY"
+   ],
+   "headline": "Joburg's water money",
+   "promised": {
+    "label": "Water income",
+    "show": "R11.9bn",
+    "value": 11.9
+   },
+   "delivered": {
+    "label": "Set aside for pipes and plants",
+    "show": "R1.3bn",
+    "value": 1.3
+   },
+   "gap": "R10.6bn",
+   "promisedAt": 1,
+   "deliveredAt": 2,
+   "gapAt": 4,
+   "reasons": [
+    {
+     "title": "R4bn moved",
+     "status": "ON PAPER ONLY",
+     "color": "pink",
+     "at": 5
+    },
+    {
+     "title": "No law forces it",
+     "status": "DWS CONFIRMS",
+     "color": "yellow",
+     "at": 7
+    },
+    {
+     "title": "City overspending",
+     "status": "AUDIT FOUND",
+     "color": "blue",
+     "at": 8
+    }
+   ],
+   "lines": [
+    "Now the big question: where does the pipe money go?",
+    "In February, the Finance Minister said Joburg's water brings in eleven point nine billion rand.",
+    "But only one point three billion was set aside for Joburg Water to build and fix things.",
+    "Some of that income pays running costs, like buying water from Rand Water.",
+    "Even so, many people ask: so where did the rest go?",
+    "Some point to four billion rand the city moved out of Joburg Water's account.",
+    "The Auditor-General's office says that money exists on paper, not as cash, and both the city and Joburg Water say it is owed.",
+    "Another reason: the head of the water department said no law forces councils to spend water income on water pipes.",
+    "The audit also found the city overspent by two point three eight billion rand, mainly on staff costs and short-term loan costs.",
+    "Unpaid contractors are part of it too, with twenty two water projects delayed over seventy two million rand owed.",
+    "Joburg Water also blames theft, vandalism, illegal connections and non-payment, and the city says power cuts hurt pumping.",
+    "As for corruption, we found no official finding about Joburg Water, but the city must still explain where the money went."
+   ]
+  },
+  {
+   "type": "stats",
+   "tag": [
+    "WHAT THE",
+    "AUDITORS SAW"
+   ],
+   "items": [
+    {
+     "value": "R15bn",
+     "label": "national water losses, 2024-25",
+     "color": "yellow",
+     "at": 1
+    },
+    {
+     "value": "R10bn",
+     "label": "Joburg Water losses, 4 years",
+     "color": "pink",
+     "at": 2
+    },
+    {
+     "value": "78%",
+     "label": "audited projects had findings",
+     "color": "blue",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "The Auditor-General reported on every council's books in June.",
+    "Poor care of pipes and equipment cost about fifteen billion rand in lost water in one year.",
+    "Joburg Water alone lost about ten billion rand of drinking water over four years.",
+    "The Auditor-General looked at one hundred and twenty nine building projects and found problems in one hundred and one of them.",
+    "The real losses are likely higher, because seventeen councils did not report theirs.",
+    "And all eight big cities failed to get a clean audit, which is the top mark."
+   ]
+  },
+  {
+   "type": "bars",
+   "tag": [
+    "MONEY",
+    "SENT BACK"
+   ],
+   "headline": "Water grants handed back",
+   "bars": [
+    {
+     "label": "North West",
+     "value": 309,
+     "show": "R309m",
+     "color": "yellow",
+     "at": 2
+    },
+    {
+     "label": "Eastern Cape",
+     "value": 261,
+     "show": "R261m",
+     "color": "pink",
+     "at": 3
+    },
+    {
+     "label": "Free State",
+     "value": 234,
+     "show": "R234m",
+     "color": "blue",
+     "at": 4
+    }
+   ],
+   "lines": [
+    "There is one more twist: some money was given for water, and never spent.",
+    "When a council does not spend a grant on time, it has to hand the money back.",
+    "North West handed back about three hundred and nine million rand in water grants.",
+    "Eastern Cape returned about two hundred and sixty one million rand.",
+    "And Free State sent back about two hundred and thirty four million rand."
+   ]
+  },
+  {
+   "type": "verdict",
+   "tag": [
+    "THE",
+    "VERDICT"
+   ],
+   "headline": "The short answer",
+   "points": [
+    "Old pipes are not replaced fast",
+    "Repair budgets were cut back",
+    "Water money is not ring-fenced"
+   ],
+   "pointAt": [
+    1,
+    2,
+    3
+   ],
+   "stamp": "CASE OPEN",
+   "lines": [
+    "So, what is the short answer?",
+    "Pipes are old, and Joburg replaced seventeen kilometres when it needed well over a hundred.",
+    "Repair spending fell sharply, so leaks run for days.",
+    "And no law forces councils to spend water income on water, so the money can go elsewhere."
+   ]
+  },
+  {
+   "type": "howto",
+   "tag": [
+    "WHAT YOU",
+    "CAN DO"
+   ],
+   "headline": "How to report a leak",
+   "steps": [
+    {
+     "title": "Note where the leak is",
+     "sub": "Street name, nearest corner, and a photo",
+     "at": 1
+    },
+    {
+     "title": "Report it to your municipality",
+     "sub": "Call or use the app, get a reference number",
+     "at": 2
+    },
+    {
+     "title": "Follow up with that number",
+     "sub": "Keep a record of dates and replies",
+     "at": 3
+    },
+    {
+     "title": "Tell your ward councillor",
+     "sub": "Ask when the repair will be done",
+     "at": 4
+    }
+   ],
+   "lines": [
+    "Now, what can you do?",
+    "First, note exactly where the leak is, and take a photo.",
+    "Second, report it to your municipality and keep the reference number.",
+    "Third, follow up using that number, and write down every reply.",
+    "And fourth, tell your ward councillor and ask for a date."
+   ]
+  },
+  {
+   "type": "checklist",
+   "tag": [
+    "WHAT YOU",
+    "CAN DO"
+   ],
+   "items": [
+    {
+     "title": "Store some emergency water",
+     "sub": "A few clean containers for dry days",
+     "at": 0
+    },
+    {
+     "title": "Check your own taps and meter",
+     "sub": "A moving meter with taps off means a leak",
+     "at": 1
+    },
+    {
+     "title": "Ask where water income goes",
+     "sub": "Ask council for the water budget in writing",
+     "at": 2
+    },
+    {
+     "title": "Organise your street or ward",
+     "sub": "Report together and attend ward meetings",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "Keep a few clean containers of water at home for dry days.",
+    "Check your own meter, because if it moves with every tap off, you have a leak.",
+    "Ask your council in writing where the water income goes.",
+    "And organise with neighbours, because a whole street reporting together is harder to ignore."
+   ]
+  },
+  {
+   "type": "outro",
+   "headline": "Follow Pulse SA News",
+   "sub": "New case files every week",
+   "lines": [
+    "That is the case file on our leaking pipes and the money that should fix them.",
+    "Follow Pulse SA News so you never miss the next one."
+   ]
   }
+ ],
+ "sources": [
+  {
+   "name": "Auditor-General of South Africa: municipal audit outcomes report",
+   "url": "https://www.agsa.co.za"
+  },
+  {
+   "name": "Reuters: Johannesburg water losses and burst pipes",
+   "url": "https://www.reuters.com"
+  },
+  {
+   "name": "Daily Maverick: reporting on non-revenue water losses",
+   "url": "https://www.dailymaverick.co.za"
+  },
+  {
+   "name": "Africa Check: how much water do cities lose and replace",
+   "url": "https://africacheck.org"
+  },
+  {
+   "name": "Department of Water and Sanitation: Blue, Green and No Drop reports",
+   "url": "https://www.dws.gov.za"
+  }
+ ],
+ "usage": {
+  "input_tokens": 161263,
+  "output_tokens": 48474,
+  "searches": 10
+ },
+ "hashtags": [
+  "#WaterCrisis",
+  "#NoWater",
+  "#Joburg",
+  "#WaterLeaks",
+  "#Municipality"
+ ]
 }

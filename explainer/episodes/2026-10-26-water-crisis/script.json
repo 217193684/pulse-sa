@@ -1,457 +1,463 @@
 {
-  "id": "2026-10-26-water-crisis",
-  "title": "Why does South Africa keep running out of water?",
-  "caseNo": "PSA-2026-1026",
-  "date": "2026.10.26",
-  "voice": "af_heart",
-  "scenes": [
-    {
-      "type": "hook",
-      "value": "47%",
-      "label": "of water lost",
-      "lines": [
-        "Forty seven percent.",
-        "That's about how much of South Africa's treated water is lost or earns no money, through leaks, theft and billing failures.",
-        "Yes, South Africa is a water-scarce country, as the President says.",
-        "But a lot of the trouble is in the pipes, the pumps and the money.",
-        "So why does it keep happening, and who must fix it? Let's open the case."
-      ]
-    },
-    {
-      "type": "title",
-      "tag": [
-        "CASE",
-        "FILE"
-      ],
-      "headline": "The Water Crisis",
-      "sub": "Why taps run dry, and who must fix it",
-      "stamp": "UNDER INVESTIGATION",
-      "lines": [
-        "Case file: South Africa's water crisis."
-      ]
-    },
-    {
-      "type": "stats",
-      "tag": [
-        "WHERE WE",
-        "STAND"
-      ],
-      "items": [
-        {
-          "value": "107",
-          "label": "of 144 rated poor or critical",
-          "color": "yellow",
-          "at": 1
-        },
-        {
-          "value": "R400bn",
-          "label": "estimated repair bill",
-          "color": "pink",
-          "at": 2
-        },
-        {
-          "value": "47%",
-          "label": "treated water lost or unbilled",
-          "color": "blue",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "Here is where things stand.",
-        "The Water and Sanitation Department says one hundred and seven of the country's one hundred and forty four water services authorities are rated poor or critical in at least one key area.",
-        "The minister says about four hundred billion rand is needed to repair and upgrade ageing infrastructure.",
-        "And about forty seven percent of treated water is lost or unbilled."
-      ]
-    },
-    {
-      "type": "suspects",
-      "tag": [
-        "THE",
-        "SUSPECTS"
-      ],
-      "headline": "Three reasons taps run dry",
-      "cards": [
-        {
-          "n": "01",
-          "title": "Leaky pipes",
-          "sub": "Ageing systems, poor maintenance",
-          "color": "yellow",
-          "at": [
-            1,
-            "ageing"
-          ]
-        },
-        {
-          "n": "02",
-          "title": "Rising demand",
-          "sub": "Cities use more than they're allowed",
-          "color": "pink",
-          "at": [
-            1,
-            "rising"
-          ]
-        },
-        {
-          "n": "03",
-          "title": "Weak management",
-          "sub": "Gaps in money, skills and upkeep",
-          "color": "blue",
-          "at": [
-            1,
-            "weak"
-          ]
-        }
-      ],
-      "lines": [
-        "So why does it keep happening?",
-        "Three suspects: ageing pipes, rising demand, and weak management."
-      ]
-    },
-    {
-      "type": "bars",
-      "tag": [
-        "SUSPECT 01",
-        "LEAKY PIPES"
-      ],
-      "headline": "Where the water goes",
-      "bars": [
-        {
-          "label": "Lost or unbilled (national)",
-          "value": 47.3,
-          "show": "47%",
-          "color": "yellow",
-          "at": 1
-        },
-        {
-          "label": "Lost to physical leaks",
-          "value": 32,
-          "show": "32%",
-          "color": "pink",
-          "at": 2
-        },
-        {
-          "label": "Western Cape (lost/unbilled)",
-          "value": 28.5,
-          "show": "28.5%",
-          "color": "blue",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "Suspect number one: ageing, leaking pipes.",
-        "The latest No Drop report puts water that is lost or unbilled at about forty seven percent nationally.",
-        "About thirty two percent is physical leaks from pipes and reservoirs.",
-        "The Western Cape does best, at about twenty eight and a half percent lost or unbilled.",
-        "The minister blames infrastructure in poor condition because of a lack of maintenance."
-      ]
-    },
-    {
-      "type": "compare",
-      "tag": [
-        "SUSPECT 02",
-        "DEMAND"
-      ],
-      "headline": "Joburg's daily water use",
-      "left": {
-        "label": "Licensed amount",
-        "value": 1356,
-        "show": "1,356Ml"
-      },
-      "right": {
-        "label": "Actual use",
-        "value": 1801,
-        "show": "1,801Ml"
-      },
-      "gap": "+445",
-      "noteTitle": "Limit!",
-      "note": "Rand Water says it is pumping at maximum",
-      "leftAt": 2,
-      "rightAt": 2,
-      "gapAt": 3,
-      "lines": [
-        "Suspect number two: rising demand.",
-        "Rand Water supplies bulk water to Gauteng's cities, and says it is pumping at maximum capacity.",
-        "Johannesburg is using about eighteen hundred million litres a day. Its licensed amount is about thirteen hundred and fifty six million.",
-        "That's about four hundred and forty five million litres too much. Tshwane and Emfuleni are over their limits too.",
-        "President Ramaphosa says Johannesburg's ageing infrastructure played a part, and that demand is growing, so it needs more infrastructure or, as he put it, de-densifying.",
-        "On the twenty third, Rand Water said it will restrict supply to Johannesburg and Tshwane, so some areas may see low pressure."
-      ]
-    },
-    {
-      "type": "stats",
-      "tag": [
-        "SUSPECT 03",
-        "MANAGEMENT"
-      ],
-      "items": [
-        {
-          "value": "R377M",
-          "label": "owed to Rand Water (Feb)",
-          "color": "yellow",
-          "at": 2
-        },
-        {
-          "value": "43",
-          "label": "reservoirs leaking badly",
-          "color": "pink",
-          "at": 3
-        },
-        {
-          "value": "R1.3bn",
-          "label": "at least, to fix them",
-          "color": "blue",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "Suspect number three: weak management and money.",
-        "The water minister says municipalities often fail to hire qualified staff or budget for maintenance.",
-        "In February, Johannesburg Water owed Rand Water about three hundred and seventy seven million rand.",
-        "It had forty three reservoirs leaking badly, and fixing them would cost more than one point three billion rand.",
-        "A WaterCAN director said there was no money for those projects."
-      ]
-    },
-    {
-      "type": "court",
-      "tag": [
-        "WHO MUST",
-        "FIX IT"
-      ],
-      "steps": [
-        {
-          "date": "12 Feb 2026",
-          "title": "Water Crisis Committee",
-          "text": "Chaired by the President",
-          "at": 2
-        },
-        {
-          "date": "23 Jul 2026",
-          "title": "National Water Action Plan",
-          "text": "A roadmap, but no new money",
-          "at": 3
-        },
-        {
-          "date": "Parliament",
-          "title": "Water Services Bill",
-          "text": "Licences for water providers",
-          "at": 4
-        }
-      ],
-      "stamp": "WORK IN PROGRESS",
-      "lines": [
-        "So who must fix it?",
-        "Municipalities are legally responsible for delivering water, and the minister has said so herself.",
-        "But in February the President announced a National Water Crisis Committee, which he chairs, to send national help to struggling municipalities.",
-        "In July came the National Water Action Plan. The minister says it brings no new money. It coordinates existing funds and tries to unlock private ones.",
-        "And a bill in Parliament would make water providers hold an operating licence, like a driving licence."
-      ]
-    },
-    {
-      "type": "bars",
-      "tag": [
-        "THE MONEY",
-        "GAP"
-      ],
-      "headline": "Needed vs available",
-      "bars": [
-        {
-          "label": "Repair bill estimate",
-          "value": 400,
-          "show": "R400bn",
-          "color": "pink",
-          "at": 1
-        },
-        {
-          "label": "Grants to councils this year",
-          "value": 13.7,
-          "show": "R13.7bn",
-          "color": "yellow",
-          "at": 2
-        },
-        {
-          "label": "Water budget, next 3 years",
-          "value": 156,
-          "show": "R156bn",
-          "color": "blue",
-          "at": 3
-        }
-      ],
-      "lines": [
-        "Is there enough money?",
-        "The department estimates about four hundred billion rand is needed, but calls that a requirement, not a budget.",
-        "This year, about thirteen point seven billion rand is allocated for municipal infrastructure grants.",
-        "Government has also set aside one hundred and fifty six billion rand over three years, though that covers a much wider programme.",
-        "Critics aren't convinced. One UCT professor says four hundred billion rand is unaffordable, and AfriForum says the latest reports expose government's failure to act."
-      ]
-    },
-    {
-      "type": "verdict",
-      "tag": [
-        "THE",
-        "VERDICT"
-      ],
-      "headline": "A shared fix",
-      "points": [
-        "Ageing pipes, little upkeep",
-        "Demand above what's allowed",
-        "Municipalities lead, nation helps"
-      ],
-      "stamp": "CASE OPEN",
-      "pointAt": [
-        [
-          1,
-          "ageing"
-        ],
-        [
-          1,
-          "demand"
-        ],
-        [
-          2,
-          "Municipalities"
-        ]
-      ],
-      "lines": [
-        "So, the verdict.",
-        "Taps run dry because of ageing pipes, demand above what the system allows, and weak management and money in municipalities.",
-        "Municipalities must deliver. National government must support and hold them to account. And we can all save water."
-      ]
-    },
-    {
-      "type": "checklist",
-      "tag": [
-        "WHAT YOU",
-        "CAN DO"
-      ],
-      "items": [
-        {
-          "title": "Report outages and leaks",
-          "sub": "Johannesburg Water: 086 056 2874",
-          "at": 1
-        },
-        {
-          "title": "Give your full address details",
-          "sub": "House, street, corner, area, cell number",
-          "at": 2
-        },
-        {
-          "title": "Check the daily water notices",
-          "sub": "johannesburgwater.co.za",
-          "at": 3
-        },
-        {
-          "title": "Follow the water restrictions",
-          "sub": "Joburg Level 1 until 31 March 2027",
-          "at": 4
-        },
-        {
-          "title": "Heed unsafe-water warnings",
-          "sub": "Follow your municipality's health notices",
-          "at": 5
-        }
-      ],
-      "lines": [
-        "So what can you do?",
-        "One. In Johannesburg, report outages and burst pipes to Johannesburg Water on zero eight six, zero five six, two eight seven four. Elsewhere, use your own municipality's line.",
-        "Two. Give your full details: house number, street, nearest corner, area and cell number.",
-        "Three. Check the daily notices at johannesburg water dot co dot za.",
-        "Four. Johannesburg's Level one restrictions run until the thirty first of March 2027. No watering gardens or filling pools between six in the morning and six at night.",
-        "And five. If your municipality says tap water is unsafe, as Tshwane did in Bronkhorstspruit, follow the health warnings."
-      ]
-    },
-    {
-      "type": "outro",
-      "headline": "Case still open",
-      "sub": "Follow for what happens next",
-      "lines": [
-        "This case is still open, and we'll keep following it.",
-        "Follow Pulse SA News, and share this with someone who's tired of dry taps."
-      ]
-    }
-  ],
-  "sources": [
-    {
-      "name": "SABC News, 26 Oct 2026: Government coordinating efforts to address water crisis: Ramaphosa",
-      "url": "https://www.sabcnews.com/sabcnews/government-coordinating-efforts-to-address-water-crisis-ramaphosa/"
-    },
-    {
-      "name": "Inside Politics, 26 Oct 2026: Ramaphosa vows to tackle Soweto's water crisis as ANC fights for votes",
-      "url": "https://insidepolitic.co.za/ramaphosa-vows-to-tackle-sowetos-water-crisis-as-anc-fights-for-votes/"
-    },
-    {
-      "name": "SAnews, 12 Feb 2026: President Ramaphosa to Chair National Water Crisis Committee",
-      "url": "https://www.sanews.gov.za/south-africa/president-ramaphosa-chair-national-water-crisis-committee"
-    },
-    {
-      "name": "Sunday Independent, 31 Mar 2026: South Africa's water crisis: Nearly half of treated water wasted",
-      "url": "https://sundayindependent.co.za/news/2026-03-31-south-africas-water-crisis-nearly-half-of-treated-water-wasted/"
-    },
-    {
-      "name": "BusinessTech, Oct 2026: R26 billion a year down the drain in South Africa",
-      "url": "https://businesstech.co.za/news/government/879880/r26-billion-a-year-down-the-drain-in-south-africa/"
-    },
-    {
-      "name": "Daily Maverick, 31 Mar 2026: Leaking pipes, filthy rivers and health risks exposed in SA's latest water report cards",
-      "url": "https://www.dailymaverick.co.za/article/2026-03-31-leaking-pipes-filthy-rivers-and-health-risks-exposed-in-sas-latest-water-report-cards-/"
-    },
-    {
-      "name": "IOL / The Star, 6 Oct 2026: R400bn infrastructure bill to address failures in 107 water services authorities",
-      "url": "https://iol.co.za/the-star/city-watch/2026-10-06-r400bn-infrastructure-bill-to-address-failures-in-107-water-services-authorities/"
-    },
-    {
-      "name": "EWN, Oct 2026: R400bn needed to repair ageing water infrastructure in worst-affected municipalities",
-      "url": "https://www.ewn.co.za/water-department-estimates-r400-billion-needed-to-upgrade-infrastructure-in-sa-s-worst-affected-municipalities/"
-    },
-    {
-      "name": "Townpress, Oct 2026: SA needs R400bn to fix a water problem hitting 107 municipalities",
-      "url": "https://townpress.co.za/sa-needs-r400bn-to-fix-a-water-problem-hitting-107-municipalities/"
-    },
-    {
-      "name": "AfriForum, 31 Mar 2026: Continued deterioration of water systems exposes government's failure to act",
-      "url": "https://www.artikels.afriforum.co.za/en/continued-deterioration-of-water-systems-exposes-governments-failure-to-act/"
-    },
-    {
-      "name": "Polity, 20 Oct 2026: Rand Water warns of looming water crisis as system under pressure",
-      "url": "https://www.polity.org.za/article/rand-water-warns-of-looming-water-crisis-as-system-under-pressure-2026-10-20"
-    },
-    {
-      "name": "Mail & Guardian, 23 Oct 2026: Rand Water to restrict water supply to Johannesburg and Tshwane",
-      "url": "https://mg.co.za/the-green-guardian/2026-10-23-rand-water-to-restrict-water-supply-to-johannesburg-and-tshwane/"
-    },
-    {
-      "name": "Our City News, 23 Feb 2026: Cash crunch blocks Joburg water fix",
-      "url": "https://ourcitynews.co.za/2026/02/23/cash-crunch-blocks-joburg-water-fix/"
-    },
-    {
-      "name": "PMG, 2025: Briefing by the Department of Water and Sanitation on the Water Services Amendment Bill",
-      "url": "https://pmg.org.za/committee-meeting/42017/"
-    },
-    {
-      "name": "2oceansvibe, Oct 2026: Rand Water Warns Of Supply Cuts As Demand Hits Record Levels",
-      "url": "https://www.2oceansvibe.com/1-lifestyle/travel/johannesburg-2/rand-water-supply-cuts-record-demand-october-2026/"
-    },
-    {
-      "name": "Johannesburg Water: Daily Water Notices",
-      "url": "https://www.johannesburgwater.co.za/daily-water-notices/"
-    },
-    {
-      "name": "The Citizen, 6 Jun 2025: How to log a water issue with Johannesburg Water",
-      "url": "https://www.citizen.co.za/rosebank-killarney-gazette/news-headlines/2025/06/06/how-to-log-a-water-issue-with-johannesburg-water/"
-    },
-    {
-      "name": "SABC News, Oct 2026: Committee to address water crisis in Bronkhorstspruit: Ramaphosa",
-      "url": "https://www.sabcnews.com/sabcnews/committee-to-address-water-crisis-in-bronkhorstspruit-ramaphosa/"
-    }
-  ],
-  "thumb": {
-    "big": "47%",
-    "line": "Why do taps run dry?",
-    "stamp": "EXPLAINED",
-    "sub": "+ who must fix it"
+ "id": "2026-10-26-water-crisis",
+ "title": "Why does South Africa keep running out of water?",
+ "caseNo": "PSA-2026-1026",
+ "date": "2026.10.26",
+ "voice": "af_heart",
+ "scenes": [
+  {
+   "type": "hook",
+   "value": "47%",
+   "label": "of water lost",
+   "lines": [
+    "Forty seven percent.",
+    "That's about how much of South Africa's treated water is lost or earns no money, through leaks, theft and billing failures.",
+    "Yes, South Africa is a water-scarce country, as the President says.",
+    "But a lot of the trouble is in the pipes, the pumps and the money.",
+    "So why does it keep happening, and who must fix it? Let's open the case."
+   ]
   },
-  "usage": {
-    "input_tokens": 129118,
-    "output_tokens": 16340,
-    "searches": 8
+  {
+   "type": "title",
+   "tag": [
+    "CASE",
+    "FILE"
+   ],
+   "headline": "The Water Crisis",
+   "sub": "Why taps run dry, and who must fix it",
+   "stamp": "UNDER INVESTIGATION",
+   "lines": [
+    "Case file: South Africa's water crisis."
+   ]
+  },
+  {
+   "type": "stats",
+   "tag": [
+    "WHERE WE",
+    "STAND"
+   ],
+   "items": [
+    {
+     "value": "107",
+     "label": "of 144 rated poor or critical",
+     "color": "yellow",
+     "at": 1
+    },
+    {
+     "value": "R400bn",
+     "label": "estimated repair bill",
+     "color": "pink",
+     "at": 2
+    },
+    {
+     "value": "47%",
+     "label": "treated water lost or unbilled",
+     "color": "blue",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "Here is where things stand.",
+    "The Water and Sanitation Department says one hundred and seven of the country's one hundred and forty four water services authorities are rated poor or critical in at least one key area.",
+    "The minister says about four hundred billion rand is needed to repair and upgrade ageing infrastructure.",
+    "And about forty seven percent of treated water is lost or unbilled."
+   ]
+  },
+  {
+   "type": "suspects",
+   "tag": [
+    "THE",
+    "SUSPECTS"
+   ],
+   "headline": "Three reasons taps run dry",
+   "cards": [
+    {
+     "n": "01",
+     "title": "Leaky pipes",
+     "sub": "Ageing systems, poor maintenance",
+     "color": "yellow",
+     "at": [
+      1,
+      "ageing"
+     ]
+    },
+    {
+     "n": "02",
+     "title": "Rising demand",
+     "sub": "Cities use more than they're allowed",
+     "color": "pink",
+     "at": [
+      1,
+      "rising"
+     ]
+    },
+    {
+     "n": "03",
+     "title": "Weak management",
+     "sub": "Gaps in money, skills and upkeep",
+     "color": "blue",
+     "at": [
+      1,
+      "weak"
+     ]
+    }
+   ],
+   "lines": [
+    "So why does it keep happening?",
+    "Three suspects: ageing pipes, rising demand, and weak management."
+   ]
+  },
+  {
+   "type": "bars",
+   "tag": [
+    "SUSPECT 01",
+    "LEAKY PIPES"
+   ],
+   "headline": "Where the water goes",
+   "bars": [
+    {
+     "label": "Lost or unbilled (national)",
+     "value": 47.3,
+     "show": "47%",
+     "color": "yellow",
+     "at": 1
+    },
+    {
+     "label": "Lost to physical leaks",
+     "value": 32,
+     "show": "32%",
+     "color": "pink",
+     "at": 2
+    },
+    {
+     "label": "Western Cape (lost/unbilled)",
+     "value": 28.5,
+     "show": "28.5%",
+     "color": "blue",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "Suspect number one: ageing, leaking pipes.",
+    "The latest No Drop report puts water that is lost or unbilled at about forty seven percent nationally.",
+    "About thirty two percent is physical leaks from pipes and reservoirs.",
+    "The Western Cape does best, at about twenty eight and a half percent lost or unbilled.",
+    "The minister blames infrastructure in poor condition because of a lack of maintenance."
+   ]
+  },
+  {
+   "type": "compare",
+   "tag": [
+    "SUSPECT 02",
+    "DEMAND"
+   ],
+   "headline": "Joburg's daily water use",
+   "left": {
+    "label": "Licensed amount",
+    "value": 1356,
+    "show": "1,356Ml"
+   },
+   "right": {
+    "label": "Actual use",
+    "value": 1801,
+    "show": "1,801Ml"
+   },
+   "gap": "+445",
+   "noteTitle": "Limit!",
+   "note": "Rand Water says it is pumping at maximum",
+   "leftAt": 2,
+   "rightAt": 2,
+   "gapAt": 3,
+   "lines": [
+    "Suspect number two: rising demand.",
+    "Rand Water supplies bulk water to Gauteng's cities, and says it is pumping at maximum capacity.",
+    "Johannesburg is using about eighteen hundred million litres a day. Its licensed amount is about thirteen hundred and fifty six million.",
+    "That's about four hundred and forty five million litres too much. Tshwane and Emfuleni are over their limits too.",
+    "President Ramaphosa says Johannesburg's ageing infrastructure played a part, and that demand is growing, so it needs more infrastructure or, as he put it, de-densifying.",
+    "On the twenty third, Rand Water said it will restrict supply to Johannesburg and Tshwane, so some areas may see low pressure."
+   ]
+  },
+  {
+   "type": "stats",
+   "tag": [
+    "SUSPECT 03",
+    "MANAGEMENT"
+   ],
+   "items": [
+    {
+     "value": "R377M",
+     "label": "owed to Rand Water (Feb)",
+     "color": "yellow",
+     "at": 2
+    },
+    {
+     "value": "43",
+     "label": "reservoirs leaking badly",
+     "color": "pink",
+     "at": 3
+    },
+    {
+     "value": "R1.3bn",
+     "label": "at least, to fix them",
+     "color": "blue",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "Suspect number three: weak management and money.",
+    "The water minister says municipalities often fail to hire qualified staff or budget for maintenance.",
+    "In February, Johannesburg Water owed Rand Water about three hundred and seventy seven million rand.",
+    "It had forty three reservoirs leaking badly, and fixing them would cost more than one point three billion rand.",
+    "A WaterCAN director said there was no money for those projects."
+   ]
+  },
+  {
+   "type": "court",
+   "tag": [
+    "WHO MUST",
+    "FIX IT"
+   ],
+   "steps": [
+    {
+     "date": "12 Feb 2026",
+     "title": "Water Crisis Committee",
+     "text": "Chaired by the President",
+     "at": 2
+    },
+    {
+     "date": "23 Jul 2026",
+     "title": "National Water Action Plan",
+     "text": "A roadmap, but no new money",
+     "at": 3
+    },
+    {
+     "date": "Parliament",
+     "title": "Water Services Bill",
+     "text": "Licences for water providers",
+     "at": 4
+    }
+   ],
+   "stamp": "WORK IN PROGRESS",
+   "lines": [
+    "So who must fix it?",
+    "Municipalities are legally responsible for delivering water, and the minister has said so herself.",
+    "But in February the President announced a National Water Crisis Committee, which he chairs, to send national help to struggling municipalities.",
+    "In July came the National Water Action Plan. The minister says it brings no new money. It coordinates existing funds and tries to unlock private ones.",
+    "And a bill in Parliament would make water providers hold an operating licence, like a driving licence."
+   ]
+  },
+  {
+   "type": "bars",
+   "tag": [
+    "THE MONEY",
+    "GAP"
+   ],
+   "headline": "Needed vs available",
+   "bars": [
+    {
+     "label": "Repair bill estimate",
+     "value": 400,
+     "show": "R400bn",
+     "color": "pink",
+     "at": 1
+    },
+    {
+     "label": "Grants to councils this year",
+     "value": 13.7,
+     "show": "R13.7bn",
+     "color": "yellow",
+     "at": 2
+    },
+    {
+     "label": "Water budget, next 3 years",
+     "value": 156,
+     "show": "R156bn",
+     "color": "blue",
+     "at": 3
+    }
+   ],
+   "lines": [
+    "Is there enough money?",
+    "The department estimates about four hundred billion rand is needed, but calls that a requirement, not a budget.",
+    "This year, about thirteen point seven billion rand is allocated for municipal infrastructure grants.",
+    "Government has also set aside one hundred and fifty six billion rand over three years, though that covers a much wider programme.",
+    "Critics aren't convinced. One UCT professor says four hundred billion rand is unaffordable, and AfriForum says the latest reports expose government's failure to act."
+   ]
+  },
+  {
+   "type": "verdict",
+   "tag": [
+    "THE",
+    "VERDICT"
+   ],
+   "headline": "A shared fix",
+   "points": [
+    "Ageing pipes, little upkeep",
+    "Demand above what's allowed",
+    "Municipalities lead, nation helps"
+   ],
+   "stamp": "CASE OPEN",
+   "pointAt": [
+    [
+     1,
+     "ageing"
+    ],
+    [
+     1,
+     "demand"
+    ],
+    [
+     2,
+     "Municipalities"
+    ]
+   ],
+   "lines": [
+    "So, the verdict.",
+    "Taps run dry because of ageing pipes, demand above what the system allows, and weak management and money in municipalities.",
+    "Municipalities must deliver. National government must support and hold them to account. And we can all save water."
+   ]
+  },
+  {
+   "type": "checklist",
+   "tag": [
+    "WHAT YOU",
+    "CAN DO"
+   ],
+   "items": [
+    {
+     "title": "Report outages and leaks",
+     "sub": "Johannesburg Water: 086 056 2874",
+     "at": 1
+    },
+    {
+     "title": "Give your full address details",
+     "sub": "House, street, corner, area, cell number",
+     "at": 2
+    },
+    {
+     "title": "Check the daily water notices",
+     "sub": "johannesburgwater.co.za",
+     "at": 3
+    },
+    {
+     "title": "Follow the water restrictions",
+     "sub": "Joburg Level 1 until 31 March 2027",
+     "at": 4
+    },
+    {
+     "title": "Heed unsafe-water warnings",
+     "sub": "Follow your municipality's health notices",
+     "at": 5
+    }
+   ],
+   "lines": [
+    "So what can you do?",
+    "One. In Johannesburg, report outages and burst pipes to Johannesburg Water on zero eight six, zero five six, two eight seven four. Elsewhere, use your own municipality's line.",
+    "Two. Give your full details: house number, street, nearest corner, area and cell number.",
+    "Three. Check the daily notices at johannesburg water dot co dot za.",
+    "Four. Johannesburg's Level one restrictions run until the thirty first of March 2027. No watering gardens or filling pools between six in the morning and six at night.",
+    "And five. If your municipality says tap water is unsafe, as Tshwane did in Bronkhorstspruit, follow the health warnings."
+   ]
+  },
+  {
+   "type": "outro",
+   "headline": "Case still open",
+   "sub": "Follow for what happens next",
+   "lines": [
+    "This case is still open, and we'll keep following it.",
+    "Follow Pulse SA News, and share this with someone who's tired of dry taps."
+   ]
   }
+ ],
+ "sources": [
+  {
+   "name": "SABC News, 26 Oct 2026: Government coordinating efforts to address water crisis: Ramaphosa",
+   "url": "https://www.sabcnews.com/sabcnews/government-coordinating-efforts-to-address-water-crisis-ramaphosa/"
+  },
+  {
+   "name": "Inside Politics, 26 Oct 2026: Ramaphosa vows to tackle Soweto's water crisis as ANC fights for votes",
+   "url": "https://insidepolitic.co.za/ramaphosa-vows-to-tackle-sowetos-water-crisis-as-anc-fights-for-votes/"
+  },
+  {
+   "name": "SAnews, 12 Feb 2026: President Ramaphosa to Chair National Water Crisis Committee",
+   "url": "https://www.sanews.gov.za/south-africa/president-ramaphosa-chair-national-water-crisis-committee"
+  },
+  {
+   "name": "Sunday Independent, 31 Mar 2026: South Africa's water crisis: Nearly half of treated water wasted",
+   "url": "https://sundayindependent.co.za/news/2026-03-31-south-africas-water-crisis-nearly-half-of-treated-water-wasted/"
+  },
+  {
+   "name": "BusinessTech, Oct 2026: R26 billion a year down the drain in South Africa",
+   "url": "https://businesstech.co.za/news/government/879880/r26-billion-a-year-down-the-drain-in-south-africa/"
+  },
+  {
+   "name": "Daily Maverick, 31 Mar 2026: Leaking pipes, filthy rivers and health risks exposed in SA's latest water report cards",
+   "url": "https://www.dailymaverick.co.za/article/2026-03-31-leaking-pipes-filthy-rivers-and-health-risks-exposed-in-sas-latest-water-report-cards-/"
+  },
+  {
+   "name": "IOL / The Star, 6 Oct 2026: R400bn infrastructure bill to address failures in 107 water services authorities",
+   "url": "https://iol.co.za/the-star/city-watch/2026-10-06-r400bn-infrastructure-bill-to-address-failures-in-107-water-services-authorities/"
+  },
+  {
+   "name": "EWN, Oct 2026: R400bn needed to repair ageing water infrastructure in worst-affected municipalities",
+   "url": "https://www.ewn.co.za/water-department-estimates-r400-billion-needed-to-upgrade-infrastructure-in-sa-s-worst-affected-municipalities/"
+  },
+  {
+   "name": "Townpress, Oct 2026: SA needs R400bn to fix a water problem hitting 107 municipalities",
+   "url": "https://townpress.co.za/sa-needs-r400bn-to-fix-a-water-problem-hitting-107-municipalities/"
+  },
+  {
+   "name": "AfriForum, 31 Mar 2026: Continued deterioration of water systems exposes government's failure to act",
+   "url": "https://www.artikels.afriforum.co.za/en/continued-deterioration-of-water-systems-exposes-governments-failure-to-act/"
+  },
+  {
+   "name": "Polity, 20 Oct 2026: Rand Water warns of looming water crisis as system under pressure",
+   "url": "https://www.polity.org.za/article/rand-water-warns-of-looming-water-crisis-as-system-under-pressure-2026-10-20"
+  },
+  {
+   "name": "Mail & Guardian, 23 Oct 2026: Rand Water to restrict water supply to Johannesburg and Tshwane",
+   "url": "https://mg.co.za/the-green-guardian/2026-10-23-rand-water-to-restrict-water-supply-to-johannesburg-and-tshwane/"
+  },
+  {
+   "name": "Our City News, 23 Feb 2026: Cash crunch blocks Joburg water fix",
+   "url": "https://ourcitynews.co.za/2026/02/23/cash-crunch-blocks-joburg-water-fix/"
+  },
+  {
+   "name": "PMG, 2025: Briefing by the Department of Water and Sanitation on the Water Services Amendment Bill",
+   "url": "https://pmg.org.za/committee-meeting/42017/"
+  },
+  {
+   "name": "2oceansvibe, Oct 2026: Rand Water Warns Of Supply Cuts As Demand Hits Record Levels",
+   "url": "https://www.2oceansvibe.com/1-lifestyle/travel/johannesburg-2/rand-water-supply-cuts-record-demand-october-2026/"
+  },
+  {
+   "name": "Johannesburg Water: Daily Water Notices",
+   "url": "https://www.johannesburgwater.co.za/daily-water-notices/"
+  },
+  {
+   "name": "The Citizen, 6 Jun 2025: How to log a water issue with Johannesburg Water",
+   "url": "https://www.citizen.co.za/rosebank-killarney-gazette/news-headlines/2025/06/06/how-to-log-a-water-issue-with-johannesburg-water/"
+  },
+  {
+   "name": "SABC News, Oct 2026: Committee to address water crisis in Bronkhorstspruit: Ramaphosa",
+   "url": "https://www.sabcnews.com/sabcnews/committee-to-address-water-crisis-in-bronkhorstspruit-ramaphosa/"
+  }
+ ],
+ "thumb": {
+  "big": "47%",
+  "line": "Why do taps run dry?",
+  "stamp": "EXPLAINED",
+  "sub": "+ who must fix it"
+ },
+ "usage": {
+  "input_tokens": 129118,
+  "output_tokens": 16340,
+  "searches": 8
+ },
+ "hashtags": [
+  "#WaterCrisis",
+  "#NoWater",
+  "#Joburg",
+  "#WaterLeaks"
+ ]
 }

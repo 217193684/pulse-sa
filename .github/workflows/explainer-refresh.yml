@@ -1,0 +1,18 @@
+name: Explainer description refresh
+# Rewrites the short description (hashtags + 3 sources) the app copies, for a video that's already made. No tokens used.
+on:
+  workflow_dispatch:
+    inputs:
+      episode: { description: "Episode id", required: true }
+permissions: { contents: read, id-token: write }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      API_URL: ${{ vars.API_URL || 'https://pulse-sa.vercel.app' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python explainer/publish.py --refresh "${{ inputs.episode }}"

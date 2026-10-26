@@ -9,9 +9,12 @@ Top level:
 ```
 { "id": "short-slug", "title": "Question the video answers (max 70 chars)", "caseNo": "PSA-YYYY-MMDD", "date": "YYYY.MM.DD",
   "voice": "af_heart", "thumb": {"big": "R370", "line": "Why is it STUCK?", "stamp": "EXPLAINED", "sub": "+ what you can do"},
+  "hashtags": ["#WaterCrisis", "#Joburg", "#NoWater", "#Eskom"],
   "scenes": [ ... ], "sources": [{"name": "Outlet, date: headline", "url": "https://..."}] }
 ```
 `thumb.big` is one short number or word (max 5 characters) that sums the story up. `thumb.line` is max 22 characters.
+`hashtags`: 4-5 short hashtags about THIS topic that South Africans actually type when searching on TikTok and
+YouTube (the issue, the place, the people or body involved, e.g. #SASSA #SRDGrant #Joburg). No #SouthAfrica or #PulseSA (added automatically).
 
 Every scene except `hook` and `outro` has `"tag": ["WORD", "WORD"]` – two short words for the case-file label
 top left (e.g. ["SUSPECT 01", "MONEY"], ["WHAT YOU", "CAN DO"]).

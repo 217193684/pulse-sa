@@ -200,6 +200,7 @@ Then write the script as JSON following the format in your instructions. Rules:
 - Every fact, number and quote must come from the articles above or your search results, and be listed in "sources"
   (name: "Outlet, date: headline", url). If you are not sure of something, leave it out. Never invent quotes.
 - Be fair: give government's reason and the critics' view. Say "about" for rounded numbers.
+- "hashtags": 4-5 hashtags people really search for this topic (issue, place, body involved), CamelCase, no spaces.
 - caseNo "PSA-{today:%Y-%m%d}", date "{today:%Y.%m.%d}", voice "af_heart".
 
 Here is a finished script in the right format (a different topic) to show the style and level of detail:
@@ -257,6 +258,7 @@ def check(s):
     if n < MIN_MIN * 140 * 0.8: errs.append(f"only {n} words")
     if n > MAX_MIN * 140 * 1.2: errs.append(f"{n} words is too long")
     if len(s.get("sources", [])) < 2: errs.append("fewer than 2 sources")
+    if not isinstance(s.get("hashtags"), list): s["hashtags"] = []
     return errs
 
 

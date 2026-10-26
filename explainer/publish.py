@@ -37,6 +37,11 @@ def main(args):
         notify("Explainer failed", f"Couldn't make the explainer {('about ' + os.environ.get('TOPIC')) if os.environ.get('TOPIC') else ''}. Try again from the app.",
                f"https://github.com/{REPO}/actions")
         return
+    if args and args[0] == "--refresh":   # just rewrite the description the app copies
+        script = json.loads((HERE / "episodes" / args[1] / "script.json").read_text())
+        status(args[1], {"description": description(script)})
+        print(description(script))
+        return
     ep_id = args[0]
     ep = HERE / "episodes" / ep_id
     out = HERE / "out"
