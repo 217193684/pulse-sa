@@ -1,0 +1,683 @@
+{
+ "scenes": [
+  {
+   "type": "hook",
+   "start": 0.6,
+   "lines": [
+    {
+     "text": "Five hundred and twenty five days.",
+     "start": 0.6,
+     "end": 2.617
+    },
+    {
+     "text": "That's how long South Africa has gone without load shedding, says Eskom.",
+     "start": 2.937,
+     "end": 6.782
+    },
+    {
+     "text": "That's about seventeen months, counting from the sixteenth of May 2025.",
+     "start": 7.102,
+     "end": 11.859
+    },
+    {
+     "text": "Many of us remember sitting in the dark for hours, so this feels almost unreal.",
+     "start": 12.179,
+     "end": 16.62
+    },
+    {
+     "text": "So how did Eskom do it? And what is still not fixed? Let's open the case.",
+     "start": 16.94,
+     "end": 21.034
+    }
+   ],
+   "end": 21.034
+  },
+  {
+   "type": "title",
+   "start": 21.784,
+   "lines": [
+    {
+     "text": "Case file: how Eskom kept the lights on.",
+     "start": 21.784,
+     "end": 24.168
+    }
+   ],
+   "end": 24.168
+  },
+  {
+   "type": "scenario",
+   "start": 24.918,
+   "lines": [
+    {
+     "text": "Meet Mama Zinhle. She is an example, not a real person.",
+     "start": 24.918,
+     "end": 28.346
+    },
+    {
+     "text": "She runs a small spaza shop in Soweto.",
+     "start": 28.666,
+     "end": 30.765
+    },
+    {
+     "text": "In the bad years, load shedding meant her fridge went off and her stock went bad.",
+     "start": 31.085,
+     "end": 35.139
+    },
+    {
+     "text": "Now her lights have stayed on for more than a year.",
+     "start": 35.459,
+     "end": 37.768
+    },
+    {
+     "text": "But she still asks: is this really over, or just a good patch?",
+     "start": 38.088,
+     "end": 41.554
+    }
+   ],
+   "end": 41.554
+  },
+  {
+   "type": "timeline",
+   "start": 42.304,
+   "lines": [
+    {
+     "text": "First, a quick look back.",
+     "start": 42.304,
+     "end": 43.748
+    },
+    {
+     "text": "Load shedding began in late 2007, and got much worse in the late 2010s and early 2020s.",
+     "start": 44.068,
+     "end": 51.812
+    },
+    {
+     "text": "In July 2022, President Ramaphosa launched the Energy Action Plan.",
+     "start": 52.132,
+     "end": 57.354
+    },
+    {
+     "text": "Between March 2024 and January 2025, the country went ten months without load shedding, but then it came back.",
+     "start": 57.674,
+     "end": 65.932
+    },
+    {
+     "text": "In April and May 2025, there were twenty six hours of cuts, spread over four days.",
+     "start": 66.252,
+     "end": 72.142
+    },
+    {
+     "text": "Since the sixteenth of May 2025, there have been none.",
+     "start": 72.462,
+     "end": 76.076
+    },
+    {
+     "text": "And on the fifteenth of May 2026, we passed the first full year without load shedding since September 2018.",
+     "start": 76.396,
+     "end": 84.057
+    }
+   ],
+   "end": 84.057
+  },
+  {
+   "type": "stats",
+   "start": 84.807,
+   "lines": [
+    {
+     "text": "Here are the headline numbers, from Eskom's own statement on the twenty third of October.",
+     "start": 84.807,
+     "end": 89.678
+    },
+    {
+     "text": "Five hundred and twenty five days in a row with no load shedding.",
+     "start": 89.998,
+     "end": 93.679
+    },
+    {
+     "text": "Eskom says sixty eight point one percent of its power was ready to work this financial year so far, which is the best in six years.",
+     "start": 93.999,
+     "end": 101.883
+    },
+    {
+     "text": "A year ago, over the same stretch, it was about sixty two and a half percent.",
+     "start": 102.203,
+     "end": 106.434
+    },
+    {
+     "text": "And Eskom says it has almost five thousand megawatts spare above what the country is using right now. Megawatts, or M W, is how we measure power.",
+     "start": 106.754,
+     "end": 116.189
+    }
+   ],
+   "end": 116.189
+  },
+  {
+   "type": "voices",
+   "start": 116.939,
+   "lines": [
+    {
+     "text": "Now, what are people asking?",
+     "start": 116.939,
+     "end": 118.546
+    },
+    {
+     "text": "These are common questions, not quotes from one person.",
+     "start": 118.866,
+     "end": 121.915
+    },
+    {
+     "text": "Many people ask: is Eskom just telling us what we want to hear?",
+     "start": 122.235,
+     "end": 125.829
+    },
+    {
+     "text": "Others ask: why is my power still off sometimes?",
+     "start": 126.149,
+     "end": 128.94
+    },
+    {
+     "text": "And almost everyone asks: will my bill finally stop going up?",
+     "start": 129.26,
+     "end": 132.878
+    }
+   ],
+   "end": 132.878
+  },
+  {
+   "type": "suspects",
+   "start": 133.628,
+   "lines": [
+    {
+     "text": "So how did it happen? There are three big things.",
+     "start": 133.628,
+     "end": 136.127
+    },
+    {
+     "text": "One: fixing the old power stations on purpose.",
+     "start": 136.447,
+     "end": 139.132
+    },
+    {
+     "text": "Two: bringing back units that were stuck for years.",
+     "start": 139.452,
+     "end": 142.011
+    },
+    {
+     "text": "And three: rooftop solar on homes and businesses, which isn't Eskom's own work, but helped.",
+     "start": 142.331,
+     "end": 147.829
+    }
+   ],
+   "end": 147.829
+  },
+  {
+   "type": "bars",
+   "start": 148.579,
+   "lines": [
+    {
+     "text": "Cause one: servicing the fleet on purpose.",
+     "start": 148.579,
+     "end": 150.97
+    },
+    {
+     "text": "Think of Eskom's power stations as a taxi rank.",
+     "start": 151.29,
+     "end": 154.05
+    },
+    {
+     "text": "In 2023, about one in three taxis was broken down or stuck in the workshop.",
+     "start": 154.37,
+     "end": 160.169
+    },
+    {
+     "text": "So Eskom did something that looks odd: it took even more taxis off the road for proper servicing, about eight thousand megawatts on average in summer 2023.",
+     "start": 160.489,
+     "end": 170.921
+    },
+    {
+     "text": "Priority stations included Tutuka, Duvha, Majuba, Matla, Kendal, Arnot, Kriel and Koeberg.",
+     "start": 171.241,
+     "end": 177.61
+    },
+    {
+     "text": "In April 2023, about eighteen thousand megawatts were broken down.",
+     "start": 177.93,
+     "end": 183.033
+    },
+    {
+     "text": "By April 2025, that was down to about thirteen thousand.",
+     "start": 183.353,
+     "end": 187.684
+    }
+   ],
+   "end": 187.684
+  },
+  {
+   "type": "stats",
+   "start": 188.434,
+   "lines": [
+    {
+     "text": "Cause two: bringing back units that were stuck for years.",
+     "start": 188.434,
+     "end": 191.371
+    },
+    {
+     "text": "In March 2025, Kusile Unit 6 was connected to the grid, adding eight hundred megawatts.",
+     "start": 191.691,
+     "end": 198.312
+    },
+    {
+     "text": "In July 2025, Medupi Unit 4 came back, after a generator exploded in 2021.",
+     "start": 198.632,
+     "end": 206.066
+    },
+    {
+     "text": "And in October 2025, Koeberg Unit 1 was reconnected, adding nine hundred and thirty megawatts.",
+     "start": 206.386,
+     "end": 213.389
+    },
+    {
+     "text": "Eskom says about seven thousand eight hundred megawatts have been restored since 2023, from finished long repairs and new units.",
+     "start": 213.709,
+     "end": 222.01
+    }
+   ],
+   "end": 222.01
+  },
+  {
+   "type": "scenario",
+   "start": 222.76,
+   "lines": [
+    {
+     "text": "Cause three: rooftop solar.",
+     "start": 222.76,
+     "end": 224.409
+    },
+    {
+     "text": "Meet Mr Pillay, an example from Durban who put panels on his roof.",
+     "start": 224.729,
+     "end": 228.698
+    },
+    {
+     "text": "Many homes and businesses did the same, and reports say this helped South Africa pass a year without load shedding.",
+     "start": 229.018,
+     "end": 235.632
+    },
+    {
+     "text": "But solar isn't perfect, because clouds cut how much power panels make.",
+     "start": 235.952,
+     "end": 240.096
+    },
+    {
+     "text": "Eskom says the grid stayed stable this winter, even when heavy overcast skies cut rooftop solar.",
+     "start": 240.416,
+     "end": 246.316
+    },
+    {
+     "text": "We don't have a number for how much solar helped, so we won't guess.",
+     "start": 246.636,
+     "end": 249.862
+    }
+   ],
+   "end": 249.862
+  },
+  {
+   "type": "compare",
+   "start": 250.612,
+   "lines": [
+    {
+     "text": "So what did all that fixing and restarting do?",
+     "start": 250.612,
+     "end": 253.061
+    },
+    {
+     "text": "Eskom says that three years ago, about sixteen thousand megawatts were broken down at any time.",
+     "start": 253.381,
+     "end": 258.833
+    },
+    {
+     "text": "Now it is about nine thousand one hundred.",
+     "start": 259.153,
+     "end": 261.502
+    },
+    {
+     "text": "That's a drop of seven thousand and sixty four megawatts.",
+     "start": 261.822,
+     "end": 265.131
+    },
+    {
+     "text": "Compared with last year, that's about three thousand megawatts fewer breakdowns.",
+     "start": 265.451,
+     "end": 269.708
+    },
+    {
+     "text": "Careful: these are Eskom's own numbers, from the twenty third of October, and they move a little each week.",
+     "start": 270.028,
+     "end": 275.703
+    }
+   ],
+   "end": 275.703
+  },
+  {
+   "type": "compare",
+   "start": 276.453,
+   "lines": [
+    {
+     "text": "There's money news too.",
+     "start": 276.453,
+     "end": 277.593
+    },
+    {
+     "text": "Eskom uses diesel to make power when other plants fall short, and diesel is expensive.",
+     "start": 277.913,
+     "end": 283.035
+    },
+    {
+     "text": "Last year, over the same stretch, it spent six point oh seven billion rand on diesel.",
+     "start": 283.355,
+     "end": 288.298
+    },
+    {
+     "text": "This year, it's one point two six billion rand.",
+     "start": 288.618,
+     "end": 291.192
+    },
+    {
+     "text": "That's four point eight one billion rand saved, almost eighty percent less.",
+     "start": 291.512,
+     "end": 295.869
+    },
+    {
+     "text": "That is a saving of nearly five billion rand in one year.",
+     "start": 296.189,
+     "end": 299.469
+    },
+    {
+     "text": "And the figure moves. On the second of October the saving was four point seven nine billion.",
+     "start": 299.789,
+     "end": 305.12
+    }
+   ],
+   "end": 305.12
+  },
+  {
+   "type": "stats",
+   "start": 305.87,
+   "lines": [
+    {
+     "text": "Now the honest question: can we trust these numbers?",
+     "start": 305.87,
+     "end": 308.711
+    },
+    {
+     "text": "The availability number and the 525 days are Eskom's own measures.",
+     "start": 309.031,
+     "end": 313.946
+    },
+    {
+     "text": "A website called GridPulse rebuilt the figures from the hourly data Eskom publishes for its stations, and got sixty eight percent.",
+     "start": 314.266,
+     "end": 322.047
+    },
+    {
+     "text": "That agrees with Eskom, but it still uses Eskom's data.",
+     "start": 322.367,
+     "end": 325.623
+    },
+    {
+     "text": "And we found no outside audit of the availability or breakdown numbers.",
+     "start": 325.943,
+     "end": 329.934
+    }
+   ],
+   "end": 329.934
+  },
+  {
+   "type": "scenario",
+   "start": 330.684,
+   "lines": [
+    {
+     "text": "Here's the catch. Meet Sipho, an example from a Gauteng township.",
+     "start": 330.684,
+     "end": 334.651
+    },
+    {
+     "text": "His power goes off at five in the morning, and again in the evening.",
+     "start": 334.971,
+     "end": 338.408
+    },
+    {
+     "text": "He asks: Eskom says no load shedding, so what is this?",
+     "start": 338.728,
+     "end": 341.932
+    },
+    {
+     "text": "Good question. This is load reduction, and it is not the same as load shedding.",
+     "start": 342.252,
+     "end": 346.824
+    },
+    {
+     "text": "Load shedding is national, rotating cuts when there isn't enough power.",
+     "start": 347.144,
+     "end": 350.962
+    }
+   ],
+   "end": 350.962
+  },
+  {
+   "type": "stats",
+   "start": 351.712,
+   "lines": [
+    {
+     "text": "Load reduction is local. Eskom says it protects equipment from overloading, in areas with illegal connections or overloaded networks.",
+     "start": 351.712,
+     "end": 360.331
+    },
+    {
+     "text": "Eskom says seven provinces are free of it.",
+     "start": 360.651,
+     "end": 363.056
+    },
+    {
+     "text": "The rest is limited to selected areas in Gauteng and KwaZulu-Natal.",
+     "start": 363.376,
+     "end": 367.61
+    },
+    {
+     "text": "The Citizen's Gauteng schedule this week shows cuts from five to nine in the morning, and five to ten at night.",
+     "start": 367.93,
+     "end": 374.011
+    },
+    {
+     "text": "So the national problem is fixed, but the local one is not.",
+     "start": 374.331,
+     "end": 377.67
+    }
+   ],
+   "end": 377.67
+  },
+  {
+   "type": "bars",
+   "start": 378.42,
+   "lines": [
+    {
+     "text": "What else is not fixed?",
+     "start": 378.42,
+     "end": 379.737
+    },
+    {
+     "text": "Sixty eight percent ready also means about thirty two percent is not.",
+     "start": 380.057,
+     "end": 384.196
+    },
+    {
+     "text": "Some of that is planned servicing, and some is still breakdowns, about nine thousand megawatts of it.",
+     "start": 384.516,
+     "end": 390.427
+    },
+    {
+     "text": "Eskom's winter update says breakdowns fell from about thirty four percent of its capacity to about nineteen and a half.",
+     "start": 390.747,
+     "end": 397.631
+    },
+    {
+     "text": "That's still about one in five taxis broken down.",
+     "start": 397.951,
+     "end": 400.766
+    },
+    {
+     "text": "And this can slip. After ten months of light in 2024, the cuts came back in 2025.",
+     "start": 401.086,
+     "end": 407.945
+    }
+   ],
+   "end": 407.945
+  },
+  {
+   "type": "stats",
+   "start": 408.695,
+   "lines": [
+    {
+     "text": "What does this mean for your pocket?",
+     "start": 408.695,
+     "end": 410.305
+    },
+    {
+     "text": "Lights on is not the same as a cheaper bill.",
+     "start": 410.625,
+     "end": 413.011
+    },
+    {
+     "text": "The regulator, NERSA, decides how much Eskom can charge, and it approved eight point seven six percent more for Eskom's direct customers from the first of April 2026.",
+     "start": 413.331,
+     "end": 424.896
+    },
+    {
+     "text": "It also approved nine point oh one percent more for municipalities from the first of July. A municipality is your local council, which buys power from Eskom in bulk.",
+     "start": 425.216,
+     "end": 436.097
+    },
+    {
+     "text": "So bills are still rising, but shops, workshops and homes can plan their days around power that stays on.",
+     "start": 436.417,
+     "end": 442.531
+    }
+   ],
+   "end": 442.531
+  },
+  {
+   "type": "verdict",
+   "start": 443.281,
+   "lines": [
+    {
+     "text": "So, the verdict.",
+     "start": 443.281,
+     "end": 444.281
+    },
+    {
+     "text": "The evidence points to servicing and restarted units, with rooftop solar helping.",
+     "start": 444.601,
+     "end": 449.317
+    },
+    {
+     "text": "But the main numbers are Eskom's own, and we found no outside audit.",
+     "start": 449.637,
+     "end": 453.62
+    },
+    {
+     "text": "And local cuts, breakdowns and rising bills are still with us.",
+     "start": 453.94,
+     "end": 457.407
+    }
+   ],
+   "end": 457.407
+  },
+  {
+   "type": "howto",
+   "start": 458.157,
+   "lines": [
+    {
+     "text": "You don't have to take anyone's word for it. Here's how to check.",
+     "start": 458.157,
+     "end": 461.48
+    },
+    {
+     "text": "One. Look at the date on any Eskom number, because they change from week to week.",
+     "start": 461.8,
+     "end": 466.082
+    },
+    {
+     "text": "Two. Ask who measured it. Is it Eskom's own figure, or someone else's?",
+     "start": 466.402,
+     "end": 470.541
+    },
+    {
+     "text": "Three. Compare with GridPulse, a website that rebuilds the numbers from Eskom's published data.",
+     "start": 470.861,
+     "end": 476.476
+    },
+    {
+     "text": "Four. Keep your own record. How many times did your power go off this month?",
+     "start": 476.796,
+     "end": 480.916
+    }
+   ],
+   "end": 480.916
+  },
+  {
+   "type": "checklist",
+   "start": 481.666,
+   "lines": [
+    {
+     "text": "So what can you do?",
+     "start": 481.666,
+     "end": 482.726
+    },
+    {
+     "text": "One. Learn the difference between load shedding, which is national, and load reduction, which is local.",
+     "start": 483.046,
+     "end": 488.55
+    },
+    {
+     "text": "Two. Check the schedule for your area, so local cuts don't surprise you.",
+     "start": 488.87,
+     "end": 492.996
+    },
+    {
+     "text": "Three. Don't add illegal connections, and talk to your neighbours about it, because overloaded networks are why some areas get cut.",
+     "start": 493.316,
+     "end": 500.94
+    },
+    {
+     "text": "Four. Plan for higher bills, because tariffs went up this year.",
+     "start": 501.26,
+     "end": 504.712
+    },
+    {
+     "text": "And five. Keep your candles and power bank for now, because after ten months of light, the cuts came back in 2025.",
+     "start": 505.032,
+     "end": 512.63
+    }
+   ],
+   "end": 512.63
+  },
+  {
+   "type": "outro",
+   "start": 513.38,
+   "lines": [
+    {
+     "text": "Has the power stayed on in your area? Tell us in the comments.",
+     "start": 513.38,
+     "end": 516.587
+    },
+    {
+     "text": "Follow Pulse SA News, and share this with someone who still remembers the dark days.",
+     "start": 516.907,
+     "end": 521.513
+    }
+   ],
+   "end": 521.513
+  }
+ ],
+ "duration": 524.013,
+ "voice": "kokoro:af_heart"
+}
