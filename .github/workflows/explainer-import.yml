@@ -27,7 +27,7 @@ jobs:
         with: { name: "explainer-${{ inputs.episode }}", run-id: "${{ inputs.run_id }}", github-token: "${{ github.token }}", path: art }
       - name: Thumbnails and a small copy
         run: |
-          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 300 sudo apt-get install -y -qq ffmpeg && break; echo "apt was slow, trying again"; sleep 15; done; ffmpeg -version | head -1
+          bash .github/scripts/install-ffmpeg.sh
           EP="${{ inputs.episode }}"; mkdir -p explainer/out
           cp "$(find art -name "$EP-upload.mp4" | head -1)" "explainer/out/$EP-upload.mp4"
           ffmpeg -y -loglevel error -i "explainer/out/$EP-upload.mp4" -vf "scale=1280:720" -c:v libx264 -preset veryfast -crf 27 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k "explainer/out/$EP-preview.mp4"

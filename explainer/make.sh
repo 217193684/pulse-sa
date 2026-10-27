@@ -4,6 +4,7 @@
 # Steps: voice (Kokoro, or ElevenLabs if ELEVENLABS_API_KEY is set) -> music + sfx -> Remotion render -> thumbnail
 # -> out/<id>-upload.mp4 (light denoise so the print-grain texture doesn't blow up the file size).
 set -euo pipefail
+command -v ffmpeg >/dev/null || { echo "::error::ffmpeg is not installed"; exit 1; }
 ID="$1"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 EP="$HERE/episodes/$ID"
