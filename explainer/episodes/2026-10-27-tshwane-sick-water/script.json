@@ -1,0 +1,751 @@
+{
+  "id": "2026-10-27-tshwane-sick-water",
+  "title": "Why is Tshwane's tap water making people sick?",
+  "caseNo": "PSA-2026-1027",
+  "date": "2026.10.27",
+  "voice": "af_heart",
+  "thumb": {
+    "big": "833",
+    "line": "Why are they SICK?",
+    "stamp": "EXPLAINED",
+    "sub": "+ what you can do"
+  },
+  "hashtags": [
+    "#Tshwane",
+    "#Bronkhorstspruit",
+    "#WaterCrisis",
+    "#TshwaneWater",
+    "#RandWater"
+  ],
+  "scenes": [
+    {
+      "type": "hook",
+      "value": "833",
+      "label": "reported sick",
+      "lines": [
+        "Eight hundred and thirty three people.",
+        "That's how many have been reported sick so far, after the tap water in Bronkhorstspruit went bad.",
+        "Three hundred and twenty eight of them are children aged four and younger.",
+        "No deaths have been reported, but three people are still in hospital.",
+        "So what went wrong with the water? And what can you do? Let's open the case."
+      ]
+    },
+    {
+      "type": "title",
+      "tag": [
+        "CASE",
+        "FILE"
+      ],
+      "headline": "Tshwane's Sick Water",
+      "sub": "Bronkhorstspruit, and what you can do",
+      "stamp": "UNDER INVESTIGATION",
+      "lines": [
+        "Case file: the sick water of Bronkhorstspruit."
+      ]
+    },
+    {
+      "type": "scenario",
+      "tag": [
+        "MEET",
+        "MAMA LERATO"
+      ],
+      "name": "Mama Lerato",
+      "place": "Zithobeni, near Bronkhorstspruit",
+      "look": "woman",
+      "mood": "worried",
+      "bubbles": [
+        {
+          "text": "Nobody told me the water was bad.",
+          "at": 2,
+          "who": "person"
+        },
+        {
+          "text": "Why is my boy sick? Was it the water?",
+          "at": 3,
+          "who": "person"
+        },
+        {
+          "text": "Hundreds of families are asking the same thing.",
+          "at": 4,
+          "who": "narrator"
+        }
+      ],
+      "lines": [
+        "Let's meet Mama Lerato. She's an example, not a real person.",
+        "She lives in Zithobeni and looks after her three-year-old grandson.",
+        "Every day she fills the kettle from the tap. She never heard that the water had no chlorine in it.",
+        "Then the little boy gets a very bad stomach. She wonders: was it the water?",
+        "Hundreds of families have asked the very same question."
+      ]
+    },
+    {
+      "type": "timeline",
+      "tag": [
+        "HOW IT",
+        "UNFOLDED"
+      ],
+      "points": [
+        {
+          "year": "Feb",
+          "value": "Letter",
+          "note": "Water dept warns the City",
+          "at": 3
+        },
+        {
+          "year": "Late Sep",
+          "value": "0 Cl",
+          "note": "Chlorine stops, 3 weeks",
+          "at": 4
+        },
+        {
+          "year": "14 Oct",
+          "value": "SHUT",
+          "note": "Plant closed, tests bad",
+          "at": 5
+        },
+        {
+          "year": "21 Oct",
+          "value": "REPAIR",
+          "note": "Plant taken out for repairs",
+          "at": 6
+        },
+        {
+          "year": "Now",
+          "value": "833",
+          "note": "Reported sick so far",
+          "at": 7
+        }
+      ],
+      "lines": [
+        "First, an important thing: this is not all of Tshwane.",
+        "The sickness is tied to one plant, run by the City of Tshwane, your local government. It's the Bronkhorstspruit water works, and it feeds towns like Zithobeni, Dark City, Rethabiseng and Sokhulumi.",
+        "Pretoria's city centre had a separate scare, but the City lifted that warning after lab tests showed the water was safe.",
+        "Now, how did it unfold? In February, the Department of Water and Sanitation, which keeps watch over water, sent the City a formal letter about the plant.",
+        "From late September, the plant ran for about three weeks with no chlorine. That's the chemical that kills germs in water.",
+        "On the fourteenth of October, the City shut the plant. Tests had found very high levels of E. coli, a germ that comes from waste.",
+        "A week later, on the twenty first, the plant was taken out of service for repairs. It is still closed.",
+        "And in that time, the number of sick people has kept growing."
+      ]
+    },
+    {
+      "type": "bars",
+      "tag": [
+        "THE",
+        "NUMBERS"
+      ],
+      "headline": "How the case count grew",
+      "bars": [
+        {
+          "label": "7-18 Oct (joint statement)",
+          "value": 408,
+          "show": "408",
+          "color": "yellow",
+          "at": 1
+        },
+        {
+          "label": "7-19 Oct (Health Minister)",
+          "value": 595,
+          "show": "595",
+          "color": "pink",
+          "at": 2
+        },
+        {
+          "label": "Reported so far (SABC)",
+          "value": 833,
+          "show": "833",
+          "color": "blue",
+          "at": 3
+        }
+      ],
+      "lines": [
+        "Let's look at how the numbers grew.",
+        "First, a joint government statement reported four hundred and eight cases between the seventh and eighteenth of October.",
+        "Then Health Minister Aaron Motsoaledi told Parliament about five hundred and ninety five cases. Two hundred and sixty two were children under five.",
+        "Now it is eight hundred and thirty three reported so far, and we don't know the exact dates that covers.",
+        "Three people are still in hospital. No deaths have been reported."
+      ]
+    },
+    {
+      "type": "stats",
+      "tag": [
+        "WHAT'S",
+        "IN THE WATER"
+      ],
+      "items": [
+        {
+          "value": "3 of 4",
+          "label": "patient samples had gut germs",
+          "color": "yellow",
+          "at": 2
+        },
+        {
+          "value": "0",
+          "label": "cholera cases found",
+          "color": "blue",
+          "at": 3
+        },
+        {
+          "value": "21",
+          "label": "days with no chlorine, about",
+          "color": "pink",
+          "at": 5
+        }
+      ],
+      "lines": [
+        "So what is actually making people sick?",
+        "Scientists at the National Institute for Communicable Diseases tested samples from patients.",
+        "Three out of four had germs that cause stomach sickness. They are called norovirus, Campylobacter and Shigella.",
+        "No cholera was found.",
+        "Tests at the plant on the fourteenth of October also found very high E. coli. That's a sign that waste has got into the water.",
+        "And remember, the plant ran for about three weeks with no chlorine."
+      ]
+    },
+    {
+      "type": "voices",
+      "tag": [
+        "WHAT PEOPLE",
+        "ARE SAYING"
+      ],
+      "headline": "What people are saying",
+      "items": [
+        {
+          "text": "Diseases 'are going to spread amongst our people'",
+          "who": "President Ramaphosa (IOL)",
+          "at": 1
+        },
+        {
+          "text": "It is not an outbreak: no deaths, no critical cases",
+          "who": "Water Minister Majodina (Daily Maverick)",
+          "at": 2
+        },
+        {
+          "text": "Officials failed to tell the leaders about the risk",
+          "who": "Mayor Moya, as reported by Mail & Guardian",
+          "at": 3
+        },
+        {
+          "text": "Why were we not told the water was not safe?",
+          "who": "A question many people ask",
+          "at": 4
+        }
+      ],
+      "lines": [
+        "Many people are asking questions, and the leaders do not agree.",
+        "President Ramaphosa warned of diseases that, in his words, are going to spread amongst our people.",
+        "The Water Minister, Mchunu Majodina, says it is not an outbreak, because nobody has died and no cases are critical.",
+        "Mayor Moya says officials failed to tell the City's leaders about the problem.",
+        "And ordinary people ask: why were we not told?",
+        "The minister also said some of the rise came from people using stored water and private tankers. We found no evidence showing how big a part that plays.",
+        "Local elections are just over a week away, so expect claims on all sides to be political. Reports say Tshwane's coalition, where parties rule together, has fractured. And the EFF in Gauteng wants Mayor Moya to step down."
+      ]
+    },
+    {
+      "type": "suspects",
+      "tag": [
+        "THE",
+        "SUSPECTS"
+      ],
+      "headline": "Three reasons it happened",
+      "cards": [
+        {
+          "n": "01",
+          "title": "No chlorine",
+          "sub": "The germ-killer ran out for weeks",
+          "color": "yellow",
+          "at": [
+            1,
+            "chlorine"
+          ]
+        },
+        {
+          "n": "02",
+          "title": "Old plant",
+          "sub": "Broken parts and ignored warnings",
+          "color": "pink",
+          "at": [
+            1,
+            "old"
+          ]
+        },
+        {
+          "n": "03",
+          "title": "Dirty river",
+          "sub": "Sewage in the water it takes in",
+          "color": "blue",
+          "at": [
+            1,
+            "river"
+          ]
+        }
+      ],
+      "lines": [
+        "So why did this happen? There are three main suspects.",
+        "No chlorine. An old, neglected plant. And a river full of sewage."
+      ]
+    },
+    {
+      "type": "court",
+      "tag": [
+        "SUSPECT 01",
+        "CHLORINE"
+      ],
+      "steps": [
+        {
+          "date": "Before Sep",
+          "title": "A price fight",
+          "text": "City says supplier raised price 4x",
+          "at": 1
+        },
+        {
+          "date": "From Sep",
+          "title": "No chlorine",
+          "text": "Plant runs about 3 weeks with none",
+          "at": 3
+        },
+        {
+          "date": "Oct",
+          "title": "Nobody raised alarm",
+          "text": "Plant manager suspended, probe on",
+          "at": 4
+        }
+      ],
+      "stamp": "CITY'S SIDE ONLY",
+      "lines": [
+        "Suspect one: the chlorine ran out.",
+        "Mayor Moya says the chlorine supplier raised its price fourfold, and talks got stuck.",
+        "She called the supplier a monopoly, which means the only one you can buy from. But the water department's director-general says it is not the only supplier. We found no reply from the supplier.",
+        "The water department's investigators found the plant ran with no chlorine for about three weeks.",
+        "Mayor Moya says staff did not tell the leaders. She has suspended the plant manager, and an independent probe has started. It looks at a possible failure to pass on the risks and warn people in time."
+      ]
+    },
+    {
+      "type": "bars",
+      "tag": [
+        "SUSPECT 02",
+        "OLD PLANT"
+      ],
+      "headline": "The plant's 2023 water score",
+      "bars": [
+        {
+          "label": "Bronkhorstspruit plant",
+          "value": 42,
+          "show": "42%",
+          "color": "pink",
+          "at": 2
+        },
+        {
+          "label": "Benchmark to comply",
+          "value": 95,
+          "show": "95%",
+          "color": "blue",
+          "at": 2
+        }
+      ],
+      "lines": [
+        "Suspect two: an old plant, and warnings nobody acted on.",
+        "The mayor says the plant is more than sixty years old. Inspectors found pumps and sand filters, which catch dirt in the water, were not working.",
+        "In the 2023 Blue Drop check, the government's test for drinking water, the plant scored about forty two percent. The benchmark is ninety five.",
+        "The big water company Rand Water also found a thick mud called sludge had built up. About half of the cleaned water was being thrown away.",
+        "In March, the City promised a repair plan with dates. The water department says none of those dates was met.",
+        "An expert, Dr Anthony Turton, says specialists found the plant's settling tanks jammed with hardened sewage and waste back in 2008.",
+        "The deputy mayor sees it differently. He says the cause was no chlorine, not the old warnings."
+      ]
+    },
+    {
+      "type": "stats",
+      "tag": [
+        "SUSPECT 03",
+        "DIRTY RIVER"
+      ],
+      "items": [
+        {
+          "value": "47%",
+          "label": "sewage systems in critical state",
+          "color": "pink",
+          "at": 5
+        },
+        {
+          "value": "R330m",
+          "label": "grant for the Delmas upgrade",
+          "color": "yellow",
+          "at": 4
+        },
+        {
+          "value": "80%",
+          "label": "of Delmas upgrade done",
+          "color": "blue",
+          "at": 4
+        }
+      ],
+      "lines": [
+        "Suspect three: the river the plant drinks from.",
+        "The water department says the Bronkhorstspruit River is badly dirty with sewage. It comes from broken sewage works run by the Victor Khanye municipality, another local government, and from failing Tshwane pump stations.",
+        "Dr Turton says our system depends on what he calls indirect reuse. That means cleaned sewage flows into rivers, and the next town drinks from that river.",
+        "So when sewage works fail, the river carries the dirt to the drinking water plant.",
+        "The department says an upgrade at the Delmas sewage works, paid for by a grant of three hundred and thirty million rand, is about eighty percent done. It is due by December, and would help the river.",
+        "And across the country, the latest Green Drop report found forty seven percent of checked sewage systems in a critical state. That's almost half."
+      ]
+    },
+    {
+      "type": "compare",
+      "tag": [
+        "THE",
+        "WARNINGS"
+      ],
+      "headline": "Money spent on repairs and upkeep",
+      "left": {
+        "label": "Tshwane's share",
+        "value": 3.5,
+        "show": "3.5%"
+      },
+      "right": {
+        "label": "Benchmark",
+        "value": 8,
+        "show": "8%"
+      },
+      "gap": "-4.5%",
+      "leftAt": 4,
+      "rightAt": 4,
+      "gapAt": 4,
+      "lines": [
+        "There's a fourth problem too: people were not warned in time.",
+        "The rules say the City must tell people when water is not safe, and say don't drink it or cook, wash or bath with it, even after boiling. Reports say the City did not do this.",
+        "Mayor Moya says the City uses WhatsApp, social media and councillors. She admits those may not have reached everyone.",
+        "Then there's upkeep. The water department's director-general says years of too little spending on maintenance created a downward spiral.",
+        "Tshwane told a Parliament committee it spends three and a half percent of its budget on repairs and maintenance. A budget is the plan for how money is spent. The benchmark is eight percent."
+      ],
+      "noteTitle": "Upkeep",
+      "note": "Fixing and looking after pipes and plants"
+    },
+    {
+      "type": "moneytrail",
+      "tag": [
+        "FOLLOW",
+        "THE MONEY"
+      ],
+      "headline": "Money set aside vs work done",
+      "promised": {
+        "label": "Set aside for plant, 2026/27",
+        "show": "R57m",
+        "value": 57
+      },
+      "delivered": {
+        "label": "Repair dates met",
+        "show": "None",
+        "value": 0
+      },
+      "gap": "R?",
+      "promisedAt": 1,
+      "deliveredAt": 3,
+      "gapAt": 5,
+      "reasons": [
+        {
+          "title": "Failed tenders",
+          "status": "CITY SAYS SO",
+          "color": "yellow",
+          "at": 4
+        },
+        {
+          "title": "Bad management?",
+          "status": "BEING INVESTIGATED",
+          "color": "pink",
+          "at": 6
+        },
+        {
+          "title": "Corruption?",
+          "status": "NO REPORT YET",
+          "color": "blue",
+          "at": 7
+        }
+      ],
+      "lines": [
+        "Now, the money. Many people are asking: if the City set money aside, why is the plant in this state?",
+        "The City says money for this plant grew from about six million rand in 2024/25 to twenty point eight million last year, and fifty seven million this year. That's more than nine times as much as in 2024/25.",
+        "About thirty million more is planned for 2027/28. For the upgrade, that's about eighty six to eighty seven million rand over two years.",
+        "But the water department says none of the dates in the March repair plan was met.",
+        "The City admits some short-term promises were missed. It says it went to tender twice for the full upgrade, which means asking companies to bid, and could not find good bidders. It also blames a shortage of technical staff and delays.",
+        "And here's what we can't find: no report says how much of that twenty point eight million was actually spent. Set aside is not the same as spent.",
+        "Is it bad management? An independent probe and the Public Protector are looking into the plant crisis.",
+        "Is it corruption? No report says so. That's a question for the City and the investigators to answer."
+      ]
+    },
+    {
+      "type": "court",
+      "tag": [
+        "THE",
+        "FIX"
+      ],
+      "steps": [
+        {
+          "date": "Week 1",
+          "title": "Restart the plant",
+          "text": "15 million litres a day",
+          "at": 2
+        },
+        {
+          "date": "Weeks 2-3",
+          "title": "Step it up",
+          "text": "25 million litres a day",
+          "at": 3
+        },
+        {
+          "date": "Weeks 4-16",
+          "title": "Filters return",
+          "text": "Brought back one by one",
+          "at": 4
+        }
+      ],
+      "stamp": "NO SAFE DATE YET",
+      "lines": [
+        "So what is being done to fix it?",
+        "Rand Water has been appointed to take the plant over, though its agreement with the City is still being finalised.",
+        "Its plan restarts the plant at fifteen megalitres a day in week one. A megalitre is one million litres.",
+        "In weeks two and three it goes up to twenty five. Then the filters come back one by one, over weeks four to sixteen.",
+        "Rand Water was confident that compliant water could reach the system within a week. But officials have not given a clear date for safe tap water. Mashatile, who visited Tshwane, said the work could take several weeks.",
+        "The Water Minister says the chlorine now in hand will last six to seven weeks. The City says six weeks is not enough to promise the plant never stops again.",
+        "She also says tankers should not run beyond two or three months, because it is expensive and inconvenient.",
+        "And she says the country needs at least four hundred billion rand to fix its water backlog, money government does not have. That's roughly four thousand times the hundred million rand Tshwane says it set aside since February 2025."
+      ]
+    },
+    {
+      "type": "verdict",
+      "tag": [
+        "THE",
+        "VERDICT"
+      ],
+      "headline": "Not just one thing",
+      "points": [
+        "Chlorine ran out for 3 weeks",
+        "An old, neglected plant",
+        "Warnings came too late"
+      ],
+      "stamp": "CASE OPEN",
+      "pointAt": [
+        [
+          1,
+          "chlorine"
+        ],
+        [
+          1,
+          "old"
+        ],
+        [
+          1,
+          "warned"
+        ]
+      ],
+      "lines": [
+        "So, the verdict.",
+        "People got sick because the plant ran about three weeks without chlorine, the plant is old and failing, the river is dirty, and people were not warned in time.",
+        "Who must answer for it is still being decided. The investigations are not finished, and no one has been found guilty."
+      ]
+    },
+    {
+      "type": "scenario",
+      "tag": [
+        "WHAT IT",
+        "LOOKS LIKE"
+      ],
+      "name": "Mama Lerato",
+      "place": "Zithobeni, near Bronkhorstspruit",
+      "look": "woman",
+      "mood": "calm",
+      "bubbles": [
+        {
+          "text": "I'm not drinking the tap water for now.",
+          "at": 1,
+          "who": "person"
+        },
+        {
+          "text": "I told my neighbours on WhatsApp.",
+          "at": 2,
+          "who": "person"
+        },
+        {
+          "text": "The boy is at the clinic, getting help.",
+          "at": 3,
+          "who": "person"
+        }
+      ],
+      "lines": [
+        "Now let's go back to Mama Lerato, our example. This time she hears the warning.",
+        "She stops using the tap water for drinking and cooking.",
+        "She tells her neighbours, because not everyone hears the news.",
+        "And when her grandson is sick, she takes him to the clinic straight away."
+      ]
+    },
+    {
+      "type": "howto",
+      "tag": [
+        "WHAT YOU",
+        "CAN DO"
+      ],
+      "headline": "Protect your family",
+      "steps": [
+        {
+          "title": "Treat tap water as unsafe for now",
+          "sub": "Residents were told it isn't drinkable yet",
+          "at": 1
+        },
+        {
+          "title": "Don't drink water stored from the tap",
+          "sub": "It may have been stored in the bad weeks",
+          "at": 2
+        },
+        {
+          "title": "Sick child? Go to a clinic",
+          "sub": "Many of the sick are small children",
+          "at": 3
+        },
+        {
+          "title": "Tell your neighbours",
+          "sub": "WhatsApp and social media miss people",
+          "at": 4
+        },
+        {
+          "title": "Ask your councillor for answers",
+          "sub": "Where is safe water? When will it end?",
+          "at": 5
+        }
+      ],
+      "lines": [
+        "So what can you do right now, if you live in one of these areas?",
+        "One. Treat the tap water as unsafe for now. After the plant reopened on the sixteenth, residents were still told it was not drinkable.",
+        "Two. Be careful with water you stored from the tap. It may have come from the bad weeks.",
+        "Three. If a child has a bad stomach, take them to a clinic. Many of those who are sick are small children.",
+        "Four. Tell your neighbours. The City says its warnings may not reach everyone.",
+        "And five. Ask your ward councillor, who speaks for your area, where safe water is, and when this will end."
+      ]
+    },
+    {
+      "type": "checklist",
+      "tag": [
+        "WHAT A STREET",
+        "CAN DO"
+      ],
+      "items": [
+        {
+          "title": "Start a street group chat",
+          "sub": "Pass warnings to people who miss them",
+          "at": 1
+        },
+        {
+          "title": "Check on gogos and small children",
+          "sub": "They need safe water the most",
+          "at": 2
+        },
+        {
+          "title": "Write down what happens",
+          "sub": "Dates, illnesses, days without water",
+          "at": 3
+        },
+        {
+          "title": "Ask your councillor together",
+          "sub": "A group is louder than one person",
+          "at": 4
+        },
+        {
+          "title": "Watch for the 28 October report",
+          "sub": "Independent water tests are due",
+          "at": 5
+        }
+      ],
+      "lines": [
+        "A street can do a lot together.",
+        "One. Start a street group chat. Share warnings and news, so nobody is left out.",
+        "Two. Check on the gogos and the small children on your street.",
+        "Three. Write down what happens: dates, who got sick, days without water. It helps when you ask for answers.",
+        "Four. Go to your councillor as a group. A group is louder than one person.",
+        "And five. Watch for the Water Research Commission's independent test report, expected on the twenty eighth of October."
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "Case still open",
+      "sub": "Follow for the next update",
+      "lines": [
+        "This case is still open. Independent test results are expected tomorrow, and we'll keep following the story.",
+        "Follow Pulse SA News. And tell us in the comments: has your water been safe where you live?"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "EWN, 21 Oct 2026: Tshwane says gastrointestinal illness outbreak isolated to Bronkhorstspruit",
+      "url": "https://www.ewn.co.za/2026/10/21/tshwane-says-gastrointestinal-illnes-outbreak-isolated-to-bronkhorstspruit"
+    },
+    {
+      "name": "IOL, 22 Oct 2026: Public Protector investigates Tshwane over Bronkhorstspruit water crisis",
+      "url": "https://iol.co.za/news/south-africa/2026-10-22-public-protector-investigates-tshwane-over-bronkhorstspruit-water-crisis/"
+    },
+    {
+      "name": "IOL, 26 Oct 2026: Ramaphosa condemns Tshwane water crisis as gastrointestinal illness cases rise to 833",
+      "url": "https://iol.co.za/news/politics/2026-10-26-ramaphosa-condemns-tshwane-water-crisis-as-gastrointestinal-illness-cases-rise-to-833/"
+    },
+    {
+      "name": "SABC News, 26 Oct 2026: Bronkhorstspruit gastrointestinal cases rises to 833",
+      "url": "https://www.sabcnews.com/sabcnews/bronkhorstspruit-gastrointestinal-cases-rises-to-833/"
+    },
+    {
+      "name": "GroundUp, 23 Oct 2026: Tshwane water is unsafe for human consumption, Parliament hears",
+      "url": "https://groundup.org.za/article/tshwane-water-is-unsafe-for-human-consumption-parliament-hears/"
+    },
+    {
+      "name": "Mail & Guardian, 19 Oct 2026: Tshwane admits negligence after 408 fall ill in Bronkhorstspruit",
+      "url": "https://mg.co.za/the-green-guardian/2026-10-19-tshwane-admits-negligence-after-408-fall-ill-in-bronkhorstspruit/"
+    },
+    {
+      "name": "Mail & Guardian, 22 Oct 2026: Toxic taps expose Tshwane's deadly water failures",
+      "url": "https://mg.co.za/the-green-guardian/2026-10-22-toxic-taps-expose-tshwane-s-deadly-water-failures/"
+    },
+    {
+      "name": "IOL/The Star, 21 Oct 2026: Calls for inquiry after Tshwane supplied unchlorinated water",
+      "url": "https://iol.co.za/the-star/news/2026-10-21-calls-for-inquiry-after-tshwane-supplied-unchlorinated-water/"
+    },
+    {
+      "name": "The Citizen, 19 Oct 2026: Bronkhorstspruit residents tap water 408 cases of illness",
+      "url": "https://www.citizen.co.za/news/bronkhorstspruit-residents-tap-water-408-cases-of-illness/"
+    },
+    {
+      "name": "The Citizen, 23 Oct 2026: Tshwane mayor says Bronkhorstspruit water crisis is indefensible",
+      "url": "https://www.citizen.co.za/news/tshwane-mayor-says-bronkhorstspruit-water-crisis-is-indefensible/"
+    },
+    {
+      "name": "TimesLIVE, 19 Oct 2026: Bronkhorstspruit crisis: Tshwane failed to warn residents over unsafe water",
+      "url": "https://www.timeslive.co.za/news/south-africa/2026-10-19-bronkhorstspruit-crisis-tshwane-failed-to-warn-residents-over-unsafe-water/"
+    },
+    {
+      "name": "IOL, 23 Oct 2026: Tshwane mayor suspends Bronkhorstspruit water plant manager as independent probe launched",
+      "url": "https://iol.co.za/news/south-africa/2026-10-23-tshwane-mayor-suspends-bronkhorstspruit-water-plant-manager-as-independent-probe-launched/"
+    },
+    {
+      "name": "EWN, 20 Oct 2026: Tshwane mayor hopes Bronkhorstspruit water crisis isn't political sabotage as city faces criminal charges",
+      "url": "https://www.ewn.co.za/2026/10/20/tshwane-mayor-hopes-bronkhorstspruit-water-crisis-isn-t-political-sabotage-as-city-faces-criminal-charges"
+    },
+    {
+      "name": "EWN, 26 Oct 2026: Tshwane secures sufficient chlorine supply following Bronkhorstspruit water contamination crisis",
+      "url": "https://www.ewn.co.za/2026/10/26/tshwane-secures-sufficient-chlorine-supply-following-bronkhorstspruit-water-contamination-crisis"
+    },
+    {
+      "name": "Daily Maverick, 21 Oct 2026: Tshwane's drinking water crisis a wake-up call for SA as sewage pollution sickens hundreds",
+      "url": "https://www.dailymaverick.co.za/article/2026-10-21-tshwanes-drinking-water-crisis-a-wake-up-call-for-sa-as-sewage-pollution-sickens-hundreds/"
+    },
+    {
+      "name": "Daily Maverick, 26 Oct 2026: Water minister denies Bronkhorstspruit illnesses an outbreak despite 833 reported cases",
+      "url": "https://www.dailymaverick.co.za/article/2026-10-26-water-minister-denies-bronkhorstspruit-illnesses-an-outbreak-despite-833-reported-cases/"
+    },
+    {
+      "name": "GroundUp, c. 22 Oct 2026: Tshwane's drinking water crisis a wake-up call for SA",
+      "url": "https://groundup.org.za/article/tshwanes-drinking-water-crisis-a-wake-up-call-for-sa/"
+    },
+    {
+      "name": "Conviction, 21 Oct 2026: Bronkhorstspruit water crisis",
+      "url": "https://www.conviction.co.za/bronkhorstspruit-water-crisis/"
+    }
+  ],
+  "usage": {
+    "input_tokens": 165893,
+    "output_tokens": 46197,
+    "searches": 10
+  }
+}
