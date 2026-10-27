@@ -256,7 +256,7 @@ export async function newsStories(now = new Date(), hours = 12): Promise<Story[]
   const since = new Date(now.getTime() - hours * HOUR);
   const rows = await db().select().from(schema.signals)
     .where(and(gte(schema.signals.publishedAt, since), inArray(schema.signals.source, ["news", "gdelt"])))
-    .orderBy(desc(schema.signals.publishedAt)).limit(800);
+    .orderBy(desc(schema.signals.publishedAt)).limit(hours > 48 ? 3000 : 800);   // a week's news for the Friday explainer
   const trends = (await db().select({ title: schema.signals.title }).from(schema.signals)
     .where(and(eq(schema.signals.source, "trends"), gte(schema.signals.publishedAt, new Date(now.getTime() - 24 * HOUR))))).map((t) => wordsOf(t.title));
   const groups: { words: string[]; arts: Sig[] }[] = [];

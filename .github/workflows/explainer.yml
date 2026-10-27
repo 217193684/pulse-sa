@@ -1,9 +1,9 @@
-name: Daily explainer
-# Once a day (and whenever you ask for a topic in the app): Claude picks or takes the topic, researches it and writes
+name: Weekly explainer
+# Every Friday (and whenever you ask for a topic in the app): Claude picks or takes the topic, researches it and writes
 # a case-file script; the animation is rendered here and saved as a GitHub release. It then shows in the app's
 # Explain tab, where you watch it, pick a thumbnail and press Send to YouTube. Your phone gets a notification.
 on:
-  schedule: [{ cron: "17 4 * * *" }]   # 06:17 in South Africa
+  schedule: [{ cron: "17 4 * * 5" }]   # Fridays 06:17 in South Africa: the week's biggest story (saves Claude credit)
   workflow_dispatch:
     inputs:
       topic: { description: "Explain this instead of picking from the news (optional)", required: false, default: "" }

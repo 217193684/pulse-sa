@@ -103,7 +103,7 @@ def pick(stories, done):
     for i, s in enumerate(stories):
         heads = " | ".join(a["title"] for a in s["articles"][:3])
         lines.append(f"{i}. [{s['category']}, {len(s['publishers'])} outlets: {', '.join(s['publishers'][:5])}] {heads}")
-    prompt = f"""These are today's biggest South African news stories (most-covered first):
+    prompt = f"""These are the biggest South African news stories of the past week (most-covered first):
 
 {chr(10).join(lines)}
 
@@ -284,7 +284,7 @@ def main():
     if topic:
         question, story = topic, {"articles": []}
     else:
-        stories = json.loads(get(f"{API}/api/explainer/candidates?hours=36"))["stories"]
+        stories = json.loads(get(f"{API}/api/explainer/candidates?hours={os.environ.get('EXPLAINER_HOURS', '168')}"))["stories"]
         if not stories: sys.exit("no stories today")
         choice, u = pick(stories, done)
         for k in total: total[k] += u[k]

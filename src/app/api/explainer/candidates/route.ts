@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 /** The day's biggest stories, for the daily explainer to choose from: headline, outlets and article links. */
 export async function GET(req: Request) {
-  const hours = Math.min(72, Number(new URL(req.url).searchParams.get("hours") ?? 36) || 36);
+  const hours = Math.min(168, Number(new URL(req.url).searchParams.get("hours") ?? 36) || 36);
   const stories = await newsStories(new Date(), hours);
   return noStore({
     stories: stories.slice(0, 15).map((s) => ({
