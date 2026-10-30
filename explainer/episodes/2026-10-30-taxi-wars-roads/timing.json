@@ -1,0 +1,629 @@
+{
+ "scenes": [
+  {
+   "type": "hook",
+   "start": 0.6,
+   "lines": [
+    {
+     "text": "At least a dozen people have been killed in Cape Town in about three weeks.",
+     "start": 0.6,
+     "end": 4.364
+    },
+    {
+     "text": "They were shot at taxi ranks and on streets in places like Delft, Gugulethu and Khayelitsha.",
+     "start": 4.684,
+     "end": 10.084
+    },
+    {
+     "text": "Today, thousands of commuters were stranded, and even the airport was short of staff and slow.",
+     "start": 10.404,
+     "end": 15.635
+    },
+    {
+     "text": "Matric learners were sent to other exam centres.",
+     "start": 15.955,
+     "end": 18.753
+    },
+    {
+     "text": "So why do taxi wars keep coming back? Let's open the case.",
+     "start": 19.073,
+     "end": 22.475
+    }
+   ],
+   "end": 22.475
+  },
+  {
+   "type": "title",
+   "start": 23.225,
+   "lines": [
+    {
+     "text": "Case file: the taxi wars.",
+     "start": 23.225,
+     "end": 24.961
+    }
+   ],
+   "end": 24.961
+  },
+  {
+   "type": "scenario",
+   "start": 25.711,
+   "lines": [
+    {
+     "text": "Let's meet Thandiwe. She is an example, but her story is real for thousands of people.",
+     "start": 25.711,
+     "end": 30.747
+    },
+    {
+     "text": "She cleans offices in town, and leaves home at five every morning.",
+     "start": 31.067,
+     "end": 34.999
+    },
+    {
+     "text": "Today the taxis are slow, and she stands at the rank, not knowing if one will come.",
+     "start": 35.319,
+     "end": 40.049
+    },
+    {
+     "text": "If she is late, she may lose her pay. If she walks, it may not be safe.",
+     "start": 40.369,
+     "end": 44.283
+    }
+   ],
+   "end": 44.283
+  },
+  {
+   "type": "timeline",
+   "start": 45.033,
+   "lines": [
+    {
+     "text": "To understand this, we go back to apartheid.",
+     "start": 45.033,
+     "end": 47.588
+    },
+    {
+     "text": "Before 1987, taxis were tightly controlled, and Black people were refused permits.",
+     "start": 47.908,
+     "end": 53.754
+    },
+    {
+     "text": "With no clear rules, competition grew for passengers and good routes, so operators joined together in groups called associations.",
+     "start": 54.074,
+     "end": 62.088
+    },
+    {
+     "text": "Two of them, CATA and CODETA, signed a peace agreement in 1996.",
+     "start": 62.408,
+     "end": 67.128
+    },
+    {
+     "text": "Peace is possible. From February 2010 to June 2012, not one taxi murder was reported in the Western Cape.",
+     "start": 67.448,
+     "end": 75.989
+    },
+    {
+     "text": "But in July 2021, the Mobility MEC at the time said twenty two people were murdered in sixteen days.",
+     "start": 76.309,
+     "end": 83.619
+    },
+    {
+     "text": "And now, in 2026, at least a dozen people have died in about three weeks.",
+     "start": 83.939,
+     "end": 89.151
+    }
+   ],
+   "end": 89.151
+  },
+  {
+   "type": "stats",
+   "start": 89.901,
+   "lines": [
+    {
+     "text": "Here is what the last few weeks look like.",
+     "start": 89.901,
+     "end": 92.064
+    },
+    {
+     "text": "EWN reports at least a dozen people killed in about three weeks, in places like Delft, Gugulethu, Khayelitsha and Bonteheuwel.",
+     "start": 92.384,
+     "end": 100.694
+    },
+    {
+     "text": "Other outlets give slightly different counts, so police still need to confirm the exact number.",
+     "start": 101.014,
+     "end": 106.166
+    },
+    {
+     "text": "Between Tuesday and Wednesday, nine people were shot in just twenty four hours, and three of them died.",
+     "start": 106.486,
+     "end": 112.241
+    },
+    {
+     "text": "Today the airport was short of staff, and travellers were told to arrive four hours early for international flights.",
+     "start": 112.561,
+     "end": 118.864
+    }
+   ],
+   "end": 118.864
+  },
+  {
+   "type": "voices",
+   "start": 119.614,
+   "lines": [
+    {
+     "text": "Everyone is asking the same thing: why can't this be stopped?",
+     "start": 119.614,
+     "end": 122.884
+    },
+    {
+     "text": "The taxi council itself says it is struggling.",
+     "start": 123.204,
+     "end": 125.797
+    },
+    {
+     "text": "The mayor is calling on taxi leaders to rise above the violence.",
+     "start": 126.117,
+     "end": 129.833
+    },
+    {
+     "text": "The province's Mobility MEC says he must protect commuters.",
+     "start": 130.153,
+     "end": 134.107
+    },
+    {
+     "text": "And many ordinary people just want a simple answer.",
+     "start": 134.427,
+     "end": 137.472
+    }
+   ],
+   "end": 137.472
+  },
+  {
+   "type": "suspects",
+   "start": 138.222,
+   "lines": [
+    {
+     "text": "So why does it keep happening? There are three main suspects.",
+     "start": 138.222,
+     "end": 141.22
+    },
+    {
+     "text": "Fights over routes and the money in them. Broken permits. And no consequences for the people behind it.",
+     "start": 141.54,
+     "end": 147.563
+    }
+   ],
+   "end": 147.563
+  },
+  {
+   "type": "scenario",
+   "start": 148.313,
+   "lines": [
+    {
+     "text": "Meet Sipho, an example of a taxi driver.",
+     "start": 148.313,
+     "end": 151.006
+    },
+    {
+     "text": "For years his group has worked one route, and its passengers pay his wages.",
+     "start": 151.326,
+     "end": 155.611
+    },
+    {
+     "text": "Then taxis from another group start loading passengers at his rank.",
+     "start": 155.931,
+     "end": 159.786
+    },
+    {
+     "text": "That is called a route invasion, and it feels like someone taking food off his table.",
+     "start": 160.106,
+     "end": 164.835
+    },
+    {
+     "text": "This is how a fight over passengers can grow into a war between whole groups.",
+     "start": 165.155,
+     "end": 169.615
+    }
+   ],
+   "end": 169.615
+  },
+  {
+   "type": "stats",
+   "start": 170.365,
+   "lines": [
+    {
+     "text": "Suspect number one: routes, and the money in them.",
+     "start": 170.365,
+     "end": 173.121
+    },
+    {
+     "text": "The province has eight taxi regions.",
+     "start": 173.441,
+     "end": 175.488
+    },
+    {
+     "text": "Yet the Mobility MEC says that when there is a deadlock, it is always CATA and CODETA.",
+     "start": 175.808,
+     "end": 181.037
+    },
+    {
+     "text": "Taxis matter. An older figure says they carry about twenty nine percent of public transport users in the Western Cape.",
+     "start": 181.357,
+     "end": 188.425
+    },
+    {
+     "text": "The City says years of talks, and even the High Court, have not ended the route disputes in Delft, Khayelitsha and Somerset West.",
+     "start": 188.745,
+     "end": 196.288
+    },
+    {
+     "text": "The province names overtrading as a root cause. That means too many taxis chasing too few passengers.",
+     "start": 196.608,
+     "end": 202.939
+    },
+    {
+     "text": "Routes are lucrative, meaning they pay well. Control the route, the rank and the membership fees, and you control the money.",
+     "start": 203.259,
+     "end": 210.072
+    }
+   ],
+   "end": 210.072
+  },
+  {
+   "type": "stats",
+   "start": 210.822,
+   "lines": [
+    {
+     "text": "Suspect number two: permits.",
+     "start": 210.822,
+     "end": 212.685
+    },
+    {
+     "text": "An operating licence is the paper that lets a taxi work a route. Without it, a taxi has no legal right to be there.",
+     "start": 213.005,
+     "end": 220.411
+    },
+    {
+     "text": "In 2021, one operator told the Mail and Guardian he had six licences but thirty seven taxis on one route.",
+     "start": 220.731,
+     "end": 228.587
+    },
+    {
+     "text": "He said he could not get the support letter needed to apply for more. That is his own claim.",
+     "start": 228.907,
+     "end": 233.939
+    },
+    {
+     "text": "The MEC at the time said taxis were running illegally, allegedly with the blessing of leaders in some associations.",
+     "start": 234.259,
+     "end": 241.245
+    },
+    {
+     "text": "In Gauteng, a 2021 commission found weak licensing let people make fraudulent changes with help from officials.",
+     "start": 241.565,
+     "end": 249.459
+    },
+    {
+     "text": "Whether that happens in Cape Town is a question the province must answer.",
+     "start": 249.779,
+     "end": 253.907
+    },
+    {
+     "text": "A national system is meant to link licences to the vehicle database, so one licence cannot cover many taxis, but we could not confirm it is working here yet.",
+     "start": 254.227,
+     "end": 263.78
+    }
+   ],
+   "end": 263.78
+  },
+  {
+   "type": "calendar",
+   "start": 264.53,
+   "lines": [
+    {
+     "text": "Suspect number three: no consequences.",
+     "start": 264.53,
+     "end": 267.019
+    },
+    {
+     "text": "The province itself says the violence continues despite previous peace agreements.",
+     "start": 267.339,
+     "end": 272.055
+    },
+    {
+     "text": "In August 2025, at least six people died in four days. Now it is 2026.",
+     "start": 272.375,
+     "end": 278.919
+    },
+    {
+     "text": "The 2005 Ntsebeza inquiry found a culture of lawlessness, fear and silence, weak policing and hit squads.",
+     "start": 279.239,
+     "end": 286.786
+    },
+    {
+     "text": "It said the most damning failure was that those who plan and gain from the violence are not brought to justice.",
+     "start": 287.106,
+     "end": 293.396
+    },
+    {
+     "text": "In 2018, the FW de Klerk Foundation wrote that there was no evidence its advice was followed. We found no recent official check.",
+     "start": 293.716,
+     "end": 302.871
+    },
+    {
+     "text": "And the Mobility Department admits a past failing, in its own words.",
+     "start": 303.191,
+     "end": 307.0
+    }
+   ],
+   "end": 307.0
+  },
+  {
+   "type": "court",
+   "start": 307.75,
+   "lines": [
+    {
+     "text": "So who is actually in charge? The honest answer is: many hands.",
+     "start": 307.75,
+     "end": 311.866
+    },
+    {
+     "text": "The province issues licences, and under a law called Section 91 it can close routes and ranks when lives are at risk.",
+     "start": 312.186,
+     "end": 319.755
+    },
+    {
+     "text": "The City of Cape Town runs the ranks, plus law enforcement and cameras.",
+     "start": 320.075,
+     "end": 324.172
+    },
+    {
+     "text": "The police investigate, through a Provincial Taxi Violence Unit.",
+     "start": 324.492,
+     "end": 328.131
+    },
+    {
+     "text": "SANTACO, the national taxi council, admits it cannot guarantee commuter safety.",
+     "start": 328.451,
+     "end": 333.56
+    },
+    {
+     "text": "A 2021 analysis spoke of regulatory failings and blame-shifting between these bodies.",
+     "start": 333.88,
+     "end": 340.114
+    }
+   ],
+   "end": 340.114
+  },
+  {
+   "type": "stats",
+   "start": 340.864,
+   "lines": [
+    {
+     "text": "Now, why do whole roads shut down, not just one rank?",
+     "start": 340.864,
+     "end": 343.944
+    },
+    {
+     "text": "First, the fighting itself. On Thursday the R300 was closed after a shooting believed to be taxi-related.",
+     "start": 344.264,
+     "end": 351.641
+    },
+    {
+     "text": "Today an unofficial go-slow left thousands of commuters stranded.",
+     "start": 351.961,
+     "end": 355.865
+    },
+    {
+     "text": "Second, the government's own tool. In September 2025 the province closed routes for thirty days, because lives were at risk.",
+     "start": 356.185,
+     "end": 364.788
+    },
+    {
+     "text": "It worked for a while. No new violent incidents were reported in the first ten days.",
+     "start": 365.108,
+     "end": 369.924
+    },
+    {
+     "text": "But thousands lost their daily commute, and COSATU said it was done without enough consultation or a clear plan for workers.",
+     "start": 370.244,
+     "end": 377.485
+    },
+    {
+     "text": "A year later, the violence is back, so closing routes did not settle the dispute.",
+     "start": 377.805,
+     "end": 382.413
+    }
+   ],
+   "end": 382.413
+  },
+  {
+   "type": "moneytrail",
+   "start": 383.163,
+   "lines": [
+    {
+     "text": "Many people ask: how much is spent on stopping this, and is it working?",
+     "start": 383.163,
+     "end": 387.106
+    },
+    {
+     "text": "We found no budget line for taxi violence policing or mediation, so we followed the biggest national taxi spend instead.",
+     "start": 387.426,
+     "end": 395.215
+    },
+    {
+     "text": "It is the taxi recapitalisation programme, which pays owners to scrap old taxis.",
+     "start": 395.535,
+     "end": 400.719
+    },
+    {
+     "text": "Cabinet approved seven point seven billion rand over seven years to scrap one hundred thousand taxis. That is about seventy seven thousand rand for each taxi.",
+     "start": 401.039,
+     "end": 411.412
+    },
+    {
+     "text": "The Transport Minister told Parliament in September 2025 that eighty five thousand nine hundred and sixteen have been scrapped since 2006.",
+     "start": 411.732,
+     "end": 421.421
+    },
+    {
+     "text": "So that is about fourteen thousand short of the first target. Where did the gap come from? Here are the possible reasons.",
+     "start": 421.741,
+     "end": 428.498
+    },
+    {
+     "text": "Money moved. In 2024 Treasury moved one hundred and sixteen million rand out of the programme, citing lower spending and other pressures, including inauguration payments.",
+     "start": 428.818,
+     "end": 440.177
+    },
+    {
+     "text": "Numbers differ. In 2022 the Mail and Guardian reported that the department's figures did not match its own annual reports.",
+     "start": 440.497,
+     "end": 449.074
+    },
+    {
+     "text": "Corruption? We found no Auditor-General, SIU or court finding, so that is not proven. It is a question the department must answer.",
+     "start": 449.394,
+     "end": 457.79
+    },
+    {
+     "text": "One study says the programme replaces old vehicles but does not tackle destructive competition over routes, so the biggest national taxi spend does not aim at what starts the wars.",
+     "start": 458.11,
+     "end": 469.096
+    }
+   ],
+   "end": 469.096
+  },
+  {
+   "type": "court",
+   "start": 469.846,
+   "lines": [
+    {
+     "text": "So what happens next?",
+     "start": 469.846,
+     "end": 471.134
+    },
+    {
+     "text": "On the twenty sixth of October, arrests were made, and the accused were charged with murder and arson.",
+     "start": 471.454,
+     "end": 477.025
+    },
+    {
+     "text": "On the twenty ninth, the MEC, the City, SANTACO and CODETA met, but without CATA.",
+     "start": 477.345,
+     "end": 482.192
+    },
+    {
+     "text": "Whether these talks bring lasting peace is not yet known.",
+     "start": 482.512,
+     "end": 485.375
+    }
+   ],
+   "end": 485.375
+  },
+  {
+   "type": "verdict",
+   "start": 486.125,
+   "lines": [
+    {
+     "text": "So here is the short answer.",
+     "start": 486.125,
+     "end": 487.718
+    },
+    {
+     "text": "Routes are worth a lot of money, so groups fight over them.",
+     "start": 488.038,
+     "end": 491.054
+    },
+    {
+     "text": "The licence system is weak, and many hands share the blame.",
+     "start": 491.374,
+     "end": 494.596
+    },
+    {
+     "text": "And too few people behind the violence face real consequences.",
+     "start": 494.916,
+     "end": 498.679
+    }
+   ],
+   "end": 498.679
+  },
+  {
+   "type": "howto",
+   "start": 499.429,
+   "lines": [
+    {
+     "text": "You cannot end a taxi war alone, but there are steps you can take.",
+     "start": 499.429,
+     "end": 502.911
+    },
+    {
+     "text": "Check the news and closure notices before you leave home.",
+     "start": 503.231,
+     "end": 506.422
+    },
+    {
+     "text": "If you see a crime or get a threat, report it to the police.",
+     "start": 506.742,
+     "end": 509.954
+    },
+    {
+     "text": "Plan a backup way to work, and tell your employer early if you may be late.",
+     "start": 510.274,
+     "end": 514.151
+    },
+    {
+     "text": "And ask your ward councillor what is being done about your local rank.",
+     "start": 514.471,
+     "end": 518.077
+    }
+   ],
+   "end": 518.077
+  },
+  {
+   "type": "checklist",
+   "start": 518.827,
+   "lines": [
+    {
+     "text": "Together, a community has more power.",
+     "start": 518.827,
+     "end": 520.914
+    },
+    {
+     "text": "Start a commuter group to share safe routes and updates.",
+     "start": 521.234,
+     "end": 524.217
+    },
+    {
+     "text": "Go to ward meetings and ask for rank safety and clear answers.",
+     "start": 524.537,
+     "end": 528.202
+    },
+    {
+     "text": "Talk to local employers about flexible hours on bad days, and keep asking the province and City for updates.",
+     "start": 528.522,
+     "end": 535.368
+    }
+   ],
+   "end": 535.368
+  },
+  {
+   "type": "outro",
+   "start": 536.118,
+   "lines": [
+    {
+     "text": "The taxi wars are about money, power and a system that is not working.",
+     "start": 536.118,
+     "end": 540.205
+    },
+    {
+     "text": "Follow Pulse SA News, so you always know what is behind the headlines.",
+     "start": 540.525,
+     "end": 544.665
+    }
+   ],
+   "end": 544.665
+  }
+ ],
+ "duration": 547.165,
+ "voice": "kokoro:af_heart"
+}
